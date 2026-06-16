@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desarrollo Prenatal — Papalia</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream:    #FFF8F0;
+    --sky:      #7EC8E3;
+    --pink:     #FFB7C5;
+    --mint:     #B5EAD7;
+    --yellow:   #FFD966;
+    --violet:   #5B4FCF;
+    --coral:    #FF8C69;
+    --lavender: #C9B8FF;
+  }
+
+  html, body { width:100%; height:100%; font-family:'Poppins',sans-serif; overflow:hidden; background:var(--cream); }
+
+  #bubblesCanvas {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #wipeOverlay {
+    position: fixed; inset: 0;
+    z-index: 500;
+    pointer-events: none;
+    transform: scaleX(0);
+    transform-origin: left center;
+    border-radius: 0 50% 50% 0 / 0 50% 50% 0;
+    transition: none;
+  }
+
+  .slides-wrapper { width:100%; height:100vh; position:relative; overflow:hidden; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    text-align: center;
+    z-index: 1;
+    transition: opacity .15s ease;
+  }
+
+  .slide.active  { opacity:1; pointer-events:all; }
+  .slide.hidden  { opacity:0; pointer-events:none; }
+
+  .s0  { background: linear-gradient(145deg,#e8f4fd,#fce4ec); }
+  .s1  { background: linear-gradient(145deg,#fff8f0,#e3f6ff); }
+  .s2  { background: linear-gradient(145deg,#f3e5ff,#e8f5e9); }
+  .s3  { background: linear-gradient(145deg,#fff9e6,#e3f6ff); }
+  .s4  { background: linear-gradient(145deg,#e8f5e9,#e3f6ff); }
+  .s5  { background: linear-gradient(145deg,#e0f7fa,#fff9e6); }
+  .s6  { background: linear-gradient(145deg,#fff3e0,#fce4ec); }
+  .s7  { background: linear-gradient(145deg,#e8f4fd,#f3e5ff); }
+  .s8  { background: linear-gradient(145deg,#5B4FCF,#7EC8E3); }
+
+  /* ── TYPOGRAPHY ── */
+  .slide-eyebrow {
+    font-family:'Nunito',sans-serif;
+    font-size:clamp(.75rem,1.5vw,.9rem);
+    font-weight:700; letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--violet); opacity:.7;
+    margin-bottom:.5rem;
+  }
+  .slide-title {
+    font-family:'Nunito',sans-serif;
+    font-size:clamp(2rem,5vw,3.8rem);
+    font-weight:900; line-height:1.1;
+    color:var(--violet); margin-bottom:1.2rem;
+  }
+  .slide-title span { color:var(--coral); }
+  .s8 .slide-title  { color:#fff; }
+  .s8 .slide-title span { color:var(--yellow); }
+  .s8 .slide-eyebrow    { color:rgba(255,255,255,.7); }
+
+  .slide-sub {
+    font-size:clamp(1rem,2vw,1.25rem); font-weight:500;
+    color:#555; max-width:560px; line-height:1.55; margin-bottom:1.5rem;
+  }
+  .s8 .slide-sub { color:rgba(255,255,255,.85); }
+
+  .hero-emoji {
+    font-size:clamp(5rem,12vw,9rem); line-height:1;
+    margin-bottom:1rem;
+    animation:float 3s ease-in-out infinite;
+    filter:drop-shadow(0 8px 24px rgba(0,0,0,.10));
+  }
+  @keyframes float {
+    0%,100% { transform:translateY(0); }
+    50%      { transform:translateY(-14px); }
+  }
+
+  .stat-row {
+    display:flex; gap:1.5rem; flex-wrap:wrap;
+    justify-content:center; margin-top:.5rem;
+  }
+  .stat-box {
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(8px);
+    border-radius:20px; padding:.9rem 1.6rem;
+    border:2px solid rgba(255,255,255,.9);
+    animation:popIn .6s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .stat-box:nth-child(2){animation-delay:.15s;}
+  .stat-box:nth-child(3){animation-delay:.3s;}
+  @keyframes popIn {
+    from { transform:scale(.6); opacity:0; }
+    to   { transform:scale(1);  opacity:1; }
+  }
+  .stat-num {
+    font-family:'Nunito',sans-serif;
+    font-size:clamp(1.6rem,4vw,2.8rem);
+    font-weight:900; color:var(--violet); line-height:1;
+  }
+  .stat-label {
+    font-size:clamp(.65rem,1.2vw,.8rem);
+    color:#888; font-weight:500; margin-top:.2rem;
+  }
+
+  .cards {
+    display:flex; flex-wrap:wrap; gap:1rem;
+    justify-content:center; max-width:860px; width:100%; margin-top:.5rem;
+  }
+  .card {
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(8px);
+    border-radius:20px; padding:1.1rem 1.4rem;
+    display:flex; flex-direction:column; align-items:center; gap:.45rem;
+    cursor:pointer;
+    transition:transform .25s, box-shadow .25s, background .25s, max-width .35s, flex-basis .35s;
+    border:2px solid rgba(255,255,255,.9);
+    min-width:130px; max-width:190px; flex:1 1 130px;
+    position:relative; overflow:hidden;
+  }
+  .card:hover { transform:translateY(-6px) scale(1.03); box-shadow:0 16px 40px rgba(91,79,207,.15); background:rgba(255,255,255,.95); }
+  .card.expanded { max-width:100%; flex:1 1 100%; transform:none; box-shadow:0 8px 32px rgba(91,79,207,.18); background:rgba(255,255,255,.97); }
+  .card-icon   { font-size:clamp(1.8rem,3.5vw,2.6rem); }
+  .card-label  { font-family:'Nunito',sans-serif; font-size:clamp(.8rem,1.6vw,1rem); font-weight:800; color:var(--violet); text-align:center; line-height:1.2; }
+  .card-detail { font-size:clamp(.75rem,1.4vw,.88rem); color:#666; line-height:1.5; max-height:0; overflow:hidden; transition:max-height .4s ease, opacity .35s ease, margin .3s; opacity:0; text-align:center; }
+  .card.expanded .card-detail { max-height:200px; opacity:1; margin-top:.3rem; }
+
+  .pills { display:flex; flex-wrap:wrap; gap:.6rem; justify-content:center; max-width:700px; margin-top:.5rem; }
+  .pill {
+    background:rgba(255,255,255,.8); border-radius:50px; padding:.45rem 1.1rem;
+    font-family:'Nunito',sans-serif; font-size:clamp(.8rem,1.5vw,.95rem);
+    font-weight:700; color:var(--violet); border:2px solid rgba(91,79,207,.18);
+    display:flex; align-items:center; gap:.4rem;
+    transition:transform .2s, box-shadow .2s; cursor:default;
+  }
+  .pill:hover { transform:scale(1.05); box-shadow:0 4px 14px rgba(91,79,207,.15); }
+
+  .author-badge {
+    display:inline-flex; align-items:center; gap:.5rem;
+    background:rgba(255,255,255,.7); border-radius:50px;
+    padding:.5rem 1.2rem; font-family:'Nunito',sans-serif;
+    font-size:clamp(.82rem,1.5vw,.98rem); font-weight:800;
+    color:var(--violet); border:2px solid rgba(91,79,207,.15); margin:.2rem;
+  }
+
+  .warning-box {
+    background:rgba(255,255,255,.8); border-radius:20px;
+    padding:1.2rem 1.8rem; border-left:5px solid var(--coral);
+    max-width:560px; text-align:left; margin-top:.5rem;
+  }
+  .warning-box p { font-size:clamp(.8rem,1.5vw,.95rem); color:#555; line-height:1.6; }
+
+  .divider { width:60px; height:4px; border-radius:4px; background:var(--coral); margin:.8rem auto 1.2rem; }
+
+  /* ── TIMELINE ── */
+  .timeline-wrap {
+    display:flex; align-items:flex-start;
+    gap:0; max-width:860px; width:100%;
+    margin-top:.8rem; position:relative;
+  }
+  .timeline-line {
+    position:absolute;
+    top:52px; left:calc(16.66% + 8px); right:calc(16.66% + 8px);
+    height:4px;
+    background:linear-gradient(90deg,var(--pink),var(--lavender),var(--sky));
+    border-radius:4px; z-index:0;
+  }
+  .timeline-stage {
+    flex:1; display:flex; flex-direction:column; align-items:center;
+    position:relative; z-index:1; cursor:pointer;
+  }
+
+  .tl-avatar {
+    width:clamp(60px,10vw,100px);
+    height:clamp(60px,10vw,100px);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:clamp(1.6rem,4vw,3rem);
+    border:4px solid #fff;
+    box-shadow:0 6px 20px rgba(91,79,207,.18);
+    transition:transform .3s;
+    margin-bottom:.6rem;
+  }
+  .tl-avatar.germinal  { background:linear-gradient(135deg,#fce4ec,#f8bbd0); font-size:clamp(.9rem,2.5vw,1.8rem); }
+  .tl-avatar.embrionaria { background:linear-gradient(135deg,#e8eaf6,#c5cae9); font-size:clamp(1.2rem,3vw,2.3rem); }
+  .tl-avatar.fetal     { background:linear-gradient(135deg,#e8f5e9,#a5d6a7); font-size:clamp(1.6rem,4vw,3rem); }
+
+  .timeline-stage:hover .tl-avatar { transform:scale(1.12) translateY(-4px); }
+
+  .tl-name { font-family:'Nunito',sans-serif; font-size:clamp(.85rem,1.8vw,1.1rem); font-weight:900; color:var(--violet); margin-bottom:.15rem; }
+  .tl-dur  { font-size:clamp(.65rem,1.3vw,.8rem); font-weight:600; color:var(--coral); letter-spacing:.03em; margin-bottom:.4rem; }
+  .tl-desc {
+    font-size:clamp(.65rem,1.2vw,.78rem); color:#666; line-height:1.5;
+    background:rgba(255,255,255,.75); backdrop-filter:blur(6px);
+    border-radius:14px; padding:.6rem .8rem;
+    border:1.5px solid rgba(255,255,255,.9);
+    max-height:0; overflow:hidden; opacity:0;
+    transition:max-height .45s ease, opacity .35s ease, padding .35s;
+    padding-top:0; padding-bottom:0;
+    text-align:center;
+  }
+  .timeline-stage.open .tl-desc {
+    max-height:120px; opacity:1;
+    padding:.6rem .8rem;
+  }
+
+  .tl-hint { font-size:.68rem; color:rgba(91,79,207,.4); margin-top:.3rem; font-style:italic; }
+
+  .tl-dot {
+    width:14px; height:14px; border-radius:50%;
+    border:3px solid #fff;
+    margin-bottom:.3rem;
+    animation:pulse 1.8s ease-in-out infinite;
+  }
+  .tl-dot.d1 { background:var(--pink);     animation-delay:0s; }
+  .tl-dot.d2 { background:var(--lavender); animation-delay:.4s; }
+  .tl-dot.d3 { background:var(--sky);      animation-delay:.8s; }
+  @keyframes pulse {
+    0%,100% { box-shadow:0 0 0 0 rgba(91,79,207,.4); }
+    50%      { box-shadow:0 0 0 8px rgba(91,79,207,.0); }
+  }
+
+  /* ── PRINCIPLES ── */
+  .principle-wrap { display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; max-width:700px; }
+  .principle-box  { background:rgba(255,255,255,.78); border-radius:24px; padding:1.5rem 1.8rem; flex:1 1 240px; border:2px solid rgba(255,255,255,.9); text-align:center; }
+  .principle-arrow { font-size:clamp(2.5rem,5vw,4rem); margin-bottom:.5rem; }
+  .principle-title { font-family:'Nunito',sans-serif; font-size:clamp(.95rem,1.8vw,1.15rem); font-weight:900; color:var(--violet); margin-bottom:.3rem; }
+  .principle-sub   { font-size:clamp(.75rem,1.3vw,.88rem); color:#666; }
+
+  /* ── STARS ── */
+  .stars-bg { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .star { position:absolute; font-size:1.2rem; animation:twinkle 2.5s ease-in-out infinite; }
+  @keyframes twinkle {
+    0%,100% { opacity:.3; transform:scale(1); }
+    50%      { opacity:1;  transform:scale(1.3); }
+  }
+
+  /* ── NAVIGATION ── */
+  .nav-arrows {
+    position:fixed; bottom:2rem; left:50%; transform:translateX(-50%);
+    display:flex; align-items:center; gap:1rem; z-index:600;
+  }
+  .nav-btn {
+    width:48px; height:48px; border-radius:50%; border:none;
+    background:rgba(255,255,255,.88); backdrop-filter:blur(8px);
+    box-shadow:0 4px 20px rgba(91,79,207,.2);
+    cursor:pointer; font-size:1.3rem; color:var(--violet);
+    transition:transform .2s, background .2s;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .nav-btn:hover { transform:scale(1.12); background:#fff; }
+  .nav-btn:disabled { opacity:.3; cursor:not-allowed; transform:none; }
+  .slide-counter {
+    font-family:'Nunito',sans-serif; font-size:.85rem; font-weight:700;
+    color:var(--violet); background:rgba(255,255,255,.88); backdrop-filter:blur(8px);
+    border-radius:50px; padding:.3rem 1rem; box-shadow:0 4px 14px rgba(91,79,207,.15);
+  }
+
+  .dots {
+    position:fixed; right:1.2rem; top:50%; transform:translateY(-50%);
+    display:flex; flex-direction:column; gap:.45rem; z-index:600;
+  }
+  .dot {
+    width:9px; height:9px; border-radius:50%;
+    background:rgba(91,79,207,.25);
+    transition:background .3s, transform .3s; cursor:pointer;
+  }
+  .dot.active { background:var(--violet); transform:scale(1.4); }
+
+  .progress-bar {
+    position:fixed; top:0; left:0; height:4px;
+    background:linear-gradient(90deg,var(--pink),var(--violet));
+    border-radius:0 4px 4px 0; transition:width .4s ease; z-index:700;
+  }
+
+  .kb-hint {
+    position:fixed; top:1rem; right:1.5rem;
+    font-size:.72rem; color:rgba(91,79,207,.5);
+    font-family:'Nunito',sans-serif; font-weight:600; z-index:600;
+  }
+
+  /* ── INTEGRANTES MODAL ── */
+  .integrantes-btn {
+    position:fixed; top:1rem; left:1.2rem; z-index:600;
+    background:rgba(255,255,255,.88); backdrop-filter:blur(10px);
+    border:2px solid rgba(91,79,207,.2); border-radius:50px;
+    padding:.45rem 1.1rem;
+    font-family:'Nunito',sans-serif; font-size:clamp(.72rem,1.4vw,.85rem);
+    font-weight:800; color:var(--violet);
+    cursor:pointer; display:flex; align-items:center; gap:.4rem;
+    box-shadow:0 4px 16px rgba(91,79,207,.15);
+    transition:transform .2s, box-shadow .2s;
+  }
+  .integrantes-btn:hover { transform:scale(1.05); box-shadow:0 6px 22px rgba(91,79,207,.22); }
+
+  .integrantes-overlay {
+    position:fixed; inset:0; z-index:800;
+    background:rgba(91,79,207,.18); backdrop-filter:blur(6px);
+    display:none; align-items:center; justify-content:center;
+    animation:fadeOverlay .25s ease;
+  }
+  .integrantes-overlay.show { display:flex; }
+  @keyframes fadeOverlay { from{opacity:0} to{opacity:1} }
+
+  .integrantes-modal {
+    background:#fff; border-radius:28px;
+    padding:2rem 2.2rem; max-width:420px; width:90%;
+    box-shadow:0 24px 60px rgba(91,79,207,.22);
+    position:relative;
+    animation:modalPop .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes modalPop {
+    from { transform:scale(.8); opacity:0; }
+    to   { transform:scale(1);  opacity:1; }
+  }
+
+  .modal-close {
+    position:absolute; top:.9rem; right:.9rem;
+    width:34px; height:34px; border-radius:50%; border:none;
+    background:rgba(91,79,207,.1); color:var(--violet);
+    font-size:1.1rem; cursor:pointer; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .2s, transform .2s;
+  }
+  .modal-close:hover { background:rgba(91,79,207,.2); transform:rotate(90deg); }
+
+  .modal-title {
+    font-family:'Nunito',sans-serif; font-size:1.15rem; font-weight:900;
+    color:var(--violet); margin-bottom:1.2rem; padding-right:2rem;
+    border-bottom:3px solid var(--lavender); padding-bottom:.7rem;
+  }
+
+  .member-list { list-style:none; display:flex; flex-direction:column; gap:.65rem; }
+  .member-item {
+    display:flex; align-items:center; gap:.75rem;
+    background:linear-gradient(135deg,rgba(91,79,207,.06),rgba(201,184,255,.12));
+    border-radius:14px; padding:.6rem .9rem;
+    font-family:'Nunito',sans-serif; font-size:clamp(.82rem,1.6vw,.95rem);
+    font-weight:700; color:#444;
+    border:1.5px solid rgba(91,79,207,.1);
+  }
+  .member-num {
+    width:26px; height:26px; border-radius:50%;
+    background:var(--violet); color:#fff;
+    font-size:.75rem; font-weight:900;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+
+  /* ── HERO STATS ── */
+  .stat-hidden { opacity: 0; transform: scale(.5); pointer-events:none; }
+  .stat-reveal-active {
+    animation: statImpact .6s cubic-bezier(.34,1.8,.64,1) both;
+  }
+  @keyframes statImpact {
+    0%   { transform:scale(.3) rotate(-8deg); opacity:0; }
+    60%  { transform:scale(1.18) rotate(2deg); opacity:1; }
+    100% { transform:scale(1) rotate(0deg); opacity:1; }
+  }
+  @keyframes pulseCta {
+    0%,100% { box-shadow:0 6px 24px rgba(91,79,207,.35); }
+    50%      { box-shadow:0 6px 40px rgba(91,79,207,.6); transform:scale(1.03); }
+  }
+
+  @media(max-width:600px){
+    #fertCanvas { width:300px!important; height:180px!important; }
+    #dnaCanvas  { width:160px!important; height:160px!important; }
+  }
+
+  @media(max-width:600px){
+    .cards{gap:.7rem;} .card{min-width:110px;padding:.9rem 1rem;}
+    .dots{display:none;} .nav-arrows{bottom:1rem;}
+    .slide{padding:1.2rem 1rem;}
+    .timeline-wrap{flex-direction:column;align-items:center;gap:1rem;}
+    .timeline-line{display:none;}
+    .tl-avatar{width:64px;height:64px;}
+    .kb-hint{display:none;}
+  }
+
+  /* Compact two-column layout for merged slide 7 */
+  .two-col {
+    display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;
+    max-width:900px; width:100%; margin-top:.5rem;
+  }
+  .two-col-section {
+    flex:1 1 300px; max-width:420px;
+    background:rgba(255,255,255,.6); border-radius:20px; padding:1rem 1.2rem;
+    border:2px solid rgba(255,255,255,.9);
+  }
+  .two-col-section h3 {
+    font-family:'Nunito',sans-serif; font-size:clamp(.9rem,1.8vw,1.1rem);
+    font-weight:900; color:var(--violet); margin-bottom:.6rem;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bubblesCanvas"></canvas>
+<div id="wipeOverlay"></div>
+<div class="progress-bar" id="progressBar"></div>
+<div class="kb-hint">← → Navegar &nbsp;|&nbsp; ESC Inicio</div>
+
+<button class="integrantes-btn" onclick="document.getElementById('intModal').classList.add('show')">
+  👥 Grupo 1 — Integrantes
+</button>
+
+<div class="integrantes-overlay" id="intModal" onclick="closeModalOutside(event)">
+  <div class="integrantes-modal">
+    <button class="modal-close" onclick="document.getElementById('intModal').classList.remove('show')">✕</button>
+    <div class="modal-title">🎓 Grupo 1 — Integrantes</div>
+    <ul class="member-list">
+      <li class="member-item"><span class="member-num">1</span> Teresa Carrasco Sanjinez</li>
+      <li class="member-item"><span class="member-num">2</span> Neri Juana</li>
+      <li class="member-item"><span class="member-num">3</span> Noemí Quispe Crespo</li>
+      <li class="member-item"><span class="member-num">4</span> Tania Garcia</li>
+      <li class="member-item"><span class="member-num">5</span> Freddy Nogueira Zambrano</li>
+    </ul>
+  </div>
+</div>
+
+<div class="dots" id="dots"></div>
+
+<div class="slides-wrapper">
+
+  <!-- SLIDE 0: PORTADA -->
+  <div class="slide s0 active" data-index="0">
+    <div class="hero-emoji">🤰</div>
+    <div class="slide-eyebrow">Desarrollo Humano — Papalia 14ª ed.</div>
+    <h1 class="slide-title">Período<br><span>Prenatal</span></h1>
+    <p class="slide-sub">El desarrollo humano no comienza al nacer, sino desde la concepción.</p>
+    <div class="stat-row" id="heroStats">
+      <div class="stat-box stat-hidden" id="stat0">
+        <div class="stat-num stat-reveal" data-target="1">?</div>
+        <div class="stat-label">Célula origen</div>
+      </div>
+      <div class="stat-box stat-hidden" id="stat1" style="animation-delay:.15s">
+        <div class="stat-num stat-reveal" data-target="37"><span class="count-num">?</span><span style="font-size:.5em">B</span></div>
+        <div class="stat-label">Células al nacer</div>
+      </div>
+      <div class="stat-box stat-hidden" id="stat2" style="animation-delay:.3s">
+        <div class="stat-num stat-reveal" data-target="9">?</div>
+        <div class="stat-label">Meses de viaje</div>
+      </div>
+    </div>
+    <button id="revealBtn" onclick="revealHeroStats()" style="
+      margin-top:1rem; padding:.6rem 1.8rem;
+      background:var(--violet); color:#fff;
+      border:none; border-radius:50px; cursor:pointer;
+      font-family:'Nunito',sans-serif; font-weight:800; font-size:1rem;
+      box-shadow:0 6px 24px rgba(91,79,207,.35);
+      transition:transform .2s, box-shadow .2s;
+      animation: pulseCta 2s ease-in-out infinite;
+    " onmouseover="this.style.transform='scale(1.07)'" onmouseout="this.style.transform='scale(1)'">
+      ¿Sabías estos datos? → Revelar
+    </button>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.8rem;">
+      <span class="pill">📚 Diane E. Papalia</span>
+      <span class="pill">✍️ Gabriela Martorell</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 1: QUÉ ES LA ETAPA PRENATAL -->
+  <div class="slide s1" data-index="1">
+    <div class="hero-emoji" style="font-size:clamp(3.5rem,8vw,6rem);">🌱</div>
+    <div class="slide-eyebrow">Concepto base</div>
+    <h1 class="slide-title">¿Qué es la etapa<br><span>prenatal?</span></h1>
+    <div class="divider"></div>
+    <p class="slide-sub">Proceso que va desde la <strong>fecundación</strong> hasta el <strong>nacimiento</strong>.<br>Aquí se forman todas las estructuras básicas del organismo.</p>
+    <div class="pills">
+      <span class="pill">🔬 Físico</span>
+      <span class="pill">🧠 Cognitivo</span>
+      <span class="pill">❤️ Psicosocial</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: LA FECUNDACIÓN (animación canvas) -->
+  <div class="slide s2" data-index="2" id="slide2" onclick="window._triggerFert&&window._triggerFert()" style="cursor:pointer;padding:0;overflow:hidden;">
+    <canvas id="fertCanvas" style="position:absolute;inset:0;width:100%;height:100%;border-radius:0;"></canvas>
+  </div>
+
+  <!-- SLIDE 3: CIGOTO + GENÉTICA (fusión de antiguas slides 3 y 4) -->
+  <div class="slide s3" data-index="3">
+    <div class="slide-eyebrow">Primera célula & Herencia</div>
+    <h1 class="slide-title">Cigoto &<br><span>Genética</span></h1>
+    <canvas id="dnaCanvas" width="180" height="180" style="border-radius:50%;background:rgba(255,255,255,.4);backdrop-filter:blur(8px);border:3px solid rgba(255,200,100,.5);box-shadow:0 8px 32px rgba(255,150,50,.2);margin:.2rem 0;max-width:38vw;max-height:38vw;"></canvas>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-bottom:.3rem;">
+      <span class="author-badge">🔬 Mendel</span>
+      <span class="author-badge">🧪 Watson & Crick</span>
+    </div>
+    <div class="cards" style="margin-top:.3rem;">
+      <div class="card" onclick="toggleCard(this)">
+        <div class="card-icon">🔵</div>
+        <div class="card-label">¿Qué es el cigoto?</div>
+        <div class="card-detail">Célula única resultado de la fusión del espermatozoide y el óvulo. Contiene toda la información genética del nuevo ser.</div>
+      </div>
+      <div class="card" onclick="toggleCard(this)">
+        <div class="card-icon">🧬</div>
+        <div class="card-label">46 cromosomas</div>
+        <div class="card-detail">23 del padre + 23 de la madre = 46 cromosomas. Watson y Crick describieron la doble hélice del ADN en 1953.</div>
+      </div>
+      <div class="card" onclick="toggleCard(this)">
+        <div class="card-icon">⚧️</div>
+        <div class="card-label">Sexo & rasgos</div>
+        <div class="card-detail">XX para mujer, XY para varón. Los genes dominantes se expresan con uno solo; los recesivos necesitan ambas copias.</div>
+      </div>
+      <div class="card" onclick="toggleCard(this)">
+        <div class="card-icon">🏥</div>
+        <div class="card-label">Enfermedades hereditarias</div>
+        <div class="card-detail">Riesgo de ciertas enfermedades codificado en el ADN y calculable con la genética de Mendel.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: LAS 3 ETAPAS (interactivo, era slide 6) -->
+  <div class="slide s4" data-index="4">
+    <div class="slide-eyebrow">Desarrollo prenatal</div>
+    <h1 class="slide-title">Las <span>3 etapas</span> del desarrollo</h1>
+    <div class="divider"></div>
+    <div class="timeline-wrap">
+      <div class="timeline-line"></div>
+
+      <div class="timeline-stage" onclick="toggleStage(this)">
+        <div class="tl-dot d1"></div>
+        <div class="tl-avatar germinal">🫧</div>
+        <div class="tl-name">Germinal</div>
+        <div class="tl-dur">0 – 2 semanas</div>
+        <div class="tl-desc">Formación del cigoto · División celular rápida (1→2→4→8 células) · Implantación en el útero · Muchos embarazos terminan aquí sin que la madre lo sepa</div>
+      </div>
+
+      <div class="timeline-stage" onclick="toggleStage(this)">
+        <div class="tl-dot d2"></div>
+        <div class="tl-avatar embrionaria">🫀</div>
+        <div class="tl-name">Embrionaria</div>
+        <div class="tl-dur">Sem. 2 – 8</div>
+        <div class="tl-desc">Órganos · Cerebro · Corazón (late sem.5) · Sistema nervioso · Yemas de manos · Etapa más vulnerable a teratógenos</div>
+      </div>
+
+      <div class="timeline-stage" onclick="toggleStage(this)">
+        <div class="tl-dot d3"></div>
+        <div class="tl-avatar fetal">👶</div>
+        <div class="tl-name">Fetal</div>
+        <div class="tl-dur">Sem. 8 – Nacimiento</div>
+        <div class="tl-desc">Crecimiento acelerado · Sentidos (oye, ve, siente) · Movimientos · Millones de neuronas · Apariencia humana reconocible</div>
+      </div>
+    </div>
+    <p class="tl-hint" style="margin-top:.8rem;">Toca cada etapa para ver detalles</p>
+  </div>
+
+  <!-- SLIDE 5: PRINCIPIOS DEL DESARROLLO -->
+  <div class="slide s5" data-index="5">
+    <div class="slide-eyebrow">Papalia</div>
+    <h1 class="slide-title">Principios del<br><span>Desarrollo</span></h1>
+    <div class="divider"></div>
+    <div class="principle-wrap">
+      <div class="principle-box">
+        <div class="principle-arrow">⬇️</div>
+        <div class="principle-title">Cefalocaudal</div>
+        <div class="principle-sub">De la <strong>cabeza</strong> hacia los <strong>pies</strong>.<br>El cerebro antes que las piernas.</div>
+      </div>
+      <div class="principle-box">
+        <div class="principle-arrow">↔️</div>
+        <div class="principle-title">Proximodistal</div>
+        <div class="principle-sub">Del <strong>centro</strong> hacia las <strong>extremidades</strong>.<br>Hombros antes que dedos.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: TERATÓGENOS -->
+  <div class="slide s6" data-index="6">
+    <div class="hero-emoji" style="font-size:clamp(3rem,7vw,5.5rem);">⚠️</div>
+    <div class="slide-eyebrow">Riesgos</div>
+    <h1 class="slide-title"><span>Teratógenos</span><br>& Sustancias</h1>
+    <div class="divider"></div>
+    <div class="cards">
+      <div class="card" onclick="toggleCard(this)"><div class="card-icon">🍺</div><div class="card-label">Alcohol</div><div class="card-detail">Uno de los teratógenos más dañinos. No existe dosis segura en el embarazo.</div></div>
+      <div class="card" onclick="toggleCard(this)"><div class="card-icon">🚬</div><div class="card-label">Tabaco</div><div class="card-detail">Reduce oxígeno fetal, causa bajo peso y parto prematuro.</div></div>
+      <div class="card" onclick="toggleCard(this)"><div class="card-icon">💊</div><div class="card-label">Drogas</div><div class="card-detail">Opioides, cocaína, marihuana: generan síndrome de abstinencia neonatal.</div></div>
+      <div class="card" onclick="toggleCard(this)"><div class="card-icon">☢️</div><div class="card-label">Radiación</div><div class="card-detail">Exposición en momentos clave puede alterar el desarrollo celular.</div></div>
+    </div>
+    <div class="warning-box" style="margin-top:.8rem;">
+      <p>⏰ El daño depende del <strong>momento de exposición</strong>, duración, cantidad y vulnerabilidad genética.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: NUTRICIÓN, EPIGENÉTICA & CEREBRO (fusión slides 11+12) -->
+  <div class="slide s7" data-index="7">
+    <div class="slide-eyebrow">Influencias externas & Cerebro fetal</div>
+    <h1 class="slide-title">Nutrición, Epigenética<br>& <span>Cerebro fetal</span></h1>
+    <div class="divider"></div>
+    <div class="two-col">
+      <div class="two-col-section">
+        <h3>🥗 Nutrición & Epigenética</h3>
+        <div class="cards" style="margin-top:.4rem;">
+          <div class="card" onclick="toggleCard(this)"><div class="card-icon">🍎</div><div class="card-label">Nutrición materna</div><div class="card-detail">Dieta deficiente → bajo peso, problemas neurológicos y retraso del crecimiento.</div></div>
+          <div class="card" onclick="toggleCard(this)"><div class="card-icon">🧬</div><div class="card-label">Epigenética</div><div class="card-detail">El ambiente modifica cómo se expresan los genes, sin cambiar el ADN.</div></div>
+          <div class="card" onclick="toggleCard(this)"><div class="card-icon">😰</div><div class="card-label">Estrés materno</div><div class="card-detail">El estrés puede alterar la expresión genética y el desarrollo fetal.</div></div>
+        </div>
+      </div>
+      <div class="two-col-section">
+        <h3>🧠 Cerebro & Diagnóstico</h3>
+        <div class="cards" style="margin-top:.4rem;">
+          <div class="card" onclick="toggleCard(this)"><div class="card-icon">⚡</div><div class="card-label">Miles de millones</div><div class="card-detail">Se forman miles de millones de neuronas durante el período prenatal.</div></div>
+          <div class="card" onclick="toggleCard(this)"><div class="card-icon">🔊</div><div class="card-label">Ecografía</div><div class="card-detail">Principal método para visualizar y monitorear el desarrollo fetal.</div></div>
+          <div class="card" onclick="toggleCard(this)"><div class="card-icon">🧪</div><div class="card-label">Amniocentesis</div><div class="card-detail">Análisis del líquido amniótico para detectar anomalías cromosómicas.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: CONCLUSIÓN -->
+  <div class="slide s8" data-index="8">
+    <div class="stars-bg" id="starsContainer"></div>
+    <div class="hero-emoji" style="animation-duration:2s;">🌟</div>
+    <div class="slide-eyebrow">Conclusión</div>
+    <h1 class="slide-title" style="color:#fff;">El desarrollo<br>comienza <span>antes</span><br>de nacer</h1>
+    <div class="divider" style="background:var(--yellow);"></div>
+    <p class="slide-sub" style="color:rgba(255,255,255,.85);">Cada decisión durante el embarazo impacta la vida de un ser humano en formación.</p>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem;">
+      <span class="pill" style="background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.3);">📚 Papalia 14ª ed.</span>
+      <span class="pill" style="background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.3);">🎓 Educación Primaria</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav-arrows">
+  <button class="nav-btn" id="prevBtn" onclick="navigate(-1)" disabled>‹</button>
+  <span class="slide-counter" id="counter">1 / 9</span>
+  <button class="nav-btn" id="nextBtn" onclick="navigate(1)">›</button>
+</div>
+
+<script>
+/* ── BUBBLES ── */
+(function(){
+  const canvas = document.getElementById('bubblesCanvas');
+  const ctx    = canvas.getContext('2d');
+  const colors = ['#FFB7C540','#7EC8E340','#B5EAD740','#FFD96640','#C9B8FF40'];
+  let bubbles  = [];
+
+  function resize(){
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function makeBubble(){
+    return {
+      x: Math.random() * canvas.width,
+      y: canvas.height + 60,
+      r: 18 + Math.random() * 42,
+      speed: .25 + Math.random() * .55,
+      drift: (Math.random()-.5)*.4,
+      color: colors[Math.floor(Math.random()*colors.length)],
+      alpha: .35 + Math.random() * .3,
+    };
+  }
+
+  for(let i=0;i<22;i++){
+    const b = makeBubble();
+    b.y = Math.random() * canvas.height;
+    bubbles.push(b);
+  }
+
+  function tick(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    bubbles.forEach(b=>{
+      b.y -= b.speed;
+      b.x += b.drift;
+      ctx.beginPath();
+      ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+      ctx.fillStyle = b.color;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(b.x - b.r*.3, b.y - b.r*.3, b.r*.25,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,.35)';
+      ctx.fill();
+      if(b.y < -80) Object.assign(b, makeBubble());
+    });
+    if(Math.random()<.012) bubbles.push(makeBubble());
+    if(bubbles.length>40) bubbles.shift();
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+/* ── WIPE TRANSITION ── */
+const wipeColors = [
+  '#e8f4fd','#fff8f0','#f3e5ff','#fff9e6',
+  '#e8f5e9','#e0f7fa','#fff3e0','#e8f4fd','#5B4FCF'
+];
+
+function wipeTransition(toIndex, cb){
+  const overlay = document.getElementById('wipeOverlay');
+  overlay.style.background = wipeColors[toIndex] || '#fff';
+  overlay.style.transition  = 'none';
+  overlay.style.transform   = 'scaleX(0)';
+  overlay.style.transformOrigin = 'left center';
+  overlay.style.borderRadius = '0 50% 50% 0 / 0 50% 50% 0';
+
+  requestAnimationFrame(()=>{
+    overlay.style.transition = 'transform .28s cubic-bezier(.4,0,.2,1)';
+    overlay.style.transform  = 'scaleX(1)';
+    overlay.style.borderRadius = '0';
+    setTimeout(()=>{
+      cb();
+      overlay.style.transition = 'transform .28s cubic-bezier(.4,0,.2,1)';
+      overlay.style.transformOrigin = 'right center';
+      overlay.style.transform = 'scaleX(0)';
+      setTimeout(()=>{
+        overlay.style.transition = 'none';
+        overlay.style.transformOrigin = 'left center';
+      }, 300);
+    }, 300);
+  });
+}
+
+/* ── SLIDES ── */
+const total   = 9;
+let current   = 0;
+let animating = false;
+
+const allSlides = document.querySelectorAll('.slide');
+const dotsEl    = document.getElementById('dots');
+const counter   = document.getElementById('counter');
+const bar       = document.getElementById('progressBar');
+const prevBtn   = document.getElementById('prevBtn');
+const nextBtn   = document.getElementById('nextBtn');
+
+for(let i=0;i<total;i++){
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = ()=>goTo(i);
+  dotsEl.appendChild(d);
+}
+
+/* Stars for closing slide */
+const starsEl    = document.getElementById('starsContainer');
+const starEmojis = ['⭐','🌟','✨','💫','🌸','🍼','💕'];
+for(let i=0;i<18;i++){
+  const s = document.createElement('span');
+  s.className   = 'star';
+  s.textContent = starEmojis[i % starEmojis.length];
+  s.style.left  = Math.random()*95+'%';
+  s.style.top   = Math.random()*95+'%';
+  s.style.animationDelay = (Math.random()*2.5)+'s';
+  s.style.fontSize = (.8+Math.random()*1.4)+'rem';
+  starsEl.appendChild(s);
+}
+
+function updateUI(){
+  counter.textContent = (current+1)+' / '+total;
+  bar.style.width = (current/(total-1)*100)+'%';
+  prevBtn.disabled = current===0;
+  nextBtn.disabled = current===total-1;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===current));
+}
+
+function goTo(index){
+  if(animating||index===current||index<0||index>=total) return;
+  animating = true;
+
+  if(window._stopFert) window._stopFert();
+  if(window._stopDNA)  window._stopDNA();
+
+  wipeTransition(index, ()=>{
+    allSlides[current].classList.remove('active');
+    allSlides[current].classList.add('hidden');
+    allSlides[index].classList.remove('hidden');
+    allSlides[index].classList.add('active');
+    current = index;
+    updateUI();
+    if(index===0) animateStats();
+    setTimeout(()=>{
+      if(index===2 && window._startFert) window._startFert();
+      if(index===3 && window._startDNA)  window._startDNA();
+    }, 340);
+  });
+
+  setTimeout(()=>{ animating=false; }, 650);
+}
+
+function navigate(dir){ goTo(current+dir); }
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){ e.preventDefault(); navigate(1); }
+  if(e.key==='ArrowLeft' ||e.key==='ArrowUp')                { e.preventDefault(); navigate(-1); }
+  if(e.key==='Escape') goTo(0);
+});
+
+let touchX=null;
+document.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(touchX===null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if(Math.abs(dx)>50) navigate(dx<0?1:-1);
+  touchX=null;
+},{passive:true});
+
+function toggleCard(el){
+  const was = el.classList.contains('expanded');
+  el.closest('.cards').querySelectorAll('.card.expanded').forEach(c=>c.classList.remove('expanded'));
+  if(!was) el.classList.add('expanded');
+}
+
+function toggleStage(el){
+  const was = el.classList.contains('open');
+  document.querySelectorAll('.timeline-stage.open').forEach(s=>s.classList.remove('open'));
+  if(!was) el.classList.add('open');
+}
+
+function animateStats(){
+  document.querySelectorAll('.stat-num[data-target]').forEach(el=>{
+    const target = parseInt(el.dataset.target);
+    let cur = 0;
+    const step = Math.ceil(target/30);
+    const timer = setInterval(()=>{
+      cur = Math.min(cur+step, target);
+      el.firstChild ? (el.firstChild.textContent=cur) : (el.textContent=cur);
+      if(cur>=target) clearInterval(timer);
+    },40);
+  });
+}
+
+function closeModalOutside(e){
+  if(e.target===document.getElementById('intModal'))
+    document.getElementById('intModal').classList.remove('show');
+}
+
+let heroRevealed = false;
+function revealHeroStats() {
+  if (heroRevealed) return;
+  heroRevealed = true;
+  const btn = document.getElementById('revealBtn');
+  if(btn) btn.style.display = 'none';
+  const statIds = ['stat0','stat1','stat2'];
+  const targets = [1, 37, 9];
+  statIds.forEach((id, i) => {
+    setTimeout(() => {
+      const box = document.getElementById(id);
+      if(!box) return;
+      box.classList.remove('stat-hidden');
+      box.style.transform = '';
+      box.style.opacity = '';
+      box.classList.add('stat-reveal-active');
+      const numEl = box.querySelector('.stat-reveal');
+      const target = targets[i];
+      let cur = 0;
+      const step = Math.ceil(target / 28);
+      const countSpan = numEl.querySelector('.count-num');
+      const textNode = !countSpan ? numEl.firstChild : null;
+      const timer = setInterval(() => {
+        cur = Math.min(cur + step, target);
+        if(countSpan) countSpan.textContent = cur;
+        else if(textNode && textNode.nodeType===3) textNode.textContent = cur;
+        else numEl.textContent = cur;
+        if (cur >= target) clearInterval(timer);
+      }, 45);
+    }, i * 220);
+  });
+}
+
+/* ══════════════════════════════════════
+   FERTILIZACIÓN CANVAS (Slide 2)
+══════════════════════════════════════ */
+(function(){
+  let fertAnim = null;
+  let fertState = 'paused';
+  let fusionT = 0, flashAlpha = 0, spermWin = null;
+  const TOTAL = 186;
+  const spermData = [];
+  let env = null, frameT = 0, swimT = 0;
+  let fusionFrame = -1;
+  let attempt = 0;
+
+  function getFate(i, att) {
+    if (att === 3 && i === 0) return 'winner';
+    const idx = att === 3 ? i - 1 : i;
+    if (att === 1) {
+      if (idx % 3 === 0) return 'die_early';
+      if (idx % 3 === 1) return 'die_mid';
+      return 'die_late';
+    }
+    if (att === 2) {
+      if (idx % 3 === 0) return 'wander_early';
+      if (idx % 3 === 1) return 'wander_mid';
+      return 'wander_late';
+    }
+    if (idx % 6 === 0) return 'die_early';
+    if (idx % 6 === 1) return 'die_mid';
+    if (idx % 6 === 2) return 'die_late';
+    if (idx % 6 === 3) return 'wander_early';
+    if (idx % 6 === 4) return 'wander_mid';
+    return 'wander_late';
+  }
+
+  function getDieStart(i, fate) {
+    const slot = i;
+    if (fate === 'die_early')    return 20  + (slot * 7)  % 140;
+    if (fate === 'die_mid')      return 160 + (slot * 9)  % 160;
+    if (fate === 'die_late')     return 320 + (slot * 11) % 180;
+    if (fate === 'wander_early') return 30  + (slot * 7)  % 120;
+    if (fate === 'wander_mid')   return 150 + (slot * 9)  % 150;
+    if (fate === 'wander_late')  return 290 + (slot * 11) % 180;
+    return 9999;
+  }
+
+  function makeSperm(i, W, H, att) {
+    const cols = 10;
+    const row = i % cols;
+    const col = Math.floor(i / cols);
+    const fate = getFate(i, att);
+    const dieStart = getDieStart(i, fate);
+    const baseY = H * (0.03 + (row / (cols - 1)) * 0.94);
+    const speed  = 0.38 + (((i * 7 + 3) % 17) / 17) * 0.32;
+    const wobble = (((i * 13 + 5) % 20) / 20 - 0.5) * 0.06;
+    const drift  = (((i * 11 + 7) % 20) / 20 - 0.5) * 0.18;
+    return {
+      x: W + 30 + col * 14,
+      y: baseY,
+      angle: Math.PI,
+      speed, wobble, drift,
+      won: false, reached: false,
+      alpha: 1,
+      fate,
+      status: 'alive',
+      showX: false, xScale: 0,
+      dieStart,
+      wanderStart: dieStart,
+      startDelay: (col * 3) + (i % 20),
+      tailPhase: (i * 0.41) % (Math.PI * 2),
+      isWanderer: fate.startsWith('wander'),
+      isDier: fate.startsWith('die'),
+      isWinner: fate === 'winner'
+    };
+  }
+
+  function resetRound(att) {
+    const { W, H } = env;
+    spermData.length = 0;
+    fusionT = 0; flashAlpha = 0; spermWin = null; swimT = 0; fusionFrame = -1;
+    fertState = 'swimming';
+    for (let i = 0; i < TOTAL; i++) spermData.push(makeSperm(i, W, H, att));
+    if (att === 3) {
+      const w = spermData[0];
+      w.speed = 1.1;
+      w.y = H * 0.5;
+      w.startDelay = 3;
+      w.wobble = 0;
+      w.drift = 0;
+    }
+  }
+
+  function initFert(canvas) {
+    const W = canvas.width, H = canvas.height;
+    const ox = W * 0.22, oy = H * 0.5, or_ = Math.min(W,H) * 0.18;
+    spermData.length = 0;
+    fusionT = 0; flashAlpha = 0; spermWin = null; swimT = 0; fusionFrame = -1;
+    fertState = 'paused'; attempt = 0;
+    for (let i = 0; i < TOTAL; i++) spermData.push(makeSperm(i, W, H, 1));
+    return { W, H, ox, oy, or: or_ };
+  }
+
+  function handleOvumClick(cx, cy, ox, oy, or_) {
+    if (Math.hypot(cx - ox, cy - oy) > or_ * 1.4) return;
+    if (fertState === 'swimming' || fertState === 'entering') return;
+    if (attempt < 3) { attempt++; resetRound(attempt); }
+  }
+
+  function markDying(s) {
+    if (s.status === 'dying' || s.status === 'dead') return;
+    s.status = 'dying'; s.showX = true; s.speed *= 0.22;
+  }
+  function markDead(s) {
+    s.status = 'dead'; s.showX = true; s.xScale = Math.max(s.xScale, 1);
+  }
+
+  function drawDeathX(ctx, s) {
+    if (!s.showX) return;
+    if (s.xScale < 1) s.xScale = Math.min(1, s.xScale + 0.08);
+    ctx.save();
+    ctx.globalAlpha = s.status === 'dead' ? Math.min(0.92, s.xScale) : Math.min(0.9, 1.1 - s.alpha);
+    ctx.translate(s.x, s.y - 10);
+    const sz = 8 * s.xScale;
+    ctx.strokeStyle = '#e53935'; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(-sz,-sz); ctx.lineTo(sz,sz);
+    ctx.moveTo(sz,-sz); ctx.lineTo(-sz,sz); ctx.stroke();
+    ctx.beginPath(); ctx.arc(0,0,sz+3,0,Math.PI*2);
+    ctx.strokeStyle='rgba(229,57,53,.22)'; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawSperm(ctx, s, t) {
+    const isDead = s.status==='dead', isDying = s.status==='dying';
+    if (s.alpha<=0.02 && !isDying && !isDead) return;
+    ctx.save();
+    ctx.globalAlpha = isDying ? Math.max(0.12, s.alpha) : (isDead ? 0 : s.alpha);
+    if (!isDead) {
+      ctx.translate(s.x, s.y); ctx.rotate(s.angle);
+      const tailAmp = isDying ? 0.25 : 1;
+      ctx.beginPath(); ctx.ellipse(0,0,7,4,0,0,Math.PI*2);
+      ctx.fillStyle = s.won ? '#FFD700' : isDying ? '#9ca3af' : '#5B4FCF'; ctx.fill();
+      ctx.strokeStyle = s.won ? 'rgba(200,150,0,.6)' : isDying ? 'rgba(120,120,120,.4)' : 'rgba(91,79,207,.4)';
+      ctx.lineWidth=1; ctx.stroke();
+      ctx.beginPath();
+      for (let k=0;k<=28;k++){
+        const tx=-7-k*1.05, ty=Math.sin(k*0.38+s.tailPhase+t*0.14)*(3+k*0.08)*tailAmp;
+        k===0?ctx.moveTo(tx,ty):ctx.lineTo(tx,ty);
+      }
+      ctx.strokeStyle = s.won ? 'rgba(255,200,0,.75)' : isDying ? 'rgba(150,150,150,.35)' : 'rgba(91,79,207,.52)';
+      ctx.lineWidth=1.8; ctx.stroke();
+    }
+    ctx.restore();
+    if (isDying||isDead) drawDeathX(ctx, s);
+  }
+
+  function drawOvum(ctx, ox, oy, or_, t) {
+    const gl=ctx.createRadialGradient(ox,oy,0,ox,oy,or_*2.2);
+    gl.addColorStop(0,'rgba(255,220,140,.35)'); gl.addColorStop(1,'rgba(255,200,100,0)');
+    ctx.fillStyle=gl; ctx.beginPath(); ctx.arc(ox,oy,or_*2.2,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(ox,oy,or_*1.2,0,Math.PI*2);
+    ctx.strokeStyle='rgba(255,180,200,.55)'; ctx.setLineDash([8,5]); ctx.lineWidth=2.5; ctx.stroke(); ctx.setLineDash([]);
+    const ov=ctx.createRadialGradient(ox-or_*.28,oy-or_*.22,or_*.08,ox,oy,or_);
+    ov.addColorStop(0,'#FFF8E0'); ov.addColorStop(.55,'#FFD580'); ov.addColorStop(1,'#FFB347');
+    ctx.beginPath(); ctx.arc(ox,oy,or_,0,Math.PI*2); ctx.fillStyle=ov; ctx.fill();
+    ctx.strokeStyle='#FF8C69'; ctx.lineWidth=3; ctx.stroke();
+    ctx.beginPath(); ctx.arc(ox,oy,or_*.38,0,Math.PI*2); ctx.fillStyle='rgba(255,200,100,.7)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(ox-or_*.3,oy-or_*.3,or_*.18,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,.55)'; ctx.fill();
+  }
+
+  function updateSperm(s, idx, ox, oy, or_, t, W, H) {
+    if (s.status==='dead') return;
+    if (swimT < s.startDelay) { s.tailPhase+=0.06; return; }
+    s.tailPhase += s.status==='dying' ? 0.04 : 0.15;
+
+    if (s.status==='dying') {
+      s.alpha -= 0.007; s.angle+=s.drift*0.35;
+      s.x+=Math.cos(s.angle)*s.speed*0.5; s.y+=Math.sin(s.angle)*s.speed*0.5+0.06;
+      if (s.alpha<=0.04) markDead(s);
+      return;
+    }
+
+    if (s.reached) return;
+
+    const ta = Math.atan2(oy-s.y, ox-s.x);
+    const steerBase = s.isWinner ? 0.12 : 0.018;
+    let steer = steerBase, wobbleMul = 1;
+
+    if (s.isWanderer && swimT > s.wanderStart) {
+      steer = 0.003; wobbleMul = 3.2;
+      s.angle += s.drift * 1.2 + 0.025 * Math.sin(t*0.04 + idx*0.85);
+      const distToOvum = Math.hypot(ox-s.x, oy-s.y);
+      if (swimT > s.wanderStart + 200 || distToOvum > Math.max(W,H)*0.72) { markDying(s); return; }
+    }
+
+    if (s.isDier && swimT > s.dieStart) { markDying(s); return; }
+
+    s.angle += (ta - s.angle)*steer + s.wobble*wobbleMul*Math.sin(t*0.055+idx*1.25);
+    s.x += Math.cos(s.angle)*s.speed;
+    s.y += Math.sin(s.angle)*s.speed;
+
+    if (!s.isWinner && (s.x<-60||s.y<-40||s.y>H+40||s.x>W+80)) { markDying(s); return; }
+
+    const dist = Math.hypot(ox-s.x, oy-s.y);
+    if (dist < or_+5) {
+      s.reached = true;
+      if (s.isWinner && !spermWin) {
+        spermWin = s; s.won = true; fertState = 'entering'; flashAlpha = 1; fusionFrame = swimT;
+        let slot = 0;
+        spermData.forEach(other => {
+          if (other===s || other.status!=='alive' || other.reached) return;
+          other.dieStart = swimT + 8 + slot * 2;
+          other.isDier = true; other.isWanderer = false;
+          slot++;
+        });
+      } else {
+        markDying(s);
+      }
+    }
+  }
+
+  function fertTick(ctx, env_, t) {
+    const { W, H, ox, oy, or: or_ } = env_;
+    ctx.clearRect(0,0,W,H);
+    const bg=ctx.createLinearGradient(0,0,W,H);
+    bg.addColorStop(0,'#f3e5ff'); bg.addColorStop(1,'#e8f5e9');
+    ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+
+    if (fertState==='paused') {
+      ctx.fillStyle='rgba(91,79,207,.85)';
+      ctx.font=`bold ${Math.round(H*.065)}px Nunito,sans-serif`;
+      ctx.textAlign='left';
+      ctx.fillText('La', W*.55, H*.38);
+      ctx.fillStyle='#FF8C69';
+      ctx.font=`bold ${Math.round(H*.1)}px Nunito,sans-serif`;
+      ctx.fillText('Fecundación', W*.55, H*.55);
+      ctx.fillStyle='rgba(91,79,207,.4)';
+      ctx.font=`600 ${Math.round(H*.038)}px Poppins,sans-serif`;
+      ctx.fillText('El momento del origen', W*.55, H*.68);
+    }
+
+    drawOvum(ctx, ox, oy, or_, t);
+
+    if (flashAlpha>0) {
+      ctx.beginPath(); ctx.arc(ox,oy,or_*(1.6+(1-flashAlpha)*1.2),0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,230,80,${flashAlpha*.65})`; ctx.fill();
+      flashAlpha -= 0.010;
+    }
+
+    if (fertState==='paused') {
+      spermData.forEach(s=>{ s.tailPhase+=0.06; drawSperm(ctx,s,t); });
+
+    } else if (fertState==='swimming' || fertState==='entering') {
+      swimT++;
+      const cleanupActive = fusionFrame>0 && swimT>fusionFrame+300;
+      spermData.forEach((s,i)=>{
+        if (cleanupActive) {
+          if (s.status==='dead')  { s.xScale=Math.max(0,s.xScale-0.015); return; }
+          if (s.status==='dying') { s.alpha-=0.02; if(s.alpha<=0) markDead(s); return; }
+          if (s.status==='alive'&&!s.reached&&!s.won) { markDying(s); return; }
+        }
+        if (s.status==='alive'&&s.isDier&&swimT>s.dieStart&&!s.reached) markDying(s);
+        updateSperm(s,i,ox,oy,or_,t,W,H);
+        if (fertState==='entering'&&s.won) {
+          s.x+=(ox-s.x)*0.03; s.y+=(oy-s.y)*0.03;
+          fusionT+=0.010; if(fusionT>1) fertState='fused';
+        }
+        drawSperm(ctx,s,t);
+      });
+
+      if (attempt<3 && fertState==='swimming' && swimT>100) {
+        const anyActive = spermData.some(s=>s.status==='alive'||s.status==='dying');
+        if (!anyActive) fertState='allDead';
+      }
+
+      ctx.fillStyle='rgba(91,79,207,.75)';
+      ctx.font=`bold ${Math.round(H*.04)}px Nunito,sans-serif`;
+      ctx.textAlign='center';
+      ctx.fillText(fertState==='entering'?'¡Fecundación!':'~300 millones en carrera...', W*.65, H-110);
+
+    } else if (fertState==='fused') {
+      swimT++;
+      const cleanupActive = fusionFrame>0 && swimT>fusionFrame+300;
+      spermData.forEach(s=>{
+        if (cleanupActive) {
+          if (s.status==='dead')  { s.xScale=Math.max(0,s.xScale-0.015); return; }
+          if (s.status==='dying') { s.alpha-=0.02; if(s.alpha<=0.01) markDead(s); return; }
+          if (s.status==='alive'&&!s.reached&&!s.won) { markDying(s); return; }
+        }
+        if (s.status==='alive'&&s.isDier&&swimT>s.dieStart&&!s.reached) markDying(s);
+        if (s.status==='dying') {
+          s.alpha-=0.007; s.angle+=s.drift*0.3;
+          s.x+=Math.cos(s.angle)*s.speed*0.4; s.y+=Math.sin(s.angle)*s.speed*0.4;
+          if(s.alpha<=0.04) markDead(s);
+        }
+        drawSperm(ctx,s,frameT);
+      });
+      const pulse=0.6+Math.sin(t*0.06)*0.3;
+      ctx.beginPath(); ctx.arc(ox,oy,or_*.22,0,Math.PI*2);
+      ctx.fillStyle=`rgba(100,80,220,${pulse})`; ctx.fill();
+
+      const msg='¡Cigoto formado! 🎉';
+      const fs=Math.round(H*.045);
+      ctx.font=`bold ${fs}px Nunito,sans-serif`;
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      const tw=ctx.measureText(msg).width, px2=28, py2=13;
+      const rw=tw+px2*2, rh=fs+py2*2, rx=W/2-rw/2, ry=H-110-rh/2, r2=rh/2;
+      ctx.beginPath();
+      ctx.moveTo(rx+r2,ry); ctx.lineTo(rx+rw-r2,ry);
+      ctx.arc(rx+rw-r2,ry+r2,r2,-Math.PI/2,Math.PI/2);
+      ctx.lineTo(rx+r2,ry+rh); ctx.arc(rx+r2,ry+r2,r2,Math.PI/2,-Math.PI/2);
+      ctx.closePath(); ctx.fillStyle='rgba(255,175,40,.96)'; ctx.fill();
+      ctx.fillStyle='#fff'; ctx.fillText(msg,W/2,ry+rh/2);
+      ctx.textBaseline='alphabetic';
+
+    } else if (fertState==='allDead') {
+      swimT++;
+      const fade = swimT > 80;
+      spermData.forEach(s=>{
+        if (fade && s.status==='dead') s.xScale=Math.max(0,s.xScale-0.01);
+        drawSperm(ctx,s,t);
+      });
+    }
+  }
+
+  function startFert() {
+    const canvas=document.getElementById('fertCanvas');
+    if (!canvas) return;
+    canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+    const ctx=canvas.getContext('2d');
+    env=initFert(canvas); frameT=0;
+    if (fertAnim) cancelAnimationFrame(fertAnim);
+    canvas.addEventListener('click', e=>{
+      if (!env) return;
+      const rect=canvas.getBoundingClientRect();
+      const cx=(e.clientX-rect.left)*(canvas.width/rect.width);
+      const cy=(e.clientY-rect.top)*(canvas.height/rect.height);
+      handleOvumClick(cx,cy,env.ox,env.oy,env.or);
+    });
+    function loop(){ fertTick(ctx,env,frameT++); fertAnim=requestAnimationFrame(loop); }
+    loop();
+  }
+
+  function triggerFert() {
+    if (attempt>0) return;
+    attempt=1; resetRound(1);
+  }
+
+  window._startFert   = startFert;
+  window._stopFert    = ()=>{ if(fertAnim){ cancelAnimationFrame(fertAnim); fertAnim=null; } };
+  window._triggerFert = triggerFert;
+})();
+
+/* ══════════════════════════════════════
+   DNA HELIX (Slide 3 — Cigoto)
+══════════════════════════════════════ */
+(function(){
+  let dnaAnim=null;
+  function startDNA(){
+    const canvas=document.getElementById('dnaCanvas'); if(!canvas)return;
+    const ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height, cx=W/2, cy=H/2;
+    let t=0; if(dnaAnim)cancelAnimationFrame(dnaAnim);
+    function tick(){
+      ctx.clearRect(0,0,W,H);
+      const pulse=1+Math.sin(t*.04)*.02, r=(W/2-8)*pulse;
+      const bg=ctx.createRadialGradient(cx-15,cy-15,5,cx,cy,r);
+      bg.addColorStop(0,'#FFF9E6'); bg.addColorStop(.7,'#FFE88A'); bg.addColorStop(1,'#FFB347');
+      ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle=bg; ctx.fill();
+      ctx.strokeStyle='#FF8C69'; ctx.lineWidth=3; ctx.stroke();
+      const helixH=70,helixW=18,steps=60,startY=cy-helixH/2;
+      const sA=[],sB=[];
+      for(let i=0;i<=steps;i++){
+        const prog=i/steps, y=startY+prog*helixH, ph=prog*Math.PI*4+t*.06;
+        sA.push({x:cx+Math.cos(ph)*helixW,y,z:Math.sin(ph)});
+        sB.push({x:cx+Math.cos(ph+Math.PI)*helixW,y,z:Math.sin(ph+Math.PI)});
+      }
+      for(let i=0;i<=steps;i+=5){
+        const a=sA[i],b=sB[i],dep=(a.z+1)/2;
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle=`rgba(91,79,207,${.15+dep*.4})`; ctx.lineWidth=1.5; ctx.stroke();
+        ctx.beginPath(); ctx.arc((a.x+b.x)/2,(a.y+b.y)/2,2,0,Math.PI*2);
+        ctx.fillStyle=dep>.5?'#B5EAD7':'#FFD966'; ctx.fill();
+      }
+      [sA,sB].forEach((strand,si)=>{
+        ctx.beginPath(); strand.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
+        ctx.strokeStyle=si===0?'#5B4FCF':'#FF8C69'; ctx.lineWidth=2.5; ctx.stroke();
+      });
+      [...sA,...sB].forEach((p,i)=>{
+        if(i%8!==0)return;
+        ctx.beginPath(); ctx.arc(p.x,p.y,3,0,Math.PI*2);
+        ctx.fillStyle=i<sA.length?'#5B4FCF':'#FF8C69'; ctx.fill();
+      });
+      ctx.beginPath(); ctx.arc(cx-r*.32,cy-r*.32,r*.18,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,.55)'; ctx.fill();
+      t++; dnaAnim=requestAnimationFrame(tick);
+    } tick();
+  }
+  window._startDNA=startDNA;
+  window._stopDNA=()=>{if(dnaAnim){cancelAnimationFrame(dnaAnim);dnaAnim=null;}};
+})();
+
+updateUI();
+</script>
+</body>
+</html>
