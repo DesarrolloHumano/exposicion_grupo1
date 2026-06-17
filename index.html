@@ -215,7 +215,7 @@
   .tl-name { font-family:'Nunito',sans-serif; font-size:clamp(.85rem,1.8vw,1.1rem); font-weight:900; color:var(--violet); margin-bottom:.15rem; }
   .tl-dur  { font-size:clamp(.65rem,1.3vw,.8rem); font-weight:600; color:var(--coral); letter-spacing:.03em; margin-bottom:.4rem; }
   .tl-desc {
-    font-size:clamp(.65rem,1.2vw,.78rem); color:#666; line-height:1.5;
+    font-size:clamp(.9rem,1.8vw,.78rem); color:#666; line-height:1.5;
     background:rgba(255,255,255,.75); backdrop-filter:blur(6px);
     border-radius:14px; padding:.6rem .8rem;
     border:1.5px solid rgba(255,255,255,.9);
@@ -401,6 +401,75 @@
     .kb-hint{display:none;}
   }
 
+  /* ── CIGOTO & GENÉTICA SLIDE ── */
+  .cigoto-layout {
+    display:flex; align-items:flex-start; gap:1.8rem;
+    width:100%; max-width:820px; margin-top:.3rem;
+  }
+  .cigoto-left {
+    display:flex; flex-direction:column; align-items:center;
+    flex-shrink:0;
+  }
+  .cigoto-right {
+    flex:1; display:flex; flex-direction:column; gap:.65rem; min-width:0;
+  }
+  .gcard-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:.55rem;
+  }
+  .gcard {
+    display:flex; align-items:center; gap:.55rem;
+    background:rgba(255,255,255,.78); backdrop-filter:blur(8px);
+    border:2px solid rgba(255,255,255,.9);
+    border-radius:16px; padding:.65rem .9rem;
+    cursor:pointer; text-align:left;
+    transition:transform .2s, box-shadow .2s, background .2s, border-color .2s;
+    font-family:'Nunito',sans-serif;
+  }
+  .gcard:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(91,79,207,.15); background:rgba(255,255,255,.95); }
+  .gcard.active { border-color:var(--violet); background:#fff; box-shadow:0 8px 28px rgba(91,79,207,.22); }
+  .gcard-icon  { font-size:clamp(1.3rem,2.5vw,1.7rem); flex-shrink:0; }
+  .gcard-label { font-size:clamp(.72rem,1.4vw,.88rem); font-weight:800; color:var(--violet); line-height:1.25; }
+
+  .gcard-panel {
+    background:rgba(255,255,255,.88); backdrop-filter:blur(12px);
+    border-radius:18px; padding:1.5rem 2rem; min-height:90px;
+    display:flex; align-items:center;
+    position:relative;
+    border: 2px solid rgba(255,255,255,.4);
+    box-shadow: 0 4px 18px rgba(91,79,207,.1);
+    transition: box-shadow .4s ease;
+  }
+  .gcard-panel.has-content {
+    border-color: transparent;
+    box-shadow: 0 8px 28px rgba(91,79,207,.18);
+  }
+  /* SVG DNA frame sits as ::before — injected via JS */
+  .gcard-panel svg.dna-frame {
+    position:absolute; inset:0; width:100%; height:100%;
+    border-radius:18px; pointer-events:none;
+    opacity:1; transition: opacity .45s ease;
+  }
+
+  .gcard-panel-text {
+    font-family:'Nunito',sans-serif;
+    font-size:clamp(.95rem,1.9vw,1.12rem);
+    font-weight:600; color:#444; line-height:1.65;
+    text-align:left; margin:0; width:100%;
+    position:relative; z-index:1;
+  }
+  .gcard-panel-title {
+    font-family:'Nunito',sans-serif;
+    font-size:clamp(1rem,2vw,1.22rem);
+    font-weight:900; color:var(--violet);
+    display:block; margin-bottom:.3rem;
+  }
+
+  @media(max-width:600px){
+    .cigoto-layout { flex-direction:column; align-items:center; }
+    .cigoto-left   { flex-direction:row; gap:1rem; flex-wrap:wrap; justify-content:center; }
+    .gcard-grid    { grid-template-columns:1fr 1fr; }
+  }
+
   /* Compact two-column layout for merged slide 7 */
   .two-col {
     display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;
@@ -458,7 +527,7 @@
         <div class="stat-label">Célula origen</div>
       </div>
       <div class="stat-box stat-hidden" id="stat1" style="animation-delay:.15s">
-        <div class="stat-num stat-reveal" data-target="37"><span class="count-num">?</span><span style="font-size:.5em">B</span></div>
+        <div class="stat-num stat-reveal" data-target="37"><span class="count-num">?</span><span style="font-size:.5em">Billones</span></div>
         <div class="stat-label">Células al nacer</div>
       </div>
       <div class="stat-box stat-hidden" id="stat2" style="animation-delay:.3s">
@@ -478,15 +547,15 @@
       ¿Sabías estos datos? → Revelar
     </button>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.8rem;">
-      <span class="pill">📚 Diane E. Papalia</span>
-      <span class="pill">✍️ Gabriela Martorell</span>
+      <span class="pill">. </span>
+      
     </div>
   </div>
 
   <!-- SLIDE 1: QUÉ ES LA ETAPA PRENATAL -->
   <div class="slide s1" data-index="1">
     <div class="hero-emoji" style="font-size:clamp(3.5rem,8vw,6rem);">🌱</div>
-    <div class="slide-eyebrow">Concepto base</div>
+    <!-- <div class="slide-eyebrow">Concepto base</div>-->
     <h1 class="slide-title">¿Qué es la etapa<br><span>prenatal?</span></h1>
     <div class="divider"></div>
     <p class="slide-sub">Proceso que va desde la <strong>fecundación</strong> hasta el <strong>nacimiento</strong>.<br>Aquí se forman todas las estructuras básicas del organismo.</p>
@@ -503,34 +572,41 @@
   </div>
 
   <!-- SLIDE 3: CIGOTO + GENÉTICA (fusión de antiguas slides 3 y 4) -->
-  <div class="slide s3" data-index="3">
+  <div class="slide s3" data-index="3" style="justify-content:center;padding:1.2rem 2rem 5rem;" id="slide3wrap">
     <div class="slide-eyebrow">Primera célula & Herencia</div>
-    <h1 class="slide-title">Cigoto &<br><span>Genética</span></h1>
-    <canvas id="dnaCanvas" width="180" height="180" style="border-radius:50%;background:rgba(255,255,255,.4);backdrop-filter:blur(8px);border:3px solid rgba(255,200,100,.5);box-shadow:0 8px 32px rgba(255,150,50,.2);margin:.2rem 0;max-width:38vw;max-height:38vw;"></canvas>
-    <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-bottom:.3rem;">
-      <span class="author-badge">🔬 Mendel</span>
-      <span class="author-badge">🧪 Watson & Crick</span>
-    </div>
-    <div class="cards" style="margin-top:.3rem;">
-      <div class="card" onclick="toggleCard(this)">
-        <div class="card-icon">🔵</div>
-        <div class="card-label">¿Qué es el cigoto?</div>
-        <div class="card-detail">Célula única resultado de la fusión del espermatozoide y el óvulo. Contiene toda la información genética del nuevo ser.</div>
+    <h1 class="slide-title" style="margin-bottom:.4rem;">Cigoto & <span>Genética</span></h1>
+    <div class="cigoto-layout">
+      <!-- columna izquierda: DNA canvas + badges -->
+      <div class="cigoto-left">
+        <canvas id="dnaCanvas" width="160" height="160" style="border-radius:50%;background:rgba(255,255,255,.4);backdrop-filter:blur(8px);border:3px solid rgba(255,200,100,.5);box-shadow:0 8px 32px rgba(255,150,50,.2);max-width:min(160px,30vw);max-height:min(160px,30vw);"></canvas>
+        <div style="display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;margin-top:.5rem;">
+          <span class="author-badge" style="font-size:.75rem;padding:.35rem .85rem;">🔬 Mendel</span>
+          <span class="author-badge" style="font-size:.75rem;padding:.35rem .85rem;">🧪 Watson & Crick</span>
+        </div>
       </div>
-      <div class="card" onclick="toggleCard(this)">
-        <div class="card-icon">🧬</div>
-        <div class="card-label">46 cromosomas</div>
-        <div class="card-detail">23 del padre + 23 de la madre = 46 cromosomas. Watson y Crick describieron la doble hélice del ADN en 1953.</div>
-      </div>
-      <div class="card" onclick="toggleCard(this)">
-        <div class="card-icon">⚧️</div>
-        <div class="card-label">Sexo & rasgos</div>
-        <div class="card-detail">XX para mujer, XY para varón. Los genes dominantes se expresan con uno solo; los recesivos necesitan ambas copias.</div>
-      </div>
-      <div class="card" onclick="toggleCard(this)">
-        <div class="card-icon">🏥</div>
-        <div class="card-label">Enfermedades hereditarias</div>
-        <div class="card-detail">Riesgo de ciertas enfermedades codificado en el ADN y calculable con la genética de Mendel.</div>
+      <!-- columna derecha: tarjetas tipo botón + panel de detalle -->
+      <div class="cigoto-right">
+        <div class="gcard-grid">
+          <button class="gcard" onclick="showGCard(this,0)">
+            <span class="gcard-icon">🔵</span>
+            <span class="gcard-label">¿Qué es el cigoto?</span>
+          </button>
+          <button class="gcard" onclick="showGCard(this,1)">
+            <span class="gcard-icon">🧬</span>
+            <span class="gcard-label">46 cromosomas</span>
+          </button>
+          <button class="gcard" onclick="showGCard(this,2)">
+            <span class="gcard-icon">⚧️</span>
+            <span class="gcard-label">Sexo & rasgos</span>
+          </button>
+          <button class="gcard" onclick="showGCard(this,3)">
+            <span class="gcard-icon">🏥</span>
+            <span class="gcard-label">Enfermedades hereditarias</span>
+          </button>
+        </div>
+        <div class="gcard-panel" id="gcardPanel">
+          <p class="gcard-panel-text" id="gcardText"></p>
+        </div>
       </div>
     </div>
   </div>
@@ -567,7 +643,7 @@
         <div class="tl-desc">Crecimiento acelerado · Sentidos (oye, ve, siente) · Movimientos · Millones de neuronas · Apariencia humana reconocible</div>
       </div>
     </div>
-    <p class="tl-hint" style="margin-top:.8rem;">Toca cada etapa para ver detalles</p>
+    <p class="tl-hint" style="margin-top:.8rem;"></p>
   </div>
 
   <!-- SLIDE 5: PRINCIPIOS DEL DESARROLLO -->
@@ -590,42 +666,108 @@
   </div>
 
   <!-- SLIDE 6: TERATÓGENOS -->
-  <div class="slide s6" data-index="6">
-    <div class="hero-emoji" style="font-size:clamp(3rem,7vw,5.5rem);">⚠️</div>
+  <div class="slide s6" data-index="6" style="justify-content:center;padding:1.2rem 2rem 5rem;">
     <div class="slide-eyebrow">Riesgos</div>
-    <h1 class="slide-title"><span>Teratógenos</span><br>& Sustancias</h1>
-    <div class="divider"></div>
-    <div class="cards">
-      <div class="card" onclick="toggleCard(this)"><div class="card-icon">🍺</div><div class="card-label">Alcohol</div><div class="card-detail">Uno de los teratógenos más dañinos. No existe dosis segura en el embarazo.</div></div>
-      <div class="card" onclick="toggleCard(this)"><div class="card-icon">🚬</div><div class="card-label">Tabaco</div><div class="card-detail">Reduce oxígeno fetal, causa bajo peso y parto prematuro.</div></div>
-      <div class="card" onclick="toggleCard(this)"><div class="card-icon">💊</div><div class="card-label">Drogas</div><div class="card-detail">Opioides, cocaína, marihuana: generan síndrome de abstinencia neonatal.</div></div>
-      <div class="card" onclick="toggleCard(this)"><div class="card-icon">☢️</div><div class="card-label">Radiación</div><div class="card-detail">Exposición en momentos clave puede alterar el desarrollo celular.</div></div>
-    </div>
-    <div class="warning-box" style="margin-top:.8rem;">
-      <p>⏰ El daño depende del <strong>momento de exposición</strong>, duración, cantidad y vulnerabilidad genética.</p>
+    <h1 class="slide-title" style="margin-bottom:.4rem;"><span>Teratógenos</span> & Sustancias</h1>
+    <div class="cigoto-layout">
+      <!-- columna izquierda: icono animado + badge de advertencia -->
+      <div class="cigoto-left">
+        <div id="teraViz" style="
+          width:min(160px,30vw); height:min(160px,30vw);
+          border-radius:50%;
+          background:linear-gradient(135deg,#fff3e0,#fce4ec);
+          border:3px solid rgba(255,140,105,.45);
+          box-shadow:0 8px 32px rgba(255,100,60,.18);
+          display:flex; align-items:center; justify-content:center;
+          font-size:clamp(4rem,8vw,5.5rem);
+          animation:float 3s ease-in-out infinite;
+          flex-shrink:0;
+        ">⚠️</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;margin-top:.5rem;">
+          <span class="author-badge" style="font-size:.75rem;padding:.35rem .85rem;border-color:rgba(255,100,60,.2);color:var(--coral);">⏰ Momento clave</span>
+          <span class="author-badge" style="font-size:.75rem;padding:.35rem .85rem;border-color:rgba(255,100,60,.2);color:var(--coral);">🧬 Vulnerabilidad genética</span>
+        </div>
+      </div>
+      <!-- columna derecha: botones + panel de detalle -->
+      <div class="cigoto-right">
+        <div class="gcard-grid">
+          <button class="gcard" onclick="showTCard(this,0)">
+            <span class="gcard-icon">🍺</span>
+            <span class="gcard-label">Alcohol</span>
+          </button>
+          <button class="gcard" onclick="showTCard(this,1)">
+            <span class="gcard-icon">🚬</span>
+            <span class="gcard-label">Tabaco</span>
+          </button>
+          <button class="gcard" onclick="showTCard(this,2)">
+            <span class="gcard-icon">💊</span>
+            <span class="gcard-label">Drogas</span>
+          </button>
+          <button class="gcard" onclick="showTCard(this,3)">
+            <span class="gcard-icon">☢️</span>
+            <span class="gcard-label">Radiación & otros</span>
+          </button>
+        </div>
+        <div class="gcard-panel" id="tcardPanel">
+          <p class="gcard-panel-text" id="tcardText"></p>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- SLIDE 7: NUTRICIÓN, EPIGENÉTICA & CEREBRO (fusión slides 11+12) -->
-  <div class="slide s7" data-index="7">
+  <div class="slide s7" data-index="7" style="justify-content:center;padding:1.2rem 2rem 5rem;">
     <div class="slide-eyebrow">Influencias externas & Cerebro fetal</div>
-    <h1 class="slide-title">Nutrición, Epigenética<br>& <span>Cerebro fetal</span></h1>
-    <div class="divider"></div>
-    <div class="two-col">
-      <div class="two-col-section">
-        <h3>🥗 Nutrición & Epigenética</h3>
-        <div class="cards" style="margin-top:.4rem;">
-          <div class="card" onclick="toggleCard(this)"><div class="card-icon">🍎</div><div class="card-label">Nutrición materna</div><div class="card-detail">Dieta deficiente → bajo peso, problemas neurológicos y retraso del crecimiento.</div></div>
-          <div class="card" onclick="toggleCard(this)"><div class="card-icon">🧬</div><div class="card-label">Epigenética</div><div class="card-detail">El ambiente modifica cómo se expresan los genes, sin cambiar el ADN.</div></div>
-          <div class="card" onclick="toggleCard(this)"><div class="card-icon">😰</div><div class="card-label">Estrés materno</div><div class="card-detail">El estrés puede alterar la expresión genética y el desarrollo fetal.</div></div>
+    <h1 class="slide-title" style="margin-bottom:.4rem;">Nutrición, Epigenética<br>& <span>Cerebro fetal</span></h1>
+    <div class="cigoto-layout">
+      <!-- columna izquierda: icono animado + badges -->
+      <div class="cigoto-left">
+        <div id="neuroViz" style="
+          width:min(160px,30vw); height:min(160px,30vw);
+          border-radius:50%;
+          background:linear-gradient(135deg,#e8f4fd,#f3e5ff);
+          border:3px solid rgba(91,79,207,.3);
+          box-shadow:0 8px 32px rgba(91,79,207,.18);
+          display:flex; align-items:center; justify-content:center;
+          font-size:clamp(4rem,8vw,5.5rem);
+          animation:float 3s ease-in-out infinite;
+          flex-shrink:0;
+        ">🧠</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;margin-top:.5rem;">
+          <span class="author-badge" style="font-size:.75rem;padding:.35rem .85rem;">🥗 Nutrición</span>
+          <span class="author-badge" style="font-size:.75rem;padding:.35rem .85rem;">🔬 Epigenética</span>
         </div>
       </div>
-      <div class="two-col-section">
-        <h3>🧠 Cerebro & Diagnóstico</h3>
-        <div class="cards" style="margin-top:.4rem;">
-          <div class="card" onclick="toggleCard(this)"><div class="card-icon">⚡</div><div class="card-label">Miles de millones</div><div class="card-detail">Se forman miles de millones de neuronas durante el período prenatal.</div></div>
-          <div class="card" onclick="toggleCard(this)"><div class="card-icon">🔊</div><div class="card-label">Ecografía</div><div class="card-detail">Principal método para visualizar y monitorear el desarrollo fetal.</div></div>
-          <div class="card" onclick="toggleCard(this)"><div class="card-icon">🧪</div><div class="card-label">Amniocentesis</div><div class="card-detail">Análisis del líquido amniótico para detectar anomalías cromosómicas.</div></div>
+      <!-- columna derecha: botones + panel de detalle -->
+      <div class="cigoto-right">
+        <div class="gcard-grid" style="grid-template-columns:1fr 1fr 1fr;">
+          <button class="gcard" onclick="showNCard(this,0)">
+            <span class="gcard-icon">🍎</span>
+            <span class="gcard-label">Nutrición materna</span>
+          </button>
+          <button class="gcard" onclick="showNCard(this,1)">
+            <span class="gcard-icon">🧬</span>
+            <span class="gcard-label">Epigenética</span>
+          </button>
+          <button class="gcard" onclick="showNCard(this,2)">
+            <span class="gcard-icon">😰</span>
+            <span class="gcard-label">Estrés materno</span>
+          </button>
+          <button class="gcard" onclick="showNCard(this,3)">
+            <span class="gcard-icon">⚡</span>
+            <span class="gcard-label">Cerebro fetal</span>
+          </button>
+          <button class="gcard" onclick="showNCard(this,4)">
+            <span class="gcard-icon">🔊</span>
+            <span class="gcard-label">Ecografía</span>
+          </button>
+          <button class="gcard" onclick="showNCard(this,5)">
+            <span class="gcard-icon">🧪</span>
+            <span class="gcard-label">Amniocentesis</span>
+          </button>
+        </div>
+        <div class="gcard-panel" id="ncardPanel">
+          <p class="gcard-panel-text" id="ncardText"></p>
         </div>
       </div>
     </div>
@@ -641,7 +783,7 @@
     <p class="slide-sub" style="color:rgba(255,255,255,.85);">Cada decisión durante el embarazo impacta la vida de un ser humano en formación.</p>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem;">
       <span class="pill" style="background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.3);">📚 Papalia 14ª ed.</span>
-      <span class="pill" style="background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.3);">🎓 Educación Primaria</span>
+      <span class="pill" style="background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.3);">🎓 Grupo 1</span>
     </div>
   </div>
 
@@ -655,6 +797,173 @@
 </div>
 
 <script>
+/* ── GCARD (Cigoto slide) ── */
+const gcardDetails = [
+  'Célula única resultado de la fusión del espermatozoide y el óvulo. Contiene toda la información genética del nuevo ser.',
+  '23 cromosomas del padre + 23 de la madre = 46 en total. Watson y Crick describieron la doble hélice del ADN en 1953.',
+  'El cromosoma Y del padre determina el sexo. XX → mujer, XY → varón. Genes dominantes se expresan con una sola copia; los recesivos necesitan ambas.',
+  'El riesgo de ciertas enfermedades está codificado en el ADN y puede calcularse con las leyes de la genética de Mendel.'
+];
+function buildDNAFrame() {
+  // Static SVG that looks like DNA strands wrapping around a rounded rectangle border
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('class', 'dna-frame');
+  svg.setAttribute('viewBox', '0 0 400 100');
+  svg.setAttribute('preserveAspectRatio', 'none');
+
+  // Number of "rungs" along each long edge
+  const rungs = 10;
+
+  // Draw two strands (top edge, bottom edge) as sine waves going opposite directions
+  for (let edge = 0; edge < 2; edge++) {
+    const baseY = edge === 0 ? 4 : 96;
+    const dir   = edge === 0 ? 1 : -1;
+    const colorA = '#5B4FCF'; // violet strand
+    const colorB = '#FF8C69'; // coral strand
+
+    // Strand A
+    let dA = `M 18 ${baseY}`;
+    // Strand B (offset half period)
+    let dB = `M 18 ${baseY}`;
+
+    for (let x = 18; x <= 382; x += 2) {
+      const prog = (x - 18) / (382 - 18);
+      const ampA =  dir * 4 * Math.sin(prog * Math.PI * 6);
+      const ampB = -dir * 4 * Math.sin(prog * Math.PI * 6);
+      dA += ` L ${x} ${baseY + ampA}`;
+      dB += ` L ${x} ${baseY + ampB}`;
+    }
+
+    const pA = document.createElementNS(ns, 'path');
+    pA.setAttribute('d', dA);
+    pA.setAttribute('stroke', colorA);
+    pA.setAttribute('stroke-width', '1');
+    pA.setAttribute('fill', 'none');
+    pA.setAttribute('opacity', '0.65');
+
+    const pB = document.createElementNS(ns, 'path');
+    pB.setAttribute('d', dB);
+    pB.setAttribute('stroke', colorB);
+    pB.setAttribute('stroke-width', '1');
+    pB.setAttribute('fill', 'none');
+    pB.setAttribute('opacity', '0.55');
+
+    svg.appendChild(pA);
+    svg.appendChild(pB);
+
+    // Rungs (base pairs) crossing between strands at crossover points
+    for (let r = 0; r <= rungs; r++) {
+      const x = 18 + (r / rungs) * (382 - 18);
+      const prog = (x - 18) / (382 - 18);
+      const yA =  baseY + dir * 4 * Math.sin(prog * Math.PI * 6);
+      const yB =  baseY - dir * 4 * Math.sin(prog * Math.PI * 6);
+      const line = document.createElementNS(ns, 'line');
+      line.setAttribute('x1', x); line.setAttribute('y1', yA);
+      line.setAttribute('x2', x); line.setAttribute('y2', yB);
+      line.setAttribute('stroke', 'rgba(91,79,207,0.3)');
+      line.setAttribute('stroke-width', '0.8');
+      svg.appendChild(line);
+
+      // Dot at center of rung
+      const dot = document.createElementNS(ns, 'circle');
+      dot.setAttribute('cx', x);
+      dot.setAttribute('cy', (yA + yB) / 2);
+      dot.setAttribute('r', '2.2');
+      dot.setAttribute('fill', r % 2 === 0 ? '#B5EAD7' : '#FFD966');
+      svg.appendChild(dot);
+    }
+  }
+
+  // Left & right short edges: simple vertical sine-style strands
+  for (let side = 0; side < 2; side++) {
+    const baseX = side === 0 ? 4 : 396;
+    const dir   = side === 0 ? 1 : -1;
+    const colorA = '#5B4FCF';
+    const colorB = '#FF8C69';
+    let dA = `M ${baseX} 12`;
+    let dB = `M ${baseX} 12`;
+    for (let y = 12; y <= 88; y += 2) {
+      const prog = (y - 12) / (88 - 12);
+      dA += ` L ${baseX + dir * 4 * Math.sin(prog * Math.PI * 4)} ${y}`;
+      dB += ` L ${baseX - dir * 4 * Math.sin(prog * Math.PI * 4)} ${y}`;
+    }
+    const pA = document.createElementNS(ns, 'path');
+    pA.setAttribute('d', dA); pA.setAttribute('stroke', colorA);
+    pA.setAttribute('stroke-width', '1'); pA.setAttribute('fill', 'none'); pA.setAttribute('opacity', '0.55');
+    const pB = document.createElementNS(ns, 'path');
+    pB.setAttribute('d', dB); pB.setAttribute('stroke', colorB);
+    pB.setAttribute('stroke-width', '1'); pB.setAttribute('fill', 'none'); pB.setAttribute('opacity', '0.45');
+    svg.appendChild(pA); svg.appendChild(pB);
+  }
+
+  return svg;
+}
+
+let dnaFrameBuilt = false;
+function initDNAFrame() {
+  const panel = document.getElementById('gcardPanel');
+  if (panel && !dnaFrameBuilt) {
+    panel.insertBefore(buildDNAFrame(), panel.firstChild);
+    dnaFrameBuilt = true;
+  }
+}
+function showGCard(btn, idx) {
+  document.querySelectorAll('#slide3wrap .gcard').forEach(b => b.classList.remove('active'));
+  // (scoped to slide 3 only)
+  btn.classList.add('active');
+  const panel = document.getElementById('gcardPanel');
+  const text  = document.getElementById('gcardText');
+  const icon  = btn.querySelector('.gcard-icon').textContent;
+  const label = btn.querySelector('.gcard-label').textContent;
+  text.innerHTML = `<span class="gcard-panel-title">${icon} ${label}</span>${gcardDetails[idx]}`;
+  if (!dnaFrameBuilt) {
+    panel.insertBefore(buildDNAFrame(), panel.firstChild);
+    dnaFrameBuilt = true;
+  }
+  panel.classList.add('has-content');
+}
+
+/* ── TCARD (Teratógenos slide) ── */
+const tcardDetails = [
+  'El alcohol es uno de los teratógenos más dañinos: no existe dosis segura durante el embarazo. Puede causar Síndrome Alcohólico Fetal (SAF), con daño cerebral, malformaciones físicas y retraso intelectual permanente.',
+  'El tabaco reduce el aporte de oxígeno al feto a través de la nicotina y el monóxido de carbono. Aumenta el riesgo de bajo peso al nacer, parto prematuro, aborto espontáneo y muerte súbita del lactante.',
+  'Opioides, cocaína y marihuana atraviesan la placenta. Generan síndrome de abstinencia neonatal, alteran el desarrollo neurológico y pueden provocar malformaciones, bajo peso y problemas de conducta a largo plazo.',
+  'La radiación ionizante (rayos X, radioterapia) en momentos críticos puede alterar la división celular y el ADN fetal. También se incluyen infecciones (rubéola, toxoplasmosis), contaminantes ambientales y ciertos medicamentos.'
+];
+function showTCard(btn, idx) {
+  const slide = btn.closest('.slide');
+  slide.querySelectorAll('.gcard').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const panel = document.getElementById('tcardPanel');
+  const text  = document.getElementById('tcardText');
+  const icon  = btn.querySelector('.gcard-icon').textContent;
+  const label = btn.querySelector('.gcard-label').textContent;
+  text.innerHTML = `<span class="gcard-panel-title">${icon} ${label}</span>${tcardDetails[idx]}`;
+  panel.classList.add('has-content');
+}
+
+/* ── NCARD (Nutrición, Epigenética & Cerebro slide) ── */
+const ncardDetails = [
+  'Una dieta deficiente durante el embarazo puede provocar bajo peso al nacer, problemas neurológicos y retraso del crecimiento. El ácido fólico es esencial para prevenir defectos del tubo neural desde las primeras semanas.',
+  'La epigenética estudia cómo el ambiente modifica la expresión de los genes sin cambiar la secuencia del ADN. La alimentación, el estrés y las toxinas pueden activar o silenciar genes, con efectos que pueden transmitirse a generaciones futuras.',
+  'El estrés materno eleva el cortisol, que puede atravesar la placenta y alterar el desarrollo cerebral fetal. Se asocia con mayor irritabilidad neonatal, problemas de atención y regulación emocional en etapas posteriores.',
+  'Durante el período prenatal se forman miles de millones de neuronas, alcanzando su pico máximo alrededor de la semana 28. Las conexiones sinápticas se potencian con estímulos externos como la voz materna y la música.',
+  'La ecografía es el principal método no invasivo para monitorear el desarrollo fetal. Permite detectar anomalías estructurales, verificar el crecimiento y confirmar la edad gestacional, con imágenes desde las 6–8 semanas.',
+  'La amniocentesis extrae líquido amniótico para analizar cromosomas fetales. Detecta anomalías como el síndrome de Down. Se realiza generalmente entre las semanas 15 y 20, con un mínimo riesgo de aborto espontáneo.'
+];
+function showNCard(btn, idx) {
+  const slide = btn.closest('.slide');
+  slide.querySelectorAll('.gcard').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const panel = document.getElementById('ncardPanel');
+  const text  = document.getElementById('ncardText');
+  const icon  = btn.querySelector('.gcard-icon').textContent;
+  const label = btn.querySelector('.gcard-label').textContent;
+  text.innerHTML = `<span class="gcard-panel-title">${icon} ${label}</span>${ncardDetails[idx]}`;
+  panel.classList.add('has-content');
+}
+
 /* ── BUBBLES ── */
 (function(){
   const canvas = document.getElementById('bubblesCanvas');
@@ -898,6 +1207,51 @@ function revealHeroStats() {
   let fusionFrame = -1;
   let attempt = 0;
 
+  // ── Confeti ──
+  const confettiPieces = [];
+  const CONFETTI_COLORS = ['#FF8C69','#FFD966','#B5EAD7','#7EC8E3','#FFB7C5','#C9B8FF','#FF6B9D','#FFF176'];
+  function initConfetti(W, H) {
+    confettiPieces.length = 0;
+    for (let i = 0; i < 180; i++) {
+      confettiPieces.push({
+        x: Math.random() * W,
+        y: -20 - Math.random() * H * 0.6,
+        w: 8 + Math.random() * 10,
+        h: 4 + Math.random() * 6,
+        color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+        speed: 2.5 + Math.random() * 3.5,
+        angle: Math.random() * Math.PI * 2,
+        spin: (Math.random() - 0.5) * 0.18,
+        wobble: (Math.random() - 0.5) * 1.2,
+        shape: Math.random() > 0.4 ? 'rect' : 'circle'
+      });
+    }
+  }
+  function drawConfetti(ctx, W, H) {
+    confettiPieces.forEach(p => {
+      p.y += p.speed;
+      p.x += p.wobble;
+      p.angle += p.spin;
+      if (p.y > H + 20) { p.y = -20; p.x = Math.random() * W; }
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = 0.88;
+      if (p.shape === 'circle') {
+        ctx.beginPath(); ctx.arc(0, 0, p.w/2, 0, Math.PI*2); ctx.fill();
+      } else {
+        ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      }
+      ctx.restore();
+    });
+  }
+  let confettiActive = false;
+  let confettiFrames = 0;
+  const CONFETTI_MAX_FRAMES = 180;
+  let fecundacionFrames = 0;
+  const FECUNDACION_MAX_FRAMES = 240; // ~4 segundos a 60fps
+
   function getFate(i, att) {
     if (att === 3 && i === 0) return 'winner';
     const idx = att === 3 ? i - 1 : i;
@@ -1112,19 +1466,122 @@ function revealHeroStats() {
     ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
 
     if (fertState==='paused') {
-      ctx.fillStyle='rgba(91,79,207,.85)';
-      ctx.font=`bold ${Math.round(H*.065)}px Nunito,sans-serif`;
-      ctx.textAlign='left';
-      ctx.fillText('La', W*.55, H*.38);
-      ctx.fillStyle='#FF8C69';
-      ctx.font=`bold ${Math.round(H*.1)}px Nunito,sans-serif`;
-      ctx.fillText('Fecundación', W*.55, H*.55);
-      ctx.fillStyle='rgba(91,79,207,.4)';
-      ctx.font=`600 ${Math.round(H*.038)}px Poppins,sans-serif`;
-      ctx.fillText('El momento del origen', W*.55, H*.68);
+
+      // ══ CUADRO CON MARCO DE CHUPONES ══
+      const bx = W * .48;
+      const by = H * .14;
+      const bw = W * .48;
+      const bh = H * .68;
+      const br = 22;
+
+      // Fondo del cuadro — blanco cremoso suave
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(bx+br, by);
+      ctx.lineTo(bx+bw-br, by); ctx.arc(bx+bw-br, by+br, br, -Math.PI/2, 0);
+      ctx.lineTo(bx+bw, by+bh-br); ctx.arc(bx+bw-br, by+bh-br, br, 0, Math.PI/2);
+      ctx.lineTo(bx+br, by+bh); ctx.arc(bx+br, by+bh-br, br, Math.PI/2, Math.PI);
+      ctx.lineTo(bx, by+br); ctx.arc(bx+br, by+br, br, Math.PI, -Math.PI/2);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(255,252,245,0.96)';
+      ctx.fill();
+      // Borde rosa suave
+      ctx.strokeStyle = '#FFB7C5';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      ctx.restore();
+
+      // ── Función para dibujar un chupón en canvas ──
+      function drawPacifier(cx, cy, size, angle) {
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(angle);
+        // Escudo
+        ctx.beginPath();
+        ctx.ellipse(0, 0, size*1.1, size*0.75, 0, 0, Math.PI*2);
+        ctx.fillStyle = '#FFB7C5';
+        ctx.fill();
+        ctx.strokeStyle = '#FF8FAB';
+        ctx.lineWidth = size * 0.12;
+        ctx.stroke();
+        // Tetina
+        ctx.beginPath();
+        ctx.ellipse(0, size*0.05, size*0.38, size*0.52, 0, 0, Math.PI*2);
+        ctx.fillStyle = '#FFF0F3';
+        ctx.fill();
+        ctx.strokeStyle = '#FFB7C5';
+        ctx.lineWidth = size * 0.1;
+        ctx.stroke();
+        // Argolla arriba
+        ctx.beginPath();
+        ctx.arc(0, -size*0.72, size*0.22, 0, Math.PI*2);
+        ctx.strokeStyle = '#FF8FAB';
+        ctx.lineWidth = size * 0.13;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Chupones en las 4 esquinas del cuadro
+      const ps = Math.round(H * .038);
+      drawPacifier(bx + 38,      by + 38,      ps,  Math.PI/5);
+      drawPacifier(bx + bw - 38, by + 38,      ps, -Math.PI/5);
+      drawPacifier(bx + 38,      by + bh - 38, ps, -Math.PI/6);
+      drawPacifier(bx + bw - 38, by + bh - 38, ps,  Math.PI/6);
+
+      // Chupones pequeños en los bordes laterales
+      const ps2 = Math.round(H * .026);
+      drawPacifier(bx + bw/2, by + 22,      ps2, 0);
+      drawPacifier(bx + bw/2, by + bh - 22, ps2, Math.PI);
+      drawPacifier(bx + 20,   by + bh/2,    ps2,  Math.PI/2);
+      drawPacifier(bx + bw - 20, by + bh/2, ps2, -Math.PI/2);
+
+      // ── Texto dentro del cuadro ──
+      const cx2 = bx + bw / 2;
+
+      // "La" — fino y pequeño
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.font = `300 ${Math.round(H * .038)}px Poppins,sans-serif`;
+      ctx.fillStyle = '#C9A0C0';
+      ctx.fillText('La', cx2, by + bh * .30);
+      ctx.restore();
+
+      // "Fecundación" — grande, violeta profundo, protagonista
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.font = `900 ${Math.round(H * .085)}px Nunito,sans-serif`;
+      ctx.fillStyle = '#5B4FCF';
+      ctx.fillText('Fecundación', cx2, by + bh * .52);
+      ctx.restore();
+
+      // Línea decorativa
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(bx + bw*.2, by + bh*.58);
+      ctx.lineTo(bx + bw*.8, by + bh*.58);
+      ctx.strokeStyle = '#FFB7C5';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.restore();
+
+      // Subtítulo poético — itálica, rosado suave
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.font = `400 italic ${Math.round(H * .026)}px Poppins,sans-serif`;
+      ctx.fillStyle = '#A07CB0';
+      ctx.fillText('el instante que te eligió a ti', cx2, by + bh * .72);
+      ctx.restore();
     }
 
     drawOvum(ctx, ox, oy, or_, t);
+
+    // ── Etiqueta "Óvulo" siempre visible ──
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.font = `700 ${Math.round(H * .028)}px Nunito,sans-serif`;
+    ctx.fillStyle = '#FF8C69';
+    ctx.fillText('Óvulo', ox, oy + or_ + Math.round(H * .06));
+    ctx.restore();
 
     if (flashAlpha>0) {
       ctx.beginPath(); ctx.arc(ox,oy,or_*(1.6+(1-flashAlpha)*1.2),0,Math.PI*2);
@@ -1148,7 +1605,7 @@ function revealHeroStats() {
         updateSperm(s,i,ox,oy,or_,t,W,H);
         if (fertState==='entering'&&s.won) {
           s.x+=(ox-s.x)*0.03; s.y+=(oy-s.y)*0.03;
-          fusionT+=0.010; if(fusionT>1) fertState='fused';
+          fusionT+=0.010; if(fusionT>1){ fertState='fused'; if(!confettiActive){ initConfetti(W,H); confettiActive=true; confettiFrames=0; } fecundacionFrames=0; }
         }
         drawSperm(ctx,s,t);
       });
@@ -1158,10 +1615,24 @@ function revealHeroStats() {
         if (!anyActive) fertState='allDead';
       }
 
-      ctx.fillStyle='rgba(91,79,207,.75)';
-      ctx.font=`bold ${Math.round(H*.04)}px Nunito,sans-serif`;
-      ctx.textAlign='center';
-      ctx.fillText(fertState==='entering'?'¡Fecundación!':'~300 millones en carrera...', W*.65, H-110);
+      if (fertState === 'entering') {
+        // ¡Fecundación! — misma posición que cigoto
+        const fs2 = Math.round(H * .10);
+        ctx.save();
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.font = `900 ${fs2}px Nunito,sans-serif`;
+        ctx.fillStyle = '#5B4FCF';
+        ctx.shadowColor = 'rgba(91,79,207,0.6)';
+        ctx.shadowBlur = 30;
+        ctx.fillText('  ', W * 0.58, H/2);
+        ctx.shadowBlur = 0; ctx.textBaseline = 'alphabetic';
+        ctx.restore();
+      } else {
+        ctx.fillStyle='rgba(91,79,207,.75)';
+        ctx.font=`bold ${Math.round(H*.04)}px Nunito,sans-serif`;
+        ctx.textAlign='center';
+        ctx.fillText('~300 millones de espermatozoide en carrera...', W*.65, H-110);
+      }
 
     } else if (fertState==='fused') {
       swimT++;
@@ -1184,19 +1655,43 @@ function revealHeroStats() {
       ctx.beginPath(); ctx.arc(ox,oy,or_*.22,0,Math.PI*2);
       ctx.fillStyle=`rgba(100,80,220,${pulse})`; ctx.fill();
 
-      const msg='¡Cigoto formado! 🎉';
-      const fs=Math.round(H*.045);
-      ctx.font=`bold ${fs}px Nunito,sans-serif`;
-      ctx.textAlign='center'; ctx.textBaseline='middle';
-      const tw=ctx.measureText(msg).width, px2=28, py2=13;
-      const rw=tw+px2*2, rh=fs+py2*2, rx=W/2-rw/2, ry=H-110-rh/2, r2=rh/2;
-      ctx.beginPath();
-      ctx.moveTo(rx+r2,ry); ctx.lineTo(rx+rw-r2,ry);
-      ctx.arc(rx+rw-r2,ry+r2,r2,-Math.PI/2,Math.PI/2);
-      ctx.lineTo(rx+r2,ry+rh); ctx.arc(rx+r2,ry+r2,r2,Math.PI/2,-Math.PI/2);
-      ctx.closePath(); ctx.fillStyle='rgba(255,175,40,.96)'; ctx.fill();
-      ctx.fillStyle='#fff'; ctx.fillText(msg,W/2,ry+rh/2);
-      ctx.textBaseline='alphabetic';
+      // Confeti cayendo
+      if (confettiActive) { confettiFrames++; if(confettiFrames >= CONFETTI_MAX_FRAMES){ confettiActive=false; } else { drawConfetti(ctx, W, H); } }
+
+      fecundacionFrames++;
+      const fs = Math.round(H * .09);
+      const cigoX = W * 0.58;
+      const cigoY = H / 2;
+
+      if (fecundacionFrames <= FECUNDACION_MAX_FRAMES) {
+        // Primeros 4s: ¡Fecundación!
+        ctx.save();
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.font = `900 ${fs}px Nunito,sans-serif`;
+        ctx.fillStyle = '#5B4FCF';
+        ctx.shadowColor = 'rgba(91,79,207,0.6)';
+        ctx.shadowBlur = 35;
+        ctx.fillText(' ¡Fecundación! ', cigoX, cigoY);
+        ctx.shadowBlur = 0; ctx.textBaseline = 'alphabetic';
+        ctx.restore();
+      } else {
+        // Después: ¡Cigoto Formado!
+        ctx.save();
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.font = `900 ${fs}px Nunito,sans-serif`;
+        ctx.fillStyle = '#5B4FCF';
+        ctx.shadowColor = 'rgba(91,79,207,0.6)';
+        ctx.shadowBlur = 35;
+        ctx.fillText('🍼 ¡Cigoto Formado! 🍼', cigoX, cigoY);
+        ctx.shadowBlur = 0;
+        ctx.font = `600 ${Math.round(H*.03)}px Poppins,sans-serif`;
+        ctx.fillStyle = '#5B4FCF';
+        ctx.shadowColor = 'rgba(91,79,207,0.3)';
+        ctx.shadowBlur = 6;
+        ctx.fillText('¡Una nueva vida ha comenzado!', cigoX, cigoY + fs * 0.72);
+        ctx.textBaseline = 'alphabetic';
+        ctx.restore();
+      }
 
     } else if (fertState==='allDead') {
       swimT++;
@@ -1247,7 +1742,7 @@ function revealHeroStats() {
     let t=0; if(dnaAnim)cancelAnimationFrame(dnaAnim);
     function tick(){
       ctx.clearRect(0,0,W,H);
-      const pulse=1+Math.sin(t*.04)*.02, r=(W/2-8)*pulse;
+      const pulse=1+Math.sin(t*.008)*.02, r=(W/2-8)*pulse;
       const bg=ctx.createRadialGradient(cx-15,cy-15,5,cx,cy,r);
       bg.addColorStop(0,'#FFF9E6'); bg.addColorStop(.7,'#FFE88A'); bg.addColorStop(1,'#FFB347');
       ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle=bg; ctx.fill();
@@ -1255,7 +1750,7 @@ function revealHeroStats() {
       const helixH=70,helixW=18,steps=60,startY=cy-helixH/2;
       const sA=[],sB=[];
       for(let i=0;i<=steps;i++){
-        const prog=i/steps, y=startY+prog*helixH, ph=prog*Math.PI*4+t*.06;
+        const prog=i/steps, y=startY+prog*helixH, ph=prog*Math.PI*4+t*.012;
         sA.push({x:cx+Math.cos(ph)*helixW,y,z:Math.sin(ph)});
         sB.push({x:cx+Math.cos(ph+Math.PI)*helixW,y,z:Math.sin(ph+Math.PI)});
       }
@@ -1285,6 +1780,7 @@ function revealHeroStats() {
 })();
 
 updateUI();
+initDNAFrame();
 </script>
 </body>
 </html>
