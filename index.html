@@ -420,7 +420,6 @@
     object-fit: contain;
     background: rgba(255,255,255,.55);
     cursor: pointer;
-    transition: opacity .3s ease, transform .3s ease;
   }
   #embrionImg:hover { transform: scale(1.02); }
   #embrionStepLabel {
@@ -608,7 +607,7 @@
 
       <!-- Visor de imágenes para etapa embrionaria -->
       <div id="embrionImgViewer">
-        <img id="embrionImg" src="" alt="Etapa embrionaria" onclick="embrionNextStep()" title="Toca para avanzar al siguiente paso" />
+        <img id="embrionImg" src="" alt="Etapa embrionaria" title="Toca para avanzar al siguiente paso" />
         <span id="embrionStepLabel"></span>
         <div id="embrionDots"></div>
         <p id="embrionImgHint"></p>
@@ -996,31 +995,18 @@ const EMBRION_LABELS = [
 let embrionStep = 0;
 
 function embrionNextStep() {
-  if (embrionStep < EMBRION_IMGS.length - 1) {
-    embrionStep++;
-    updateEmbrionImg();
-  }
+  embrionStep = (embrionStep + 1) % EMBRION_IMGS.length;
+  updateEmbrionImg();
 }
 
 function updateEmbrionImg() {
-  const img       = document.getElementById('embrionImg');
-  const label     = document.getElementById('embrionStepLabel');
-  const hint      = document.getElementById('embrionImgHint');
-  const dotsEl2   = document.getElementById('embrionDots');
+  const img    = document.getElementById('embrionImg');
+  const label  = document.getElementById('embrionStepLabel');
+  const hint   = document.getElementById('embrionImgHint');
+  const dotsEl2 = document.getElementById('embrionDots');
 
-  // Fade out → swap src → fade in
-  img.style.opacity = '0';
-  img.style.transform = 'scale(.97)';
-  setTimeout(() => {
-    // Intenta .png primero; si falla silenciosamente busca .jpg
-    const base = EMBRION_IMGS[embrionStep];
-    img.onerror = null;
-    img.src = base + '.jpeg';
-    img.alt = EMBRION_LABELS[embrionStep];
-    img.style.opacity = '1';
-    img.style.transform = 'scale(1)';
-  }, 200);
-
+  img.src = EMBRION_IMGS[embrionStep] + '.jpeg';
+  img.alt = EMBRION_LABELS[embrionStep];
   label.textContent = EMBRION_LABELS[embrionStep];
 
   // Dots indicadores
@@ -1030,19 +1016,22 @@ function updateEmbrionImg() {
     d.style.cssText = `
       display:inline-block; width:10px; height:10px; border-radius:50%;
       background: ${i === embrionStep ? 'var(--coral)' : 'rgba(91,79,207,.22)'};
-      cursor:pointer; transition: background .25s, transform .25s;
-      transform: ${i === embrionStep ? 'scale(1.35)' : 'scale(1)'};
+      cursor:pointer; margin: 0 2px;
+      transform: ${i === embrionStep ? 'scale(1.4)' : 'scale(1)'};
     `;
-    d.onclick = () => { embrionStep = i; updateEmbrionImg(); };
+    d.addEventListener('click', function(e) { e.stopPropagation(); embrionStep = i; updateEmbrionImg(); });
     dotsEl2.appendChild(d);
   });
 
-  if (embrionStep >= EMBRION_IMGS.length - 1) {
-    hint.textContent = '✅ Has visto los 5 pasos — usa los puntos para repasar';
-  } else {
-    hint.textContent = '👆 Toca la imagen para avanzar (' + (embrionStep + 1) + ' / ' + EMBRION_IMGS.length + ')';
-  }
+  hint.textContent = '👆 Toca la imagen para avanzar (' + (embrionStep + 1) + ' / ' + EMBRION_IMGS.length + ')';
 }
+
+// Listener de click en la imagen — se registra una sola vez al cargar
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('embrionImg').addEventListener('click', function() {
+    embrionNextStep();
+  });
+});
 
 /* ══════════════════════════════════════
    SLIDE 4 — CANVAS ETAPAS INTERACTIVO
