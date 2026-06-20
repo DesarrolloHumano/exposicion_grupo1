@@ -64,10 +64,9 @@
   .s7  { background: linear-gradient(145deg,#e8f4fd,#f3e5ff); }
   .s8  { background: linear-gradient(145deg,#5B4FCF,#7EC8E3); }
 
-  /* ── TYPOGRAPHY ── */
   .slide-eyebrow {
     font-family:'Nunito',sans-serif;
-    font-size:clamp(.75rem,1.5vw,.9rem);
+    font-size:clamp(.75rem,1.5vw,1.5rem);
     font-weight:700; letter-spacing:.12em;
     text-transform:uppercase;
     color:var(--violet); opacity:.7;
@@ -85,7 +84,7 @@
   .s8 .slide-eyebrow    { color:rgba(255,255,255,.7); }
 
   .slide-sub {
-    font-size:clamp(1rem,2vw,1.25rem); font-weight:500;
+    font-size:clamp(1rem,2vw,1.6rem); font-weight:500;
     color:#555; max-width:560px; line-height:1.55; margin-bottom:1.5rem;
   }
   .s8 .slide-sub { color:rgba(255,255,255,.85); }
@@ -124,7 +123,7 @@
     font-weight:900; color:var(--violet); line-height:1;
   }
   .stat-label {
-    font-size:clamp(.65rem,1.2vw,.8rem);
+    font-size:clamp(1rem,1.8vw,1.2rem);
     color:#888; font-weight:500; margin-top:.2rem;
   }
 
@@ -153,7 +152,7 @@
   .pills { display:flex; flex-wrap:wrap; gap:.6rem; justify-content:center; max-width:700px; margin-top:.5rem; }
   .pill {
     background:rgba(255,255,255,.8); border-radius:50px; padding:.45rem 1.1rem;
-    font-family:'Nunito',sans-serif; font-size:clamp(.8rem,1.5vw,.95rem);
+    font-family:'Nunito',sans-serif; font-size:clamp(.8rem,1.5vw,1.4rem);
     font-weight:700; color:var(--violet); border:2px solid rgba(91,79,207,.18);
     display:flex; align-items:center; gap:.4rem;
     transition:transform .2s, box-shadow .2s; cursor:default;
@@ -176,81 +175,6 @@
   .warning-box p { font-size:clamp(.8rem,1.5vw,.95rem); color:#555; line-height:1.6; }
 
   .divider { width:60px; height:4px; border-radius:4px; background:var(--coral); margin:.8rem auto 1.2rem; }
-
-  /* ── TIMELINE ── */
-  .timeline-wrap {
-    display:flex; align-items:flex-start;
-    gap:0; max-width:860px; width:100%;
-    margin-top:.8rem; position:relative;
-  }
-  .timeline-line {
-    position:absolute;
-    top:52px; left:calc(16.66% + 8px); right:calc(16.66% + 8px);
-    height:4px;
-    background:linear-gradient(90deg,var(--pink),var(--lavender),var(--sky));
-    border-radius:4px; z-index:0;
-  }
-  .timeline-stage {
-    flex:1; display:flex; flex-direction:column; align-items:center;
-    position:relative; z-index:1; cursor:pointer;
-  }
-
-  .tl-avatar {
-    width:clamp(60px,10vw,100px);
-    height:clamp(60px,10vw,100px);
-    border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    font-size:clamp(1.6rem,4vw,3rem);
-    border:4px solid #fff;
-    box-shadow:0 6px 20px rgba(91,79,207,.18);
-    transition:transform .3s;
-    margin-bottom:.6rem;
-  }
-  .tl-avatar.germinal  { background:linear-gradient(135deg,#fce4ec,#f8bbd0); font-size:clamp(.9rem,2.5vw,1.8rem); }
-  .tl-avatar.embrionaria { background:linear-gradient(135deg,#e8eaf6,#c5cae9); font-size:clamp(1.2rem,3vw,2.3rem); }
-  .tl-avatar.fetal     { background:linear-gradient(135deg,#e8f5e9,#a5d6a7); font-size:clamp(1.6rem,4vw,3rem); }
-
-  .timeline-stage:hover .tl-avatar { transform:scale(1.12) translateY(-4px); }
-
-  .tl-name { font-family:'Nunito',sans-serif; font-size:clamp(.85rem,1.8vw,1.1rem); font-weight:900; color:var(--violet); margin-bottom:.15rem; }
-  .tl-dur  { font-size:clamp(.65rem,1.3vw,.8rem); font-weight:600; color:var(--coral); letter-spacing:.03em; margin-bottom:.4rem; }
-  .tl-desc {
-    font-size:clamp(.9rem,1.8vw,.78rem); color:#666; line-height:1.5;
-    background:rgba(255,255,255,.75); backdrop-filter:blur(6px);
-    border-radius:14px; padding:.6rem .8rem;
-    border:1.5px solid rgba(255,255,255,.9);
-    max-height:0; overflow:hidden; opacity:0;
-    transition:max-height .45s ease, opacity .35s ease, padding .35s;
-    padding-top:0; padding-bottom:0;
-    text-align:center;
-  }
-  .timeline-stage.open .tl-desc {
-    max-height:120px; opacity:1;
-    padding:.6rem .8rem;
-  }
-
-  .tl-hint { font-size:.68rem; color:rgba(91,79,207,.4); margin-top:.3rem; font-style:italic; }
-
-  .tl-dot {
-    width:14px; height:14px; border-radius:50%;
-    border:3px solid #fff;
-    margin-bottom:.3rem;
-    animation:pulse 1.8s ease-in-out infinite;
-  }
-  .tl-dot.d1 { background:var(--pink);     animation-delay:0s; }
-  .tl-dot.d2 { background:var(--lavender); animation-delay:.4s; }
-  .tl-dot.d3 { background:var(--sky);      animation-delay:.8s; }
-  @keyframes pulse {
-    0%,100% { box-shadow:0 0 0 0 rgba(91,79,207,.4); }
-    50%      { box-shadow:0 0 0 8px rgba(91,79,207,.0); }
-  }
-
-  /* ── PRINCIPLES ── */
-  .principle-wrap { display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; max-width:700px; }
-  .principle-box  { background:rgba(255,255,255,.78); border-radius:24px; padding:1.5rem 1.8rem; flex:1 1 240px; border:2px solid rgba(255,255,255,.9); text-align:center; }
-  .principle-arrow { font-size:clamp(2.5rem,5vw,4rem); margin-bottom:.5rem; }
-  .principle-title { font-family:'Nunito',sans-serif; font-size:clamp(.95rem,1.8vw,1.15rem); font-weight:900; color:var(--violet); margin-bottom:.3rem; }
-  .principle-sub   { font-size:clamp(.75rem,1.3vw,.88rem); color:#666; }
 
   /* ── STARS ── */
   .stars-bg { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
@@ -373,9 +297,7 @@
 
   /* ── HERO STATS ── */
   .stat-hidden { opacity: 0; transform: scale(.5); pointer-events:none; }
-  .stat-reveal-active {
-    animation: statImpact .6s cubic-bezier(.34,1.8,.64,1) both;
-  }
+  .stat-reveal-active { animation: statImpact .6s cubic-bezier(.34,1.8,.64,1) both; }
   @keyframes statImpact {
     0%   { transform:scale(.3) rotate(-8deg); opacity:0; }
     60%  { transform:scale(1.18) rotate(2deg); opacity:1; }
@@ -386,36 +308,14 @@
     50%      { box-shadow:0 6px 40px rgba(91,79,207,.6); transform:scale(1.03); }
   }
 
-  @media(max-width:600px){
-    #fertCanvas { width:300px!important; height:180px!important; }
-    #dnaCanvas  { width:160px!important; height:160px!important; }
-  }
-
-  @media(max-width:600px){
-    .cards{gap:.7rem;} .card{min-width:110px;padding:.9rem 1rem;}
-    .dots{display:none;} .nav-arrows{bottom:1rem;}
-    .slide{padding:1.2rem 1rem;}
-    .timeline-wrap{flex-direction:column;align-items:center;gap:1rem;}
-    .timeline-line{display:none;}
-    .tl-avatar{width:64px;height:64px;}
-    .kb-hint{display:none;}
-  }
-
   /* ── CIGOTO & GENÉTICA SLIDE ── */
   .cigoto-layout {
     display:flex; align-items:flex-start; gap:1.8rem;
     width:100%; max-width:820px; margin-top:.3rem;
   }
-  .cigoto-left {
-    display:flex; flex-direction:column; align-items:center;
-    flex-shrink:0;
-  }
-  .cigoto-right {
-    flex:1; display:flex; flex-direction:column; gap:.65rem; min-width:0;
-  }
-  .gcard-grid {
-    display:grid; grid-template-columns:1fr 1fr; gap:.55rem;
-  }
+  .cigoto-left { display:flex; flex-direction:column; align-items:center; flex-shrink:0; }
+  .cigoto-right { flex:1; display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .gcard-grid { display:grid; grid-template-columns:1fr 1fr; gap:.55rem; }
   .gcard {
     display:flex; align-items:center; gap:.55rem;
     background:rgba(255,255,255,.78); backdrop-filter:blur(8px);
@@ -428,34 +328,23 @@
   .gcard:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(91,79,207,.15); background:rgba(255,255,255,.95); }
   .gcard.active { border-color:var(--violet); background:#fff; box-shadow:0 8px 28px rgba(91,79,207,.22); }
   .gcard-icon  { font-size:clamp(1.3rem,2.5vw,1.7rem); flex-shrink:0; }
-  .gcard-label { font-size:clamp(.72rem,1.4vw,.88rem); font-weight:800; color:var(--violet); line-height:1.25; }
+  .gcard-label { font-size:clamp(.72rem,1.4vw,2.5rem); font-weight:800; color:var(--violet); line-height:1.25; }
 
   .gcard-panel {
     background:rgba(255,255,255,.88); backdrop-filter:blur(12px);
     border-radius:18px; padding:1.5rem 2rem; min-height:90px;
     display:flex; align-items:center;
     position:relative;
-    border: 2px solid rgba(255,255,255,.4);
-    box-shadow: 0 4px 18px rgba(91,79,207,.1);
-    transition: box-shadow .4s ease;
+    border:2px solid rgba(255,255,255,.4);
+    box-shadow:0 4px 18px rgba(91,79,207,.1);
+    transition:box-shadow .4s ease;
   }
-  .gcard-panel.has-content {
-    border-color: transparent;
-    box-shadow: 0 8px 28px rgba(91,79,207,.18);
-  }
-  /* SVG DNA frame sits as ::before — injected via JS */
-  .gcard-panel svg.dna-frame {
-    position:absolute; inset:0; width:100%; height:100%;
-    border-radius:18px; pointer-events:none;
-    opacity:1; transition: opacity .45s ease;
-  }
-
+  .gcard-panel.has-content { border-color:transparent; box-shadow:0 8px 28px rgba(91,79,207,.18); }
   .gcard-panel-text {
     font-family:'Nunito',sans-serif;
     font-size:clamp(.95rem,1.9vw,1.12rem);
     font-weight:600; color:#444; line-height:1.65;
-    text-align:left; margin:0; width:100%;
-    position:relative; z-index:1;
+    text-align:left; margin:0; width:100%; position:relative; z-index:1;
   }
   .gcard-panel-title {
     font-family:'Nunito',sans-serif;
@@ -464,25 +353,114 @@
     display:block; margin-bottom:.3rem;
   }
 
+  /* ── SLIDE 4: ETAPAS ── */
+  .s4-inner {
+    display:flex; flex-direction:column; align-items:center;
+    width:100%; height:100%; padding:1rem 1.5rem 4.5rem;
+    justify-content:center;
+  }
+  .s4-title {
+    font-family:'Nunito',sans-serif;
+    font-size:clamp(2rem,5vw,3.5rem);
+    font-weight:900; color:var(--violet);
+    margin-bottom:.5rem; text-align:center;
+  }
+  .s4-title span { color:var(--coral); }
+  .s4-eyebrow {
+    font-family:'Nunito',sans-serif;
+    font-size:clamp(.7rem,1.3vw,1rem);
+    font-weight:700; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--violet); opacity:.6;
+    margin-bottom:.3rem;
+  }
+  .stage-btns {
+    display:flex; gap:8px; justify-content:center;
+    margin-bottom:.5rem; flex-wrap:wrap;
+  }
+  .sbtn {
+    padding:8px 18px; border-radius:16px;
+    border:1.5px solid rgba(91,79,207,.25);
+    background:rgba(255,255,255,.8); color:var(--violet);
+    font-family:'Nunito',sans-serif; font-size:clamp(.75rem,1.4vw,.9rem);
+    font-weight:800; cursor:pointer; transition:all .2s;
+    backdrop-filter:blur(6px);
+  }
+  .sbtn.active { background:var(--violet); color:#fff; border-color:var(--violet); }
+  .sbtn:hover:not(.active) { background:rgba(255,255,255,.95); transform:translateY(-2px); }
+  .s4-infobox {
+    background:rgba(255,255,255,.72); backdrop-filter:blur(8px);
+    border-radius:16px; padding:8px 16px;
+    max-width:580px; width:100%; text-align:center;
+    font-family:'Poppins',sans-serif; font-size:clamp(1rem,1.8vw,1.2rem);
+    color:#555; line-height:1.55; margin-bottom:.4rem;
+    border:1.5px solid rgba(255,255,255,.9);
+    min-height:48px;
+  }
+  .s4-infobox strong { color:var(--violet); }
+  .s4-hint {
+    font-size:clamp(.85rem,1.5vw,1rem); color:rgba(91,79,207,.6);
+    font-family:'Nunito',sans-serif; font-weight:600;
+    margin-top:.2rem; min-height:16px;
+  }
+  #etapasCanvas { border-radius:16px; display:block; margin:0 auto; }
+
+  /* ── EMBRION IMAGE VIEWER ── */
+  #embrionImgViewer {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: .6rem;
+  }
+  #embrionImg {
+    max-height: 240px;
+    max-width: min(520px, 88vw);
+    border-radius: 18px;
+    border: 3px solid rgba(255,140,105,.35);
+    box-shadow: 0 10px 36px rgba(255,100,60,.18);
+    object-fit: contain;
+    background: rgba(255,255,255,.55);
+    cursor: pointer;
+    transition: opacity .3s ease, transform .3s ease;
+  }
+  #embrionImg:hover { transform: scale(1.02); }
+  #embrionStepLabel {
+    font-family:'Nunito',sans-serif;
+    font-size: clamp(.8rem,1.5vw,.95rem);
+    font-weight: 800;
+    color: var(--violet);
+    background: rgba(255,255,255,.8);
+    padding: .3rem 1rem;
+    border-radius: 50px;
+    border: 1.5px solid rgba(91,79,207,.15);
+  }
+  #embrionDots { display:flex; gap:.45rem; align-items:center; }
+  #embrionImgHint {
+    font-family:'Nunito',sans-serif;
+    font-size: clamp(.75rem,1.3vw,.88rem);
+    color: rgba(91,79,207,.55);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* ── PRINCIPIOS ── */
+  .principle-wrap { display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; max-width:700px; }
+  .principle-box  { background:rgba(255,255,255,.78); border-radius:24px; padding:1.5rem 1.8rem; flex:1 1 240px; border:2px solid rgba(255,255,255,.9); text-align:center; }
+  .principle-arrow { font-size:clamp(2.5rem,5vw,4rem); margin-bottom:.5rem; }
+  .principle-title { font-family:'Nunito',sans-serif; font-size:clamp(.95rem,1.8vw,2.6rem); font-weight:900; color:var(--violet); margin-bottom:.3rem; }
+  .principle-sub   { font-size:clamp(.75rem,1.3vw,1.2rem); color:#666; }
+
   @media(max-width:600px){
+    #fertCanvas { width:300px!important; height:180px!important; }
+    #dnaCanvas  { width:160px!important; height:160px!important; }
     .cigoto-layout { flex-direction:column; align-items:center; }
     .cigoto-left   { flex-direction:row; gap:1rem; flex-wrap:wrap; justify-content:center; }
     .gcard-grid    { grid-template-columns:1fr 1fr; }
-  }
-
-  /* Compact two-column layout for merged slide 7 */
-  .two-col {
-    display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;
-    max-width:900px; width:100%; margin-top:.5rem;
-  }
-  .two-col-section {
-    flex:1 1 300px; max-width:420px;
-    background:rgba(255,255,255,.6); border-radius:20px; padding:1rem 1.2rem;
-    border:2px solid rgba(255,255,255,.9);
-  }
-  .two-col-section h3 {
-    font-family:'Nunito',sans-serif; font-size:clamp(.9rem,1.8vw,1.1rem);
-    font-weight:900; color:var(--violet); margin-bottom:.6rem;
+    .dots{display:none;} .nav-arrows{bottom:1rem;}
+    .slide{padding:1.2rem 1rem;}
+    .kb-hint{display:none;}
+    #etapasCanvas { width:320px!important; height:220px!important; }
+    #embrionImg { max-height: 180px; }
+    .sbtn { font-size:.7rem; padding:6px 10px; }
   }
 </style>
 </head>
@@ -503,9 +481,9 @@
     <div class="modal-title">🎓 Grupo 1 — Integrantes</div>
     <ul class="member-list">
       <li class="member-item"><span class="member-num">1</span> Teresa Carrasco Sanjinez</li>
-      <li class="member-item"><span class="member-num">2</span> Neri Juana Lima Haro</li>
+      <li class="member-item"><span class="member-num">2</span> Neri Juana</li>
       <li class="member-item"><span class="member-num">3</span> Noemí Quispe Crespo</li>
-      <li class="member-item"><span class="member-num">4</span> Tania Garcia Suárez</li>
+      <li class="member-item"><span class="member-num">4</span> Tania Garcia</li>
       <li class="member-item"><span class="member-num">5</span> Freddy Nogueira Zambrano</li>
     </ul>
   </div>
@@ -517,9 +495,11 @@
 
   <!-- SLIDE 0: PORTADA -->
   <div class="slide s0 active" data-index="0">
-    <div class="hero-emoji">🤰</div>
     <div class="slide-eyebrow">Desarrollo Humano — Papalia 14ª ed.</div>
-    <h1 class="slide-title">Período<br><span>Prenatal</span></h1>
+    <div style="display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1.2rem;">
+      <span style="font-size:clamp(3rem,7vw,5rem);line-height:1;filter:drop-shadow(0 6px 18px rgba(0,0,0,.10));">🤰</span>
+      <h1 class="slide-title" style="margin-bottom:0;">Período<br><span>Prenatal</span></h1>
+    </div>
     <p class="slide-sub">El desarrollo humano no comienza al nacer, sino desde la concepción.</p>
     <div class="stat-row" id="heroStats">
       <div class="stat-box stat-hidden" id="stat0">
@@ -547,16 +527,16 @@
       ¿Sabías estos datos? → Revelar
     </button>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.8rem;">
-      <span class="pill">. </span>
-      
+      <span class="pill">.</span>
     </div>
   </div>
 
   <!-- SLIDE 1: QUÉ ES LA ETAPA PRENATAL -->
   <div class="slide s1" data-index="1">
-    <div class="hero-emoji" style="font-size:clamp(3.5rem,8vw,6rem);">🌱</div>
-    <!-- <div class="slide-eyebrow">Concepto base</div>-->
-    <h1 class="slide-title">¿Qué es la etapa<br><span>prenatal?</span></h1>
+    <div style="display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1.2rem;">
+      <span style="font-size:clamp(3rem,7vw,5rem);line-height:1;filter:drop-shadow(0 6px 18px rgba(0,0,0,.10));">🌱</span>
+      <h1 class="slide-title" style="margin-bottom:0;">¿Qué es la etapa<br><span>prenatal?</span></h1>
+    </div>
     <div class="divider"></div>
     <p class="slide-sub">Proceso que va desde la <strong>fecundación</strong> hasta el <strong>nacimiento</strong>.<br>Aquí se forman todas las estructuras básicas del organismo.</p>
     <div class="pills">
@@ -566,25 +546,23 @@
     </div>
   </div>
 
-  <!-- SLIDE 2: LA FECUNDACIÓN (animación canvas) -->
+  <!-- SLIDE 2: LA FECUNDACIÓN -->
   <div class="slide s2" data-index="2" id="slide2" onclick="window._triggerFert&&window._triggerFert()" style="cursor:pointer;padding:0;overflow:hidden;">
     <canvas id="fertCanvas" style="position:absolute;inset:0;width:100%;height:100%;border-radius:0;"></canvas>
   </div>
 
-  <!-- SLIDE 3: CIGOTO + GENÉTICA (fusión de antiguas slides 3 y 4) -->
+  <!-- SLIDE 3: CIGOTO + GENÉTICA -->
   <div class="slide s3" data-index="3" style="justify-content:center;padding:1.2rem 2rem 5rem;" id="slide3wrap">
     <div class="slide-eyebrow">Primera célula & Herencia</div>
     <h1 class="slide-title" style="margin-bottom:.4rem;">Cigoto & <span>Genética</span></h1>
     <div class="cigoto-layout">
-      <!-- columna izquierda: DNA canvas + badges -->
       <div class="cigoto-left">
-        <canvas id="dnaCanvas" width="160" height="160" style="border-radius:50%;background:rgba(255,255,255,.4);backdrop-filter:blur(8px);border:3px solid rgba(255,200,100,.5);box-shadow:0 8px 32px rgba(255,150,50,.2);max-width:min(160px,30vw);max-height:min(160px,30vw);"></canvas>
+        <canvas id="dnaCanvas" width="220" height="220" style="border-radius:50%;background:rgba(255,255,255,.4);backdrop-filter:blur(8px);border:3px solid rgba(255,200,100,.5);box-shadow:0 8px 32px rgba(255,150,50,.2);max-width:min(220px,30vw);max-height:min(220px,30vw);"></canvas>
         <div style="display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;margin-top:.5rem;">
           <span class="author-badge" style="font-size:.75rem;padding:.35rem .85rem;">🔬 Mendel</span>
           <span class="author-badge" style="font-size:.75rem;padding:.35rem .85rem;">🧪 Watson & Crick</span>
         </div>
       </div>
-      <!-- columna derecha: tarjetas tipo botón + panel de detalle -->
       <div class="cigoto-right">
         <div class="gcard-grid">
           <button class="gcard" onclick="showGCard(this,0)">
@@ -611,39 +589,33 @@
     </div>
   </div>
 
-  <!-- SLIDE 4: LAS 3 ETAPAS (interactivo, era slide 6) -->
+  <!-- SLIDE 4: LAS 3 ETAPAS -->
   <div class="slide s4" data-index="4">
-    <div class="slide-eyebrow">Desarrollo prenatal</div>
-    <h1 class="slide-title">Las <span>3 etapas</span> del desarrollo</h1>
-    <div class="divider"></div>
-    <div class="timeline-wrap">
-      <div class="timeline-line"></div>
+    <div class="s4-inner">
+      <div class="s4-eyebrow">Desarrollo prenatal</div>
+      <h2 class="s4-title">Las <span>3 etapas</span> del desarrollo</h2>
 
-      <div class="timeline-stage" onclick="toggleStage(this)">
-        <div class="tl-dot d1"></div>
-        <div class="tl-avatar germinal">🫧</div>
-        <div class="tl-name">Germinal</div>
-        <div class="tl-dur">0 – 2 semanas</div>
-        <div class="tl-desc">Formación del cigoto · División celular rápida (1→2→4→8 células) · Implantación en el útero · Muchos embarazos terminan aquí sin que la madre lo sepa</div>
+      <div class="stage-btns">
+        <button class="sbtn active" data-stage="germinal">🫧 Germinal (0–2 sem)</button>
+        <button class="sbtn" data-stage="embrionaria">🫀 Embrionaria (2–8 sem)</button>
+        <button class="sbtn" data-stage="fetal">👶 Fetal (8 sem – nacimiento)</button>
       </div>
 
-      <div class="timeline-stage" onclick="toggleStage(this)">
-        <div class="tl-dot d2"></div>
-        <div class="tl-avatar embrionaria">🫀</div>
-        <div class="tl-name">Embrionaria</div>
-        <div class="tl-dur">Sem. 2 – 8</div>
-        <div class="tl-desc">Órganos · Cerebro · Corazón (late sem.5) · Sistema nervioso · Yemas de manos · Etapa más vulnerable a teratógenos</div>
+      <div class="s4-infobox" id="s4Info"></div>
+
+      <!-- Canvas para germinal y fetal -->
+      <canvas id="etapasCanvas" width="520" height="260"></canvas>
+
+      <!-- Visor de imágenes para etapa embrionaria -->
+      <div id="embrionImgViewer">
+        <img id="embrionImg" src="" alt="Etapa embrionaria" onclick="embrionNextStep()" title="Toca para avanzar al siguiente paso" />
+        <span id="embrionStepLabel"></span>
+        <div id="embrionDots"></div>
+        <p id="embrionImgHint"></p>
       </div>
 
-      <div class="timeline-stage" onclick="toggleStage(this)">
-        <div class="tl-dot d3"></div>
-        <div class="tl-avatar fetal">👶</div>
-        <div class="tl-name">Fetal</div>
-        <div class="tl-dur">Sem. 8 – Nacimiento</div>
-        <div class="tl-desc">Crecimiento acelerado · Sentidos (oye, ve, siente) · Movimientos · Millones de neuronas · Apariencia humana reconocible</div>
-      </div>
+      <p class="s4-hint" id="s4Hint"></p>
     </div>
-    <p class="tl-hint" style="margin-top:.8rem;"></p>
   </div>
 
   <!-- SLIDE 5: PRINCIPIOS DEL DESARROLLO -->
@@ -670,7 +642,6 @@
     <div class="slide-eyebrow">Riesgos</div>
     <h1 class="slide-title" style="margin-bottom:.4rem;"><span>Teratógenos</span> & Sustancias</h1>
     <div class="cigoto-layout">
-      <!-- columna izquierda: icono animado + badge de advertencia -->
       <div class="cigoto-left">
         <div id="teraViz" style="
           width:min(160px,30vw); height:min(160px,30vw);
@@ -688,7 +659,6 @@
           <span class="author-badge" style="font-size:.75rem;padding:.35rem .85rem;border-color:rgba(255,100,60,.2);color:var(--coral);">🧬 Vulnerabilidad genética</span>
         </div>
       </div>
-      <!-- columna derecha: botones + panel de detalle -->
       <div class="cigoto-right">
         <div class="gcard-grid">
           <button class="gcard" onclick="showTCard(this,0)">
@@ -715,12 +685,11 @@
     </div>
   </div>
 
-  <!-- SLIDE 7: NUTRICIÓN, EPIGENÉTICA & CEREBRO (fusión slides 11+12) -->
+  <!-- SLIDE 7: NUTRICIÓN, EPIGENÉTICA & CEREBRO -->
   <div class="slide s7" data-index="7" style="justify-content:center;padding:1.2rem 2rem 5rem;">
     <div class="slide-eyebrow">Influencias externas & Cerebro fetal</div>
     <h1 class="slide-title" style="margin-bottom:.4rem;">Nutrición, Epigenética<br>& <span>Cerebro fetal</span></h1>
     <div class="cigoto-layout">
-      <!-- columna izquierda: icono animado + badges -->
       <div class="cigoto-left">
         <div id="neuroViz" style="
           width:min(160px,30vw); height:min(160px,30vw);
@@ -738,7 +707,6 @@
           <span class="author-badge" style="font-size:.75rem;padding:.35rem .85rem;">🔬 Epigenética</span>
         </div>
       </div>
-      <!-- columna derecha: botones + panel de detalle -->
       <div class="cigoto-right">
         <div class="gcard-grid" style="grid-template-columns:1fr 1fr 1fr;">
           <button class="gcard" onclick="showNCard(this,0)">
@@ -776,12 +744,12 @@
   <!-- SLIDE 8: CONCLUSIÓN -->
   <div class="slide s8" data-index="8">
     <div class="stars-bg" id="starsContainer"></div>
-    <div class="hero-emoji" style="animation-duration:2s;">🌟</div>
+    <div class="hero-emoji" style="animation-duration:2s;font-size:6rem;">🌟</div>
     <div class="slide-eyebrow">Conclusión</div>
     <h1 class="slide-title" style="color:#fff;">El desarrollo<br>comienza <span>antes</span><br>de nacer</h1>
     <div class="divider" style="background:var(--yellow);"></div>
     <p class="slide-sub" style="color:rgba(255,255,255,.85);">Cada decisión durante el embarazo impacta la vida de un ser humano en formación.</p>
-    <div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem;">
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem;margin-bottom:4rem;">
       <span class="pill" style="background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.3);">📚 Papalia 14ª ed.</span>
       <span class="pill" style="background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.3);">🎓 Grupo 1</span>
     </div>
@@ -797,139 +765,34 @@
 </div>
 
 <script>
-/* ── GCARD (Cigoto slide) ── */
+/* ══════════════════════════════════════
+   GCARD — Cigoto slide
+══════════════════════════════════════ */
 const gcardDetails = [
   'Célula única resultado de la fusión del espermatozoide y el óvulo. Contiene toda la información genética del nuevo ser.',
   '23 cromosomas del padre + 23 de la madre = 46 en total. Watson y Crick describieron la doble hélice del ADN en 1953.',
   'El cromosoma Y del padre determina el sexo. XX → mujer, XY → varón. Genes dominantes se expresan con una sola copia; los recesivos necesitan ambas.',
   'El riesgo de ciertas enfermedades está codificado en el ADN y puede calcularse con las leyes de la genética de Mendel.'
 ];
-function buildDNAFrame() {
-  // Static SVG that looks like DNA strands wrapping around a rounded rectangle border
-  const ns = 'http://www.w3.org/2000/svg';
-  const svg = document.createElementNS(ns, 'svg');
-  svg.setAttribute('class', 'dna-frame');
-  svg.setAttribute('viewBox', '0 0 400 100');
-  svg.setAttribute('preserveAspectRatio', 'none');
-
-  // Number of "rungs" along each long edge
-  const rungs = 10;
-
-  // Draw two strands (top edge, bottom edge) as sine waves going opposite directions
-  for (let edge = 0; edge < 2; edge++) {
-    const baseY = edge === 0 ? 4 : 96;
-    const dir   = edge === 0 ? 1 : -1;
-    const colorA = '#5B4FCF'; // violet strand
-    const colorB = '#FF8C69'; // coral strand
-
-    // Strand A
-    let dA = `M 18 ${baseY}`;
-    // Strand B (offset half period)
-    let dB = `M 18 ${baseY}`;
-
-    for (let x = 18; x <= 382; x += 2) {
-      const prog = (x - 18) / (382 - 18);
-      const ampA =  dir * 4 * Math.sin(prog * Math.PI * 6);
-      const ampB = -dir * 4 * Math.sin(prog * Math.PI * 6);
-      dA += ` L ${x} ${baseY + ampA}`;
-      dB += ` L ${x} ${baseY + ampB}`;
-    }
-
-    const pA = document.createElementNS(ns, 'path');
-    pA.setAttribute('d', dA);
-    pA.setAttribute('stroke', colorA);
-    pA.setAttribute('stroke-width', '1');
-    pA.setAttribute('fill', 'none');
-    pA.setAttribute('opacity', '0.65');
-
-    const pB = document.createElementNS(ns, 'path');
-    pB.setAttribute('d', dB);
-    pB.setAttribute('stroke', colorB);
-    pB.setAttribute('stroke-width', '1');
-    pB.setAttribute('fill', 'none');
-    pB.setAttribute('opacity', '0.55');
-
-    svg.appendChild(pA);
-    svg.appendChild(pB);
-
-    // Rungs (base pairs) crossing between strands at crossover points
-    for (let r = 0; r <= rungs; r++) {
-      const x = 18 + (r / rungs) * (382 - 18);
-      const prog = (x - 18) / (382 - 18);
-      const yA =  baseY + dir * 4 * Math.sin(prog * Math.PI * 6);
-      const yB =  baseY - dir * 4 * Math.sin(prog * Math.PI * 6);
-      const line = document.createElementNS(ns, 'line');
-      line.setAttribute('x1', x); line.setAttribute('y1', yA);
-      line.setAttribute('x2', x); line.setAttribute('y2', yB);
-      line.setAttribute('stroke', 'rgba(91,79,207,0.3)');
-      line.setAttribute('stroke-width', '0.8');
-      svg.appendChild(line);
-
-      // Dot at center of rung
-      const dot = document.createElementNS(ns, 'circle');
-      dot.setAttribute('cx', x);
-      dot.setAttribute('cy', (yA + yB) / 2);
-      dot.setAttribute('r', '2.2');
-      dot.setAttribute('fill', r % 2 === 0 ? '#B5EAD7' : '#FFD966');
-      svg.appendChild(dot);
-    }
-  }
-
-  // Left & right short edges: simple vertical sine-style strands
-  for (let side = 0; side < 2; side++) {
-    const baseX = side === 0 ? 4 : 396;
-    const dir   = side === 0 ? 1 : -1;
-    const colorA = '#5B4FCF';
-    const colorB = '#FF8C69';
-    let dA = `M ${baseX} 12`;
-    let dB = `M ${baseX} 12`;
-    for (let y = 12; y <= 88; y += 2) {
-      const prog = (y - 12) / (88 - 12);
-      dA += ` L ${baseX + dir * 4 * Math.sin(prog * Math.PI * 4)} ${y}`;
-      dB += ` L ${baseX - dir * 4 * Math.sin(prog * Math.PI * 4)} ${y}`;
-    }
-    const pA = document.createElementNS(ns, 'path');
-    pA.setAttribute('d', dA); pA.setAttribute('stroke', colorA);
-    pA.setAttribute('stroke-width', '1'); pA.setAttribute('fill', 'none'); pA.setAttribute('opacity', '0.55');
-    const pB = document.createElementNS(ns, 'path');
-    pB.setAttribute('d', dB); pB.setAttribute('stroke', colorB);
-    pB.setAttribute('stroke-width', '1'); pB.setAttribute('fill', 'none'); pB.setAttribute('opacity', '0.45');
-    svg.appendChild(pA); svg.appendChild(pB);
-  }
-
-  return svg;
-}
-
-let dnaFrameBuilt = false;
-function initDNAFrame() {
-  const panel = document.getElementById('gcardPanel');
-  if (panel && !dnaFrameBuilt) {
-    panel.insertBefore(buildDNAFrame(), panel.firstChild);
-    dnaFrameBuilt = true;
-  }
-}
 function showGCard(btn, idx) {
   document.querySelectorAll('#slide3wrap .gcard').forEach(b => b.classList.remove('active'));
-  // (scoped to slide 3 only)
   btn.classList.add('active');
   const panel = document.getElementById('gcardPanel');
   const text  = document.getElementById('gcardText');
   const icon  = btn.querySelector('.gcard-icon').textContent;
   const label = btn.querySelector('.gcard-label').textContent;
   text.innerHTML = `<span class="gcard-panel-title">${icon} ${label}</span>${gcardDetails[idx]}`;
-  if (!dnaFrameBuilt) {
-    panel.insertBefore(buildDNAFrame(), panel.firstChild);
-    dnaFrameBuilt = true;
-  }
   panel.classList.add('has-content');
 }
 
-/* ── TCARD (Teratógenos slide) ── */
+/* ══════════════════════════════════════
+   TCARD — Teratógenos slide
+══════════════════════════════════════ */
 const tcardDetails = [
-  'El alcohol es uno de los teratógenos más dañinos: no existe dosis segura durante el embarazo. Puede causar Síndrome Alcohólico Fetal (SAF), con daño cerebral, malformaciones físicas y retraso intelectual permanente.',
-  'El tabaco reduce el aporte de oxígeno al feto a través de la nicotina y el monóxido de carbono. Aumenta el riesgo de bajo peso al nacer, parto prematuro, aborto espontáneo y muerte súbita del lactante.',
-  'Opioides, cocaína y marihuana atraviesan la placenta. Generan síndrome de abstinencia neonatal, alteran el desarrollo neurológico y pueden provocar malformaciones, bajo peso y problemas de conducta a largo plazo.',
-  'La radiación ionizante (rayos X, radioterapia) en momentos críticos puede alterar la división celular y el ADN fetal. También se incluyen infecciones (rubéola, toxoplasmosis), contaminantes ambientales y ciertos medicamentos.'
+  'El alcohol es uno de los teratógenos más dañinos: no existe dosis segura durante el embarazo.',
+  'El tabaco reduce el aporte de oxígeno al feto a través de la nicotina y el monóxido de carbono.',
+  'Opioides, cocaína y marihuana atraviesan la placenta.',
+  'La radiación ionizante (rayos X, radioterapia) en momentos críticos puede alterar la división celular y el ADN fetal.'
 ];
 function showTCard(btn, idx) {
   const slide = btn.closest('.slide');
@@ -943,14 +806,16 @@ function showTCard(btn, idx) {
   panel.classList.add('has-content');
 }
 
-/* ── NCARD (Nutrición, Epigenética & Cerebro slide) ── */
+/* ══════════════════════════════════════
+   NCARD — Nutrición slide
+══════════════════════════════════════ */
 const ncardDetails = [
-  'Una dieta deficiente durante el embarazo puede provocar bajo peso al nacer, problemas neurológicos y retraso del crecimiento. El ácido fólico es esencial para prevenir defectos del tubo neural desde las primeras semanas.',
-  'La epigenética estudia cómo el ambiente modifica la expresión de los genes sin cambiar la secuencia del ADN. La alimentación, el estrés y las toxinas pueden activar o silenciar genes, con efectos que pueden transmitirse a generaciones futuras.',
-  'El estrés materno eleva el cortisol, que puede atravesar la placenta y alterar el desarrollo cerebral fetal. Se asocia con mayor irritabilidad neonatal, problemas de atención y regulación emocional en etapas posteriores.',
-  'Durante el período prenatal se forman miles de millones de neuronas, alcanzando su pico máximo alrededor de la semana 28. Las conexiones sinápticas se potencian con estímulos externos como la voz materna y la música.',
-  'La ecografía es el principal método no invasivo para monitorear el desarrollo fetal. Permite detectar anomalías estructurales, verificar el crecimiento y confirmar la edad gestacional, con imágenes desde las 6–8 semanas.',
-  'La amniocentesis extrae líquido amniótico para analizar cromosomas fetales. Detecta anomalías como el síndrome de Down. Se realiza generalmente entre las semanas 15 y 20, con un mínimo riesgo de aborto espontáneo.'
+  'Una dieta deficiente durante el embarazo puede provocar bajo peso al nacer, problemas neurológicos y retraso del crecimiento.',
+  'La epigenética estudia cómo el ambiente modifica la expresión de los genes sin cambiar la secuencia del ADN.',
+  'El estrés materno eleva el cortisol, que puede atravesar la placenta y alterar el desarrollo cerebral fetal.',
+  'Durante el período prenatal se forman miles de millones de neuronas, alcanzando su pico máximo alrededor de la semana 28.',
+  'La ecografía es el principal método no invasivo para monitorear el desarrollo fetal.',
+  'La amniocentesis extrae líquido amniótico para analizar cromosomas fetales.'
 ];
 function showNCard(btn, idx) {
   const slide = btn.closest('.slide');
@@ -964,52 +829,29 @@ function showNCard(btn, idx) {
   panel.classList.add('has-content');
 }
 
-/* ── BUBBLES ── */
+/* ══════════════════════════════════════
+   BUBBLES
+══════════════════════════════════════ */
 (function(){
   const canvas = document.getElementById('bubblesCanvas');
   const ctx    = canvas.getContext('2d');
   const colors = ['#FFB7C540','#7EC8E340','#B5EAD740','#FFD96640','#C9B8FF40'];
   let bubbles  = [];
-
-  function resize(){
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
+  function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
   function makeBubble(){
-    return {
-      x: Math.random() * canvas.width,
-      y: canvas.height + 60,
-      r: 18 + Math.random() * 42,
-      speed: .25 + Math.random() * .55,
-      drift: (Math.random()-.5)*.4,
-      color: colors[Math.floor(Math.random()*colors.length)],
-      alpha: .35 + Math.random() * .3,
-    };
+    return { x:Math.random()*canvas.width, y:canvas.height+60, r:18+Math.random()*42,
+      speed:.25+Math.random()*.55, drift:(Math.random()-.5)*.4,
+      color:colors[Math.floor(Math.random()*colors.length)], alpha:.35+Math.random()*.3 };
   }
-
-  for(let i=0;i<22;i++){
-    const b = makeBubble();
-    b.y = Math.random() * canvas.height;
-    bubbles.push(b);
-  }
-
+  for(let i=0;i<22;i++){ const b=makeBubble(); b.y=Math.random()*canvas.height; bubbles.push(b); }
   function tick(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     bubbles.forEach(b=>{
-      b.y -= b.speed;
-      b.x += b.drift;
-      ctx.beginPath();
-      ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
-      ctx.fillStyle = b.color;
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(b.x - b.r*.3, b.y - b.r*.3, b.r*.25,0,Math.PI*2);
-      ctx.fillStyle='rgba(255,255,255,.35)';
-      ctx.fill();
-      if(b.y < -80) Object.assign(b, makeBubble());
+      b.y-=b.speed; b.x+=b.drift;
+      ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fillStyle=b.color; ctx.fill();
+      ctx.beginPath(); ctx.arc(b.x-b.r*.3,b.y-b.r*.3,b.r*.25,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,.35)'; ctx.fill();
+      if(b.y<-80) Object.assign(b,makeBubble());
     });
     if(Math.random()<.012) bubbles.push(makeBubble());
     if(bubbles.length>40) bubbles.shift();
@@ -1018,769 +860,829 @@ function showNCard(btn, idx) {
   tick();
 })();
 
-/* ── WIPE TRANSITION ── */
-const wipeColors = [
-  '#e8f4fd','#fff8f0','#f3e5ff','#fff9e6',
-  '#e8f5e9','#e0f7fa','#fff3e0','#e8f4fd','#5B4FCF'
-];
-
-function wipeTransition(toIndex, cb){
-  const overlay = document.getElementById('wipeOverlay');
-  overlay.style.background = wipeColors[toIndex] || '#fff';
-  overlay.style.transition  = 'none';
-  overlay.style.transform   = 'scaleX(0)';
-  overlay.style.transformOrigin = 'left center';
-  overlay.style.borderRadius = '0 50% 50% 0 / 0 50% 50% 0';
-
+/* ══════════════════════════════════════
+   WIPE TRANSITION
+══════════════════════════════════════ */
+const wipeColors=['#e8f4fd','#fff8f0','#f3e5ff','#fff9e6','#e8f5e9','#e0f7fa','#fff3e0','#e8f4fd','#5B4FCF'];
+function wipeTransition(toIndex,cb){
+  const overlay=document.getElementById('wipeOverlay');
+  overlay.style.background=wipeColors[toIndex]||'#fff';
+  overlay.style.transition='none'; overlay.style.transform='scaleX(0)';
+  overlay.style.transformOrigin='left center'; overlay.style.borderRadius='0 50% 50% 0 / 0 50% 50% 0';
   requestAnimationFrame(()=>{
-    overlay.style.transition = 'transform .28s cubic-bezier(.4,0,.2,1)';
-    overlay.style.transform  = 'scaleX(1)';
-    overlay.style.borderRadius = '0';
+    overlay.style.transition='transform .28s cubic-bezier(.4,0,.2,1)';
+    overlay.style.transform='scaleX(1)'; overlay.style.borderRadius='0';
     setTimeout(()=>{
       cb();
-      overlay.style.transition = 'transform .28s cubic-bezier(.4,0,.2,1)';
-      overlay.style.transformOrigin = 'right center';
-      overlay.style.transform = 'scaleX(0)';
-      setTimeout(()=>{
-        overlay.style.transition = 'none';
-        overlay.style.transformOrigin = 'left center';
-      }, 300);
-    }, 300);
+      overlay.style.transition='transform .28s cubic-bezier(.4,0,.2,1)';
+      overlay.style.transformOrigin='right center'; overlay.style.transform='scaleX(0)';
+      setTimeout(()=>{ overlay.style.transition='none'; overlay.style.transformOrigin='left center'; },300);
+    },300);
   });
 }
 
-/* ── SLIDES ── */
-const total   = 9;
-let current   = 0;
-let animating = false;
-
-const allSlides = document.querySelectorAll('.slide');
-const dotsEl    = document.getElementById('dots');
-const counter   = document.getElementById('counter');
-const bar       = document.getElementById('progressBar');
-const prevBtn   = document.getElementById('prevBtn');
-const nextBtn   = document.getElementById('nextBtn');
+/* ══════════════════════════════════════
+   SLIDES NAVIGATION
+══════════════════════════════════════ */
+const total=9; let current=0, animating=false;
+const allSlides=document.querySelectorAll('.slide');
+const dotsEl=document.getElementById('dots');
+const counter=document.getElementById('counter');
+const bar=document.getElementById('progressBar');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
 
 for(let i=0;i<total;i++){
-  const d = document.createElement('div');
-  d.className = 'dot' + (i===0?' active':'');
-  d.onclick = ()=>goTo(i);
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.onclick=()=>goTo(i);
   dotsEl.appendChild(d);
 }
 
-/* Stars for closing slide */
-const starsEl    = document.getElementById('starsContainer');
-const starEmojis = ['⭐','🌟','✨','💫','🌸','🍼','💕'];
-for(let i=0;i<18;i++){
-  const s = document.createElement('span');
-  s.className   = 'star';
-  s.textContent = starEmojis[i % starEmojis.length];
-  s.style.left  = Math.random()*95+'%';
-  s.style.top   = Math.random()*95+'%';
-  s.style.animationDelay = (Math.random()*2.5)+'s';
-  s.style.fontSize = (.8+Math.random()*1.4)+'rem';
+const starsEl=document.getElementById('starsContainer');
+const starEmojis=['⭐','🌟','✨','💫','🌸','🍼','💕'];
+for(let i=0;i<8;i++){
+  const s=document.createElement('span');
+  s.className='star'; s.textContent=starEmojis[i%starEmojis.length];
+  s.style.left=Math.random()*95+'%'; s.style.top=Math.random()*95+'%';
+  s.style.animationDelay=(Math.random()*2.5)+'s'; s.style.fontSize=(.8+Math.random()*1.4)+'rem';
   starsEl.appendChild(s);
 }
 
 function updateUI(){
-  counter.textContent = (current+1)+' / '+total;
-  bar.style.width = (current/(total-1)*100)+'%';
-  prevBtn.disabled = current===0;
-  nextBtn.disabled = current===total-1;
+  counter.textContent=(current+1)+' / '+total;
+  bar.style.width=(current/(total-1)*100)+'%';
+  prevBtn.disabled=current===0; nextBtn.disabled=current===total-1;
   document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===current));
 }
 
 function goTo(index){
   if(animating||index===current||index<0||index>=total) return;
-  animating = true;
-
+  animating=true;
   if(window._stopFert) window._stopFert();
   if(window._stopDNA)  window._stopDNA();
-
-  wipeTransition(index, ()=>{
+  if(window._stopEtapas) window._stopEtapas();
+  wipeTransition(index,()=>{
     allSlides[current].classList.remove('active');
     allSlides[current].classList.add('hidden');
     allSlides[index].classList.remove('hidden');
     allSlides[index].classList.add('active');
-    current = index;
-    updateUI();
-    if(index===0) animateStats();
+    current=index; updateUI();
     setTimeout(()=>{
-      if(index===2 && window._startFert) window._startFert();
-      if(index===3 && window._startDNA)  window._startDNA();
-    }, 340);
+      if(index===2 && window._startFert)   window._startFert();
+      if(index===3 && window._startDNA)    window._startDNA();
+      if(index===4 && window._startEtapas) window._startEtapas();
+    },340);
   });
-
-  setTimeout(()=>{ animating=false; }, 650);
+  setTimeout(()=>{ animating=false; },650);
 }
 
 function navigate(dir){ goTo(current+dir); }
 
 document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){ e.preventDefault(); navigate(1); }
-  if(e.key==='ArrowLeft' ||e.key==='ArrowUp')                { e.preventDefault(); navigate(-1); }
+  if(e.key==='ArrowLeft' ||e.key==='ArrowUp')               { e.preventDefault(); navigate(-1); }
   if(e.key==='Escape') goTo(0);
 });
 
 let touchX=null;
-document.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchstart',e=>{ touchX=e.touches[0].clientX; },{passive:true});
 document.addEventListener('touchend',e=>{
   if(touchX===null) return;
-  const dx = e.changedTouches[0].clientX - touchX;
+  const dx=e.changedTouches[0].clientX-touchX;
   if(Math.abs(dx)>50) navigate(dx<0?1:-1);
   touchX=null;
 },{passive:true});
-
-function toggleCard(el){
-  const was = el.classList.contains('expanded');
-  el.closest('.cards').querySelectorAll('.card.expanded').forEach(c=>c.classList.remove('expanded'));
-  if(!was) el.classList.add('expanded');
-}
-
-function toggleStage(el){
-  const was = el.classList.contains('open');
-  document.querySelectorAll('.timeline-stage.open').forEach(s=>s.classList.remove('open'));
-  if(!was) el.classList.add('open');
-}
-
-function animateStats(){
-  document.querySelectorAll('.stat-num[data-target]').forEach(el=>{
-    const target = parseInt(el.dataset.target);
-    let cur = 0;
-    const step = Math.ceil(target/30);
-    const timer = setInterval(()=>{
-      cur = Math.min(cur+step, target);
-      el.firstChild ? (el.firstChild.textContent=cur) : (el.textContent=cur);
-      if(cur>=target) clearInterval(timer);
-    },40);
-  });
-}
 
 function closeModalOutside(e){
   if(e.target===document.getElementById('intModal'))
     document.getElementById('intModal').classList.remove('show');
 }
 
-let heroRevealed = false;
-function revealHeroStats() {
-  if (heroRevealed) return;
-  heroRevealed = true;
-  const btn = document.getElementById('revealBtn');
-  if(btn) btn.style.display = 'none';
-  const statIds = ['stat0','stat1','stat2'];
-  const targets = [1, 37, 9];
-  statIds.forEach((id, i) => {
-    setTimeout(() => {
-      const box = document.getElementById(id);
-      if(!box) return;
-      box.classList.remove('stat-hidden');
-      box.style.transform = '';
-      box.style.opacity = '';
-      box.classList.add('stat-reveal-active');
-      const numEl = box.querySelector('.stat-reveal');
-      const target = targets[i];
-      let cur = 0;
-      const step = Math.ceil(target / 28);
-      const countSpan = numEl.querySelector('.count-num');
-      const textNode = !countSpan ? numEl.firstChild : null;
-      const timer = setInterval(() => {
-        cur = Math.min(cur + step, target);
-        if(countSpan) countSpan.textContent = cur;
-        else if(textNode && textNode.nodeType===3) textNode.textContent = cur;
-        else numEl.textContent = cur;
-        if (cur >= target) clearInterval(timer);
-      }, 45);
-    }, i * 220);
+let heroRevealed=false;
+function revealHeroStats(){
+  if(heroRevealed) return; heroRevealed=true;
+  const btn=document.getElementById('revealBtn'); if(btn) btn.style.display='none';
+  const statIds=['stat0','stat1','stat2'], targets=[1,37,9];
+  statIds.forEach((id,i)=>{
+    setTimeout(()=>{
+      const box=document.getElementById(id); if(!box) return;
+      box.classList.remove('stat-hidden'); box.classList.add('stat-reveal-active');
+      const numEl=box.querySelector('.stat-reveal'); const target=targets[i]; let cur=0;
+      const step=Math.ceil(target/28);
+      const countSpan=numEl.querySelector('.count-num');
+      const timer=setInterval(()=>{
+        cur=Math.min(cur+step,target);
+        if(countSpan) countSpan.textContent=cur;
+        else if(numEl.firstChild&&numEl.firstChild.nodeType===3) numEl.firstChild.textContent=cur;
+        else numEl.textContent=cur;
+        if(cur>=target) clearInterval(timer);
+      },45);
+    },i*220);
   });
 }
+
+/* ══════════════════════════════════════
+   SLIDE 4 — EMBRION IMAGE VIEWER
+══════════════════════════════════════ */
+const EMBRION_IMGS = ['paso1','paso2','paso3','paso4','paso5'];
+const EMBRION_LABELS = [
+  'Semana 2 — Implantación en el útero',
+  'Semana 3–4 — Tubo neural y primeras capas',
+  'Semana 5 — El corazón comienza a latir ❤️',
+  'Semana 6–7 — Yemas de brazos y piernas',
+  'Semana 8 — Embrión con rasgos humanos reconocibles'
+];
+let embrionStep = 0;
+
+function embrionNextStep() {
+  if (embrionStep < EMBRION_IMGS.length - 1) {
+    embrionStep++;
+    updateEmbrionImg();
+  }
+}
+
+function updateEmbrionImg() {
+  const img       = document.getElementById('embrionImg');
+  const label     = document.getElementById('embrionStepLabel');
+  const hint      = document.getElementById('embrionImgHint');
+  const dotsEl2   = document.getElementById('embrionDots');
+
+  // Fade out → swap src → fade in
+  img.style.opacity = '0';
+  img.style.transform = 'scale(.97)';
+  setTimeout(() => {
+    // Intenta .png primero; si falla silenciosamente busca .jpg
+    const base = EMBRION_IMGS[embrionStep];
+    img.onerror = function() {
+      if (!this.src.endsWith('.jpg')) {
+        this.onerror = null;
+        this.src = base + '.jpg';
+      }
+    };
+    img.src = base + '.png';
+    img.alt = EMBRION_LABELS[embrionStep];
+    img.style.opacity = '1';
+    img.style.transform = 'scale(1)';
+  }, 200);
+
+  label.textContent = EMBRION_LABELS[embrionStep];
+
+  // Dots indicadores
+  dotsEl2.innerHTML = '';
+  EMBRION_IMGS.forEach((_, i) => {
+    const d = document.createElement('span');
+    d.style.cssText = `
+      display:inline-block; width:10px; height:10px; border-radius:50%;
+      background: ${i === embrionStep ? 'var(--coral)' : 'rgba(91,79,207,.22)'};
+      cursor:pointer; transition: background .25s, transform .25s;
+      transform: ${i === embrionStep ? 'scale(1.35)' : 'scale(1)'};
+    `;
+    d.onclick = () => { embrionStep = i; updateEmbrionImg(); };
+    dotsEl2.appendChild(d);
+  });
+
+  if (embrionStep >= EMBRION_IMGS.length - 1) {
+    hint.textContent = '✅ Has visto los 5 pasos — usa los puntos para repasar';
+  } else {
+    hint.textContent = '👆 Toca la imagen para avanzar (' + (embrionStep + 1) + ' / ' + EMBRION_IMGS.length + ')';
+  }
+}
+
+/* ══════════════════════════════════════
+   SLIDE 4 — CANVAS ETAPAS INTERACTIVO
+══════════════════════════════════════ */
+(function(){
+  const INFO={
+    germinal:{
+      text:'<strong>0 – 2 semanas.</strong> El cigoto se divide: 1 → 2 → 4 → 8 células, formando la mórula, hasta implantarse en el útero.',
+      hint:'Avanza paso a paso con los botones'
+    },
+    embrionaria:{
+      text:'<strong>Semanas 2 – 8.</strong> Se forman cerebro, corazón (late desde la sem. 5), sistema nervioso y yemas de manos. Etapa más vulnerable a los teratógenos.',
+      hint:''
+    },
+    fetal:{
+      text:'<strong>Semana 8 – nacimiento.</strong> Crecimiento acelerado: los sentidos se activan, se forman millones de neuronas y el bebé adquiere apariencia humana reconocible.',
+      hint:'Los badges muestran los sentidos que despiertan'
+    }
+  };
+
+  const C={
+    cell:'#B5EAD7', cellStr:'#0F6E56', nucleus:'#5B4FCF', conn:'rgba(15,110,86,0.18)',
+    emb:'#FFD580', embStr:'#FF8C69',
+    skin:'#FFDAB9', skinStr:'#D85A30',
+    eye:'#3C3489', heart:'#FF6B9D',
+    label:'#3C3489', sublabel:'#5B4FCF'
+  };
+
+  let stage='germinal', divStep=0, t=0, etapasRaf=null;
+  let canvas=null, ctx=null, W=0, H=0;
+  let labelAlpha=0, labelText='', labelTimer=null;
+
+  const GERMINAL_STEPS=[1,2,4,8];
+
+  function initCanvas(){
+    canvas=document.getElementById('etapasCanvas');
+    if(!canvas) return false;
+    W=canvas.width; H=canvas.height;
+    ctx=canvas.getContext('2d');
+    return true;
+  }
+
+  function drawCell(x,y,r,alpha){
+    ctx.save(); ctx.globalAlpha=alpha??1;
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle=C.cell; ctx.fill();
+    ctx.strokeStyle=C.cellStr; ctx.lineWidth=2.5; ctx.stroke();
+    ctx.beginPath(); ctx.arc(x,y,r*0.3,0,Math.PI*2);
+    ctx.fillStyle=C.nucleus; ctx.globalAlpha=(alpha??1)*0.6; ctx.fill();
+    ctx.restore();
+  }
+
+  function drawLabelFade(txt){
+    if(labelAlpha<=0) return;
+    ctx.save();
+    ctx.globalAlpha=Math.min(1,labelAlpha);
+    ctx.fillStyle='#3C3489'; ctx.font='700 13px Nunito,sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(txt,W/2,H-25+16);
+    ctx.restore();
+  }
+
+  function showLabel(txt){
+    labelText=txt; labelAlpha=2.2;
+  }
+
+  function divLine(x1,y1,x2,y2){
+    ctx.save(); ctx.setLineDash([5,4]); ctx.strokeStyle=C.cellStr;
+    ctx.lineWidth=1.4; ctx.globalAlpha=0.4;
+    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke(); ctx.restore();
+  }
+
+  function connLine(x1,y1,x2,y2){
+    ctx.save(); ctx.strokeStyle=C.conn; ctx.lineWidth=1.2;
+    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke(); ctx.restore();
+  }
+
+  function drawTapHint(){
+    const pulse=0.5+Math.abs(Math.sin(t*0.03))*0.5;
+    ctx.save();
+    ctx.globalAlpha=pulse;
+    ctx.fillStyle=C.sublabel;
+    ctx.font='600 17px Nunito,sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='alphabetic';
+    ctx.fillText('👆 Toca el canvas para comenzar',W/2,H-10);
+    ctx.restore();
+  }
+
+  function drawGerminal(step,t){
+    const cx=W/2, cy=H/2-8;
+    const pulse=1+Math.sin(t*0.05)*0.025;
+
+    if(step===0){ drawTapHint(); return; }
+
+    if(step===1){
+      drawCell(cx,cy,68*pulse,1);
+      ctx.save(); ctx.fillStyle=C.label; ctx.font='500 16px Nunito,sans-serif';
+      ctx.textAlign='center'; ctx.fillText('Cigoto',cx,cy+68+18); ctx.restore();
+    } else if(step===2){
+      const r=54*pulse, off=66;
+      connLine(cx-off,cy,cx+off,cy);
+      drawCell(cx-off,cy,r,1); drawCell(cx+off,cy,r,1);
+      divLine(cx,cy-r*.85,cx,cy+r*.85);
+      ctx.save(); ctx.fillStyle=C.label; ctx.font='400 15px Nunito,sans-serif'; ctx.textAlign='center';
+      ctx.fillText('célula 1',cx-off,cy+r+14); ctx.fillText('célula 2',cx+off,cy+r+14); ctx.restore();
+    } else if(step===4){
+      const r=42*pulse, off=54;
+      [[cx-off,cy-off],[cx+off,cy-off],[cx+off,cy+off],[cx-off,cy+off]].forEach(([x,y],i,arr)=>{
+        const next=arr[(i+1)%4]; connLine(x,y,next[0],next[1]);
+      });
+      [[cx-off,cy-off],[cx+off,cy-off],[cx-off,cy+off],[cx+off,cy+off]].forEach(([x,y])=>drawCell(x,y,r,1));
+      divLine(cx,cy-off-r,cx,cy+off+r); divLine(cx-off-r,cy,cx+off+r,cy);
+    } else {
+      const r=34*pulse, dist=76;
+      const angles=[0,45,90,135,180,225,270,315];
+      const positions=angles.map(a=>({x:cx+Math.cos(a*Math.PI/180)*dist, y:cy+Math.sin(a*Math.PI/180)*dist}));
+      ctx.save(); ctx.beginPath(); ctx.arc(cx,cy,dist,0,Math.PI*2);
+      ctx.strokeStyle=C.conn; ctx.lineWidth=1; ctx.stroke(); ctx.restore();
+      positions.forEach(p=>connLine(cx,cy,p.x,p.y));
+      positions.forEach(p=>drawCell(p.x,p.y,r,1));
+      ctx.save(); ctx.font='700 14px Nunito,sans-serif'; ctx.textAlign='center';
+      ctx.textBaseline='middle'; ctx.fillStyle=C.label;
+      positions.forEach((p,i)=>ctx.fillText(i+1,p.x,p.y)); ctx.restore();
+      ctx.save(); ctx.font='700 17px Nunito,sans-serif'; ctx.textAlign='center';
+      ctx.textBaseline='middle'; ctx.fillStyle=C.sublabel;
+      ctx.fillText('MÓRULA',cx,cy); ctx.restore();
+    }
+    drawLabelFade(labelText);
+  }
+
+  function heartPath(cx,cy,sz){
+    ctx.beginPath();
+    ctx.moveTo(cx,cy+sz*.3);
+    ctx.bezierCurveTo(cx,cy-sz*.3,cx-sz,cy-sz*.3,cx-sz,cy+sz*.1);
+    ctx.bezierCurveTo(cx-sz,cy+sz*.6,cx,cy+sz,cx,cy+sz);
+    ctx.bezierCurveTo(cx,cy+sz,cx+sz,cy+sz*.6,cx+sz,cy+sz*.1);
+    ctx.bezierCurveTo(cx+sz,cy-sz*.3,cx,cy-sz*.3,cx,cy+sz*.3);
+    ctx.closePath();
+  }
+
+  function drawFetal(t){
+    const cx=W/2, cy=H/2+5;
+    const pulse=1+Math.sin(t*0.035)*0.01;
+    ctx.save(); ctx.translate(cx,cy); ctx.scale(pulse,pulse);
+    ctx.beginPath(); ctx.ellipse(0,10,58,76,0,0,Math.PI*2);
+    ctx.fillStyle=C.skin; ctx.fill(); ctx.strokeStyle=C.skinStr; ctx.lineWidth=2.5; ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(0,-78,52,48,0,0,Math.PI*2);
+    ctx.fillStyle=C.skin; ctx.fill(); ctx.strokeStyle=C.skinStr; ctx.lineWidth=2.5; ctx.stroke();
+    [[-18,-82],[18,-82]].forEach(([ex,ey])=>{
+      ctx.beginPath(); ctx.arc(ex,ey,7,0,Math.PI*2);
+      ctx.fillStyle='#fff'; ctx.fill(); ctx.strokeStyle=C.skinStr; ctx.lineWidth=1; ctx.stroke();
+      ctx.beginPath(); ctx.arc(ex,ey,3.5,0,Math.PI*2); ctx.fillStyle=C.eye; ctx.fill();
+    });
+    ctx.beginPath(); ctx.arc(0,-62,10,0.25,Math.PI-0.25); ctx.strokeStyle=C.skinStr; ctx.lineWidth=1.5; ctx.stroke();
+    [0,1].forEach(i=>{
+      const sx=i===0?-25:25;
+      ctx.save(); ctx.beginPath(); ctx.moveTo(sx,-2);
+      ctx.bezierCurveTo(i===0?-48:48,12,i===0?-62:62,28,i===0?-56:56,42);
+      ctx.strokeStyle=C.skin; ctx.lineWidth=13; ctx.stroke();
+      ctx.strokeStyle=C.skinStr; ctx.lineWidth=1.8; ctx.stroke(); ctx.restore();
+      const hx=i===0?-56:56;
+      ctx.beginPath(); ctx.ellipse(hx,42,10,8,i===0?-0.4:0.4,0,Math.PI*2);
+      ctx.fillStyle=C.skin; ctx.fill(); ctx.strokeStyle=C.skinStr; ctx.lineWidth=1.5; ctx.stroke();
+    });
+    [0,1].forEach(i=>{
+      const lx=i===0?-20:20;
+      ctx.save(); ctx.beginPath(); ctx.moveTo(lx,84);
+      ctx.bezierCurveTo(lx,108,lx+(i===0?-8:8),124,lx+(i===0?-14:14),136);
+      ctx.strokeStyle=C.skin; ctx.lineWidth=15; ctx.stroke();
+      ctx.strokeStyle=C.skinStr; ctx.lineWidth=1.8; ctx.stroke(); ctx.restore();
+      ctx.beginPath(); ctx.ellipse(lx+(i===0?-14:14),138,12,8,i===0?-0.3:0.3,0,Math.PI*2);
+      ctx.fillStyle=C.skin; ctx.fill(); ctx.strokeStyle=C.skinStr; ctx.lineWidth=1.5; ctx.stroke();
+    });
+    ctx.restore();
+    const sentidos=[
+      {x:cx-110,y:cy-72,icon:'👂',label:'oye',  bg:'#7EC8E3',fg:'#042C53'},
+      {x:cx+110,y:cy-60,icon:'👁️', label:'ve',   bg:'#C9B8FF',fg:'#26215C'},
+      {x:cx,    y:cy+158,icon:'✋',label:'siente',bg:'#FFD966',fg:'#412402'},
+    ];
+    sentidos.forEach((s,i)=>{
+      const sc=0.92+Math.sin(t*0.04+i*2.1)*0.08;
+      const bw=78, bh=28;
+      ctx.save(); ctx.translate(s.x,s.y); ctx.scale(sc,sc);
+      ctx.beginPath(); ctx.roundRect(-bw/2,-bh/2,bw,bh,14);
+      ctx.fillStyle=s.bg; ctx.fill();
+      ctx.font='500 16px Nunito,sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillStyle=s.fg; ctx.fillText(s.icon+' '+s.label,0,0); ctx.restore();
+    });
+  }
+
+  function drawFrame(){
+    ctx.clearRect(0,0,W,H);
+    if(stage==='germinal')    drawGerminal(divStep,t);
+    else if(stage==='fetal')  drawFetal(t);
+    t++;
+    etapasRaf=requestAnimationFrame(drawFrame);
+  }
+
+  const STEP_LABELS={1:'1 célula — el inicio de todo',2:'2 células — primera división',4:'4 células — segunda división',8:'8 células — mórula lista para implantarse'};
+
+  function setStageUI(s){
+    stage=s; t=0; labelAlpha=0; labelText='';
+    document.querySelectorAll('.slide[data-index="4"] .sbtn').forEach(b=>b.classList.toggle('active',b.dataset.stage===s));
+    document.getElementById('s4Info').innerHTML=INFO[s].text;
+
+    const canvasEl   = document.getElementById('etapasCanvas');
+    const imgViewer  = document.getElementById('embrionImgViewer');
+    const hintEl     = document.getElementById('s4Hint');
+
+    if(s==='embrionaria'){
+      // Mostrar visor de imágenes, ocultar canvas
+      canvasEl.style.display  = 'none';
+      imgViewer.style.display = 'flex';
+      hintEl.textContent      = '';
+      embrionStep = 0;
+      updateEmbrionImg();
+    } else {
+      // Mostrar canvas, ocultar visor
+      canvasEl.style.display  = 'block';
+      imgViewer.style.display = 'none';
+      hintEl.textContent      = INFO[s].hint;
+      if(s==='germinal'){
+        divStep=0;
+        hintEl.textContent='👆 Toca el canvas para ver la división celular';
+      }
+    }
+  }
+
+  function advanceGerminal(){
+    if(stage!=='germinal') return;
+    const idx=GERMINAL_STEPS.indexOf(divStep);
+    const next=idx===-1?0:Math.min(idx+1,GERMINAL_STEPS.length-1);
+    divStep=GERMINAL_STEPS[next];
+    showLabel(STEP_LABELS[divStep]);
+    const hintEl=document.getElementById('s4Hint');
+    if(next===GERMINAL_STEPS.length-1){
+      hintEl.textContent='✅ Mórula completa — cambia de etapa con los botones';
+    } else {
+      hintEl.textContent='👆 Toca de nuevo para continuar la división';
+    }
+  }
+
+  function startEtapas(){
+    if(!initCanvas()) return;
+    if(etapasRaf){ cancelAnimationFrame(etapasRaf); etapasRaf=null; }
+    document.querySelectorAll('.slide[data-index="4"] .sbtn').forEach(b=>{
+      b.onclick=()=>setStageUI(b.dataset.stage);
+    });
+    canvas.onclick=()=>{ if(stage==='germinal') advanceGerminal(); };
+    setStageUI('germinal');
+    drawFrame();
+  }
+
+  function stopEtapas(){
+    if(etapasRaf){ cancelAnimationFrame(etapasRaf); etapasRaf=null; }
+  }
+
+  window._startEtapas = startEtapas;
+  window._stopEtapas  = stopEtapas;
+})();
 
 /* ══════════════════════════════════════
    FERTILIZACIÓN CANVAS (Slide 2)
 ══════════════════════════════════════ */
 (function(){
-  let fertAnim = null;
-  let fertState = 'paused';
-  let fusionT = 0, flashAlpha = 0, spermWin = null;
-  const TOTAL = 186;
-  const spermData = [];
-  let env = null, frameT = 0, swimT = 0;
-  let fusionFrame = -1;
-  let attempt = 0;
+  let fertAnim=null, fertState='paused', fusionT=0, flashAlpha=0, spermWin=null;
+  const TOTAL=186; const spermData=[];
+  let env=null, frameT=0, swimT=0, fusionFrame=-1, attempt=0;
+  const confettiPieces=[];
+  const CONFETTI_COLORS=['#FF8C69','#FFD966','#B5EAD7','#7EC8E3','#FFB7C5','#C9B8FF','#FF6B9D','#FFF176'];
+  let confettiActive=false, confettiFrames=0;
+  const CONFETTI_MAX_FRAMES=180;
+  let fecundacionFrames=0;
+  const FECUNDACION_MAX_FRAMES=240;
 
-  // ── Confeti ──
-  const confettiPieces = [];
-  const CONFETTI_COLORS = ['#FF8C69','#FFD966','#B5EAD7','#7EC8E3','#FFB7C5','#C9B8FF','#FF6B9D','#FFF176'];
-  function initConfetti(W, H) {
-    confettiPieces.length = 0;
-    for (let i = 0; i < 180; i++) {
-      confettiPieces.push({
-        x: Math.random() * W,
-        y: -20 - Math.random() * H * 0.6,
-        w: 8 + Math.random() * 10,
-        h: 4 + Math.random() * 6,
-        color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
-        speed: 2.5 + Math.random() * 3.5,
-        angle: Math.random() * Math.PI * 2,
-        spin: (Math.random() - 0.5) * 0.18,
-        wobble: (Math.random() - 0.5) * 1.2,
-        shape: Math.random() > 0.4 ? 'rect' : 'circle'
-      });
+  function initConfetti(W,H){
+    confettiPieces.length=0;
+    for(let i=0;i<180;i++){
+      confettiPieces.push({x:Math.random()*W,y:-20-Math.random()*H*.6,
+        w:8+Math.random()*10,h:4+Math.random()*6,
+        color:CONFETTI_COLORS[Math.floor(Math.random()*CONFETTI_COLORS.length)],
+        speed:2.5+Math.random()*3.5,angle:Math.random()*Math.PI*2,
+        spin:(Math.random()-.5)*.18,wobble:(Math.random()-.5)*1.2,
+        shape:Math.random()>.4?'rect':'circle'});
     }
   }
-  function drawConfetti(ctx, W, H) {
-    confettiPieces.forEach(p => {
-      p.y += p.speed;
-      p.x += p.wobble;
-      p.angle += p.spin;
-      if (p.y > H + 20) { p.y = -20; p.x = Math.random() * W; }
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.angle);
-      ctx.fillStyle = p.color;
-      ctx.globalAlpha = 0.88;
-      if (p.shape === 'circle') {
-        ctx.beginPath(); ctx.arc(0, 0, p.w/2, 0, Math.PI*2); ctx.fill();
-      } else {
-        ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
-      }
+  function drawConfetti(ctx,W,H){
+    confettiPieces.forEach(p=>{
+      p.y+=p.speed; p.x+=p.wobble; p.angle+=p.spin;
+      if(p.y>H+20){ p.y=-20; p.x=Math.random()*W; }
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.angle);
+      ctx.fillStyle=p.color; ctx.globalAlpha=0.88;
+      if(p.shape==='circle'){ ctx.beginPath(); ctx.arc(0,0,p.w/2,0,Math.PI*2); ctx.fill(); }
+      else ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
       ctx.restore();
     });
   }
-  let confettiActive = false;
-  let confettiFrames = 0;
-  const CONFETTI_MAX_FRAMES = 180;
-  let fecundacionFrames = 0;
-  const FECUNDACION_MAX_FRAMES = 240; // ~4 segundos a 60fps
 
-  function getFate(i, att) {
-    if (att === 3 && i === 0) return 'winner';
-    const idx = att === 3 ? i - 1 : i;
-    if (att === 1) {
-      if (idx % 3 === 0) return 'die_early';
-      if (idx % 3 === 1) return 'die_mid';
-      return 'die_late';
-    }
-    if (att === 2) {
-      if (idx % 3 === 0) return 'wander_early';
-      if (idx % 3 === 1) return 'wander_mid';
-      return 'wander_late';
-    }
-    if (idx % 6 === 0) return 'die_early';
-    if (idx % 6 === 1) return 'die_mid';
-    if (idx % 6 === 2) return 'die_late';
-    if (idx % 6 === 3) return 'wander_early';
-    if (idx % 6 === 4) return 'wander_mid';
-    return 'wander_late';
+  function getFate(i,att){
+    if(att===3&&i===0) return 'winner';
+    const idx=att===3?i-1:i;
+    if(att===1){ if(idx%3===0) return 'die_early'; if(idx%3===1) return 'die_mid'; return 'die_late'; }
+    if(att===2){ if(idx%3===0) return 'wander_early'; if(idx%3===1) return 'wander_mid'; return 'wander_late'; }
+    if(idx%6===0) return 'die_early'; if(idx%6===1) return 'die_mid'; if(idx%6===2) return 'die_late';
+    if(idx%6===3) return 'wander_early'; if(idx%6===4) return 'wander_mid'; return 'wander_late';
   }
-
-  function getDieStart(i, fate) {
-    const slot = i;
-    if (fate === 'die_early')    return 20  + (slot * 7)  % 140;
-    if (fate === 'die_mid')      return 160 + (slot * 9)  % 160;
-    if (fate === 'die_late')     return 320 + (slot * 11) % 180;
-    if (fate === 'wander_early') return 30  + (slot * 7)  % 120;
-    if (fate === 'wander_mid')   return 150 + (slot * 9)  % 150;
-    if (fate === 'wander_late')  return 290 + (slot * 11) % 180;
+  function getDieStart(i,fate){
+    const slot=i;
+    if(fate==='die_early')    return 20+(slot*7)%140;
+    if(fate==='die_mid')      return 160+(slot*9)%160;
+    if(fate==='die_late')     return 320+(slot*11)%180;
+    if(fate==='wander_early') return 30+(slot*7)%120;
+    if(fate==='wander_mid')   return 150+(slot*9)%150;
+    if(fate==='wander_late')  return 290+(slot*11)%180;
     return 9999;
   }
-
-  function makeSperm(i, W, H, att) {
-    const cols = 10;
-    const row = i % cols;
-    const col = Math.floor(i / cols);
-    const fate = getFate(i, att);
-    const dieStart = getDieStart(i, fate);
-    const baseY = H * (0.03 + (row / (cols - 1)) * 0.94);
-    const speed  = 0.38 + (((i * 7 + 3) % 17) / 17) * 0.32;
-    const wobble = (((i * 13 + 5) % 20) / 20 - 0.5) * 0.06;
-    const drift  = (((i * 11 + 7) % 20) / 20 - 0.5) * 0.18;
-    return {
-      x: W + 30 + col * 14,
-      y: baseY,
-      angle: Math.PI,
-      speed, wobble, drift,
-      won: false, reached: false,
-      alpha: 1,
-      fate,
-      status: 'alive',
-      showX: false, xScale: 0,
-      dieStart,
-      wanderStart: dieStart,
-      startDelay: (col * 3) + (i % 20),
-      tailPhase: (i * 0.41) % (Math.PI * 2),
-      isWanderer: fate.startsWith('wander'),
-      isDier: fate.startsWith('die'),
-      isWinner: fate === 'winner'
-    };
+  function makeSperm(i,W,H,att){
+    const cols=10, row=i%cols, col=Math.floor(i/cols);
+    const fate=getFate(i,att), dieStart=getDieStart(i,fate);
+    const baseY=H*(0.03+(row/(cols-1))*0.94);
+    const speed=0.38+(((i*7+3)%17)/17)*0.32;
+    const wobble=(((i*13+5)%20)/20-.5)*.06;
+    const drift=(((i*11+7)%20)/20-.5)*.18;
+    return {x:W+30+col*14,y:baseY,angle:Math.PI,speed,wobble,drift,
+      won:false,reached:false,alpha:1,fate,status:'alive',showX:false,xScale:0,
+      dieStart,wanderStart:dieStart,startDelay:(col*3)+(i%20),
+      tailPhase:(i*0.41)%(Math.PI*2),
+      isWanderer:fate.startsWith('wander'),isDier:fate.startsWith('die'),isWinner:fate==='winner'};
   }
-
-  function resetRound(att) {
-    const { W, H } = env;
-    spermData.length = 0;
-    fusionT = 0; flashAlpha = 0; spermWin = null; swimT = 0; fusionFrame = -1;
-    fertState = 'swimming';
-    for (let i = 0; i < TOTAL; i++) spermData.push(makeSperm(i, W, H, att));
-    if (att === 3) {
-      const w = spermData[0];
-      w.speed = 1.1;
-      w.y = H * 0.5;
-      w.startDelay = 3;
-      w.wobble = 0;
-      w.drift = 0;
-    }
+  function resetRound(att){
+    const {W,H}=env; spermData.length=0;
+    fusionT=0;flashAlpha=0;spermWin=null;swimT=0;fusionFrame=-1;fertState='swimming';
+    for(let i=0;i<TOTAL;i++) spermData.push(makeSperm(i,W,H,att));
+    if(att===3){ const w=spermData[0]; w.speed=1.1; w.y=H*.5; w.startDelay=3; w.wobble=0; w.drift=0; }
   }
-
-  function initFert(canvas) {
-    const W = canvas.width, H = canvas.height;
-    const ox = W * 0.22, oy = H * 0.5, or_ = Math.min(W,H) * 0.18;
-    spermData.length = 0;
-    fusionT = 0; flashAlpha = 0; spermWin = null; swimT = 0; fusionFrame = -1;
-    fertState = 'paused'; attempt = 0;
-    for (let i = 0; i < TOTAL; i++) spermData.push(makeSperm(i, W, H, 1));
-    return { W, H, ox, oy, or: or_ };
+  function initFert(canvas){
+    const W=canvas.width,H=canvas.height;
+    const ox=W*.22,oy=H*.5,or_=Math.min(W,H)*.18;
+    spermData.length=0;fusionT=0;flashAlpha=0;spermWin=null;swimT=0;fusionFrame=-1;
+    fertState='paused';attempt=0;
+    for(let i=0;i<TOTAL;i++) spermData.push(makeSperm(i,W,H,1));
+    return {W,H,ox,oy,or:or_};
   }
-
-  function handleOvumClick(cx, cy, ox, oy, or_) {
-    if (Math.hypot(cx - ox, cy - oy) > or_ * 1.4) return;
-    if (fertState === 'swimming' || fertState === 'entering') return;
-    if (attempt < 3) { attempt++; resetRound(attempt); }
+  function handleOvumClick(cx,cy,ox,oy,or_){
+    if(Math.hypot(cx-ox,cy-oy)>or_*1.4) return;
+    if(fertState==='swimming'||fertState==='entering') return;
+    if(attempt<3){attempt++;resetRound(attempt);}
   }
-
-  function markDying(s) {
-    if (s.status === 'dying' || s.status === 'dead') return;
-    s.status = 'dying'; s.showX = true; s.speed *= 0.22;
-  }
-  function markDead(s) {
-    s.status = 'dead'; s.showX = true; s.xScale = Math.max(s.xScale, 1);
-  }
-
-  function drawDeathX(ctx, s) {
-    if (!s.showX) return;
-    if (s.xScale < 1) s.xScale = Math.min(1, s.xScale + 0.08);
+  function markDying(s){ if(s.status==='dying'||s.status==='dead') return; s.status='dying';s.showX=true;s.speed*=.22; }
+  function markDead(s){ s.status='dead';s.showX=true;s.xScale=Math.max(s.xScale,1); }
+  function drawDeathX(ctx,s){
+    if(!s.showX) return;
+    if(s.xScale<1) s.xScale=Math.min(1,s.xScale+.08);
     ctx.save();
-    ctx.globalAlpha = s.status === 'dead' ? Math.min(0.92, s.xScale) : Math.min(0.9, 1.1 - s.alpha);
-    ctx.translate(s.x, s.y - 10);
-    const sz = 8 * s.xScale;
-    ctx.strokeStyle = '#e53935'; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.moveTo(-sz,-sz); ctx.lineTo(sz,sz);
-    ctx.moveTo(sz,-sz); ctx.lineTo(-sz,sz); ctx.stroke();
-    ctx.beginPath(); ctx.arc(0,0,sz+3,0,Math.PI*2);
-    ctx.strokeStyle='rgba(229,57,53,.22)'; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.globalAlpha=s.status==='dead'?Math.min(.92,s.xScale):Math.min(.9,1.1-s.alpha);
+    ctx.translate(s.x,s.y-10);
+    const sz=8*s.xScale;
+    ctx.strokeStyle='#e53935';ctx.lineWidth=2.5;ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(-sz,-sz);ctx.lineTo(sz,sz);ctx.moveTo(sz,-sz);ctx.lineTo(-sz,sz);ctx.stroke();
+    ctx.beginPath();ctx.arc(0,0,sz+3,0,Math.PI*2);
+    ctx.strokeStyle='rgba(229,57,53,.22)';ctx.lineWidth=1.5;ctx.stroke();
     ctx.restore();
   }
-
-  function drawSperm(ctx, s, t) {
-    const isDead = s.status==='dead', isDying = s.status==='dying';
-    if (s.alpha<=0.02 && !isDying && !isDead) return;
+  function drawSperm(ctx,s,t){
+    const isDead=s.status==='dead',isDying=s.status==='dying';
+    if(s.alpha<=.02&&!isDying&&!isDead) return;
     ctx.save();
-    ctx.globalAlpha = isDying ? Math.max(0.12, s.alpha) : (isDead ? 0 : s.alpha);
-    if (!isDead) {
-      ctx.translate(s.x, s.y); ctx.rotate(s.angle);
-      const tailAmp = isDying ? 0.25 : 1;
-      ctx.beginPath(); ctx.ellipse(0,0,7,4,0,0,Math.PI*2);
-      ctx.fillStyle = s.won ? '#FFD700' : isDying ? '#9ca3af' : '#5B4FCF'; ctx.fill();
-      ctx.strokeStyle = s.won ? 'rgba(200,150,0,.6)' : isDying ? 'rgba(120,120,120,.4)' : 'rgba(91,79,207,.4)';
-      ctx.lineWidth=1; ctx.stroke();
+    ctx.globalAlpha=isDying?Math.max(.12,s.alpha):(isDead?0:s.alpha);
+    if(!isDead){
+      ctx.translate(s.x,s.y);ctx.rotate(s.angle);
+      const tailAmp=isDying?.25:1;
+      ctx.beginPath();ctx.ellipse(0,0,7,4,0,0,Math.PI*2);
+      ctx.fillStyle=s.won?'#FFD700':isDying?'#9ca3af':'#5B4FCF';ctx.fill();
+      ctx.strokeStyle=s.won?'rgba(200,150,0,.6)':isDying?'rgba(120,120,120,.4)':'rgba(91,79,207,.4)';
+      ctx.lineWidth=1;ctx.stroke();
       ctx.beginPath();
-      for (let k=0;k<=28;k++){
-        const tx=-7-k*1.05, ty=Math.sin(k*0.38+s.tailPhase+t*0.14)*(3+k*0.08)*tailAmp;
+      for(let k=0;k<=28;k++){
+        const tx=-7-k*1.05,ty=Math.sin(k*.38+s.tailPhase+t*.14)*(3+k*.08)*tailAmp;
         k===0?ctx.moveTo(tx,ty):ctx.lineTo(tx,ty);
       }
-      ctx.strokeStyle = s.won ? 'rgba(255,200,0,.75)' : isDying ? 'rgba(150,150,150,.35)' : 'rgba(91,79,207,.52)';
-      ctx.lineWidth=1.8; ctx.stroke();
+      ctx.strokeStyle=s.won?'rgba(255,200,0,.75)':isDying?'rgba(150,150,150,.35)':'rgba(91,79,207,.52)';
+      ctx.lineWidth=1.8;ctx.stroke();
     }
     ctx.restore();
-    if (isDying||isDead) drawDeathX(ctx, s);
+    if(isDying||isDead) drawDeathX(ctx,s);
   }
-
-  function drawOvum(ctx, ox, oy, or_, t) {
+  function drawOvum(ctx,ox,oy,or_,t){
     const gl=ctx.createRadialGradient(ox,oy,0,ox,oy,or_*2.2);
-    gl.addColorStop(0,'rgba(255,220,140,.35)'); gl.addColorStop(1,'rgba(255,200,100,0)');
-    ctx.fillStyle=gl; ctx.beginPath(); ctx.arc(ox,oy,or_*2.2,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(ox,oy,or_*1.2,0,Math.PI*2);
-    ctx.strokeStyle='rgba(255,180,200,.55)'; ctx.setLineDash([8,5]); ctx.lineWidth=2.5; ctx.stroke(); ctx.setLineDash([]);
+    gl.addColorStop(0,'rgba(255,220,140,.35)');gl.addColorStop(1,'rgba(255,200,100,0)');
+    ctx.fillStyle=gl;ctx.beginPath();ctx.arc(ox,oy,or_*2.2,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(ox,oy,or_*1.2,0,Math.PI*2);
+    ctx.strokeStyle='rgba(255,180,200,.55)';ctx.setLineDash([8,5]);ctx.lineWidth=2.5;ctx.stroke();ctx.setLineDash([]);
     const ov=ctx.createRadialGradient(ox-or_*.28,oy-or_*.22,or_*.08,ox,oy,or_);
-    ov.addColorStop(0,'#FFF8E0'); ov.addColorStop(.55,'#FFD580'); ov.addColorStop(1,'#FFB347');
-    ctx.beginPath(); ctx.arc(ox,oy,or_,0,Math.PI*2); ctx.fillStyle=ov; ctx.fill();
-    ctx.strokeStyle='#FF8C69'; ctx.lineWidth=3; ctx.stroke();
-    ctx.beginPath(); ctx.arc(ox,oy,or_*.38,0,Math.PI*2); ctx.fillStyle='rgba(255,200,100,.7)'; ctx.fill();
-    ctx.beginPath(); ctx.arc(ox-or_*.3,oy-or_*.3,or_*.18,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,.55)'; ctx.fill();
+    ov.addColorStop(0,'#FFF8E0');ov.addColorStop(.55,'#FFD580');ov.addColorStop(1,'#FFB347');
+    ctx.beginPath();ctx.arc(ox,oy,or_,0,Math.PI*2);ctx.fillStyle=ov;ctx.fill();
+    ctx.strokeStyle='#FF8C69';ctx.lineWidth=3;ctx.stroke();
+    ctx.beginPath();ctx.arc(ox,oy,or_*.38,0,Math.PI*2);ctx.fillStyle='rgba(255,200,100,.7)';ctx.fill();
+    ctx.beginPath();ctx.arc(ox-or_*.3,oy-or_*.3,or_*.18,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,.55)';ctx.fill();
   }
-
-  function updateSperm(s, idx, ox, oy, or_, t, W, H) {
-    if (s.status==='dead') return;
-    if (swimT < s.startDelay) { s.tailPhase+=0.06; return; }
-    s.tailPhase += s.status==='dying' ? 0.04 : 0.15;
-
-    if (s.status==='dying') {
-      s.alpha -= 0.007; s.angle+=s.drift*0.35;
-      s.x+=Math.cos(s.angle)*s.speed*0.5; s.y+=Math.sin(s.angle)*s.speed*0.5+0.06;
-      if (s.alpha<=0.04) markDead(s);
-      return;
+  function updateSperm(s,idx,ox,oy,or_,t,W,H){
+    if(s.status==='dead') return;
+    if(swimT<s.startDelay){s.tailPhase+=.06;return;}
+    s.tailPhase+=s.status==='dying'?.04:.15;
+    if(s.status==='dying'){
+      s.alpha-=.007;s.angle+=s.drift*.35;
+      s.x+=Math.cos(s.angle)*s.speed*.5;s.y+=Math.sin(s.angle)*s.speed*.5+.06;
+      if(s.alpha<=.04) markDead(s); return;
     }
-
-    if (s.reached) return;
-
-    const ta = Math.atan2(oy-s.y, ox-s.x);
-    const steerBase = s.isWinner ? 0.12 : 0.018;
-    let steer = steerBase, wobbleMul = 1;
-
-    if (s.isWanderer && swimT > s.wanderStart) {
-      steer = 0.003; wobbleMul = 3.2;
-      s.angle += s.drift * 1.2 + 0.025 * Math.sin(t*0.04 + idx*0.85);
-      const distToOvum = Math.hypot(ox-s.x, oy-s.y);
-      if (swimT > s.wanderStart + 200 || distToOvum > Math.max(W,H)*0.72) { markDying(s); return; }
+    if(s.reached) return;
+    const ta=Math.atan2(oy-s.y,ox-s.x);
+    const steerBase=s.isWinner?.12:.018;
+    let steer=steerBase,wobbleMul=1;
+    if(s.isWanderer&&swimT>s.wanderStart){
+      steer=.003;wobbleMul=3.2;
+      s.angle+=s.drift*1.2+.025*Math.sin(t*.04+idx*.85);
+      const distToOvum=Math.hypot(ox-s.x,oy-s.y);
+      if(swimT>s.wanderStart+200||distToOvum>Math.max(W,H)*.72){markDying(s);return;}
     }
-
-    if (s.isDier && swimT > s.dieStart) { markDying(s); return; }
-
-    s.angle += (ta - s.angle)*steer + s.wobble*wobbleMul*Math.sin(t*0.055+idx*1.25);
-    s.x += Math.cos(s.angle)*s.speed;
-    s.y += Math.sin(s.angle)*s.speed;
-
-    if (!s.isWinner && (s.x<-60||s.y<-40||s.y>H+40||s.x>W+80)) { markDying(s); return; }
-
-    const dist = Math.hypot(ox-s.x, oy-s.y);
-    if (dist < or_+5) {
-      s.reached = true;
-      if (s.isWinner && !spermWin) {
-        spermWin = s; s.won = true; fertState = 'entering'; flashAlpha = 1; fusionFrame = swimT;
-        let slot = 0;
-        spermData.forEach(other => {
-          if (other===s || other.status!=='alive' || other.reached) return;
-          other.dieStart = swimT + 8 + slot * 2;
-          other.isDier = true; other.isWanderer = false;
-          slot++;
+    if(s.isDier&&swimT>s.dieStart&&!s.reached) markDying(s);
+    s.angle+=(ta-s.angle)*steer+s.wobble*wobbleMul*Math.sin(t*.055+idx*1.25);
+    s.x+=Math.cos(s.angle)*s.speed; s.y+=Math.sin(s.angle)*s.speed;
+    if(!s.isWinner&&(s.x<-60||s.y<-40||s.y>H+40||s.x>W+80)){markDying(s);return;}
+    const dist=Math.hypot(ox-s.x,oy-s.y);
+    if(dist<or_+5){
+      s.reached=true;
+      if(s.isWinner&&!spermWin){
+        spermWin=s;s.won=true;fertState='entering';flashAlpha=1;fusionFrame=swimT;
+        let slot=0;
+        spermData.forEach(other=>{
+          if(other===s||other.status!=='alive'||other.reached) return;
+          other.dieStart=swimT+8+slot*2;other.isDier=true;other.isWanderer=false;slot++;
         });
-      } else {
-        markDying(s);
-      }
+      } else markDying(s);
     }
   }
-
-  function fertTick(ctx, env_, t) {
-    const { W, H, ox, oy, or: or_ } = env_;
+  function fertTick(ctx,env_,t){
+    const {W,H,ox,oy,or:or_}=env_;
     ctx.clearRect(0,0,W,H);
     const bg=ctx.createLinearGradient(0,0,W,H);
-    bg.addColorStop(0,'#f3e5ff'); bg.addColorStop(1,'#e8f5e9');
-    ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
-
-    if (fertState==='paused') {
-
-      // ══ CUADRO CON MARCO DE CHUPONES ══
-      const bx = W * .48;
-      const by = H * .14;
-      const bw = W * .48;
-      const bh = H * .68;
-      const br = 22;
-
-      // Fondo del cuadro — blanco cremoso suave
+    bg.addColorStop(0,'#f3e5ff');bg.addColorStop(1,'#e8f5e9');
+    ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+    if(fertState==='paused'){
+      const bx=W*.48,by=H*.14,bw=W*.48,bh=H*.68,br=22;
       ctx.save();
       ctx.beginPath();
-      ctx.moveTo(bx+br, by);
-      ctx.lineTo(bx+bw-br, by); ctx.arc(bx+bw-br, by+br, br, -Math.PI/2, 0);
-      ctx.lineTo(bx+bw, by+bh-br); ctx.arc(bx+bw-br, by+bh-br, br, 0, Math.PI/2);
-      ctx.lineTo(bx+br, by+bh); ctx.arc(bx+br, by+bh-br, br, Math.PI/2, Math.PI);
-      ctx.lineTo(bx, by+br); ctx.arc(bx+br, by+br, br, Math.PI, -Math.PI/2);
-      ctx.closePath();
-      ctx.fillStyle = 'rgba(255,252,245,0.96)';
-      ctx.fill();
-      // Borde rosa suave
-      ctx.strokeStyle = '#FFB7C5';
-      ctx.lineWidth = 3;
-      ctx.stroke();
-      ctx.restore();
-
-      // ── Función para dibujar un chupón en canvas ──
-      function drawPacifier(cx, cy, size, angle) {
-        ctx.save();
-        ctx.translate(cx, cy);
-        ctx.rotate(angle);
-        // Escudo
-        ctx.beginPath();
-        ctx.ellipse(0, 0, size*1.1, size*0.75, 0, 0, Math.PI*2);
-        ctx.fillStyle = '#FFB7C5';
-        ctx.fill();
-        ctx.strokeStyle = '#FF8FAB';
-        ctx.lineWidth = size * 0.12;
-        ctx.stroke();
-        // Tetina
-        ctx.beginPath();
-        ctx.ellipse(0, size*0.05, size*0.38, size*0.52, 0, 0, Math.PI*2);
-        ctx.fillStyle = '#FFF0F3';
-        ctx.fill();
-        ctx.strokeStyle = '#FFB7C5';
-        ctx.lineWidth = size * 0.1;
-        ctx.stroke();
-        // Argolla arriba
-        ctx.beginPath();
-        ctx.arc(0, -size*0.72, size*0.22, 0, Math.PI*2);
-        ctx.strokeStyle = '#FF8FAB';
-        ctx.lineWidth = size * 0.13;
-        ctx.stroke();
-        ctx.restore();
+      ctx.moveTo(bx+br,by);ctx.lineTo(bx+bw-br,by);ctx.arc(bx+bw-br,by+br,br,-Math.PI/2,0);
+      ctx.lineTo(bx+bw,by+bh-br);ctx.arc(bx+bw-br,by+bh-br,br,0,Math.PI/2);
+      ctx.lineTo(bx+br,by+bh);ctx.arc(bx+br,by+bh-br,br,Math.PI/2,Math.PI);
+      ctx.lineTo(bx,by+br);ctx.arc(bx+br,by+br,br,Math.PI,-Math.PI/2);
+      ctx.closePath();ctx.fillStyle='rgba(255,252,245,0.96)';ctx.fill();
+      ctx.strokeStyle='#FFB7C5';ctx.lineWidth=3;ctx.stroke();ctx.restore();
+      function drawPacifier(cx,cy,size,angle){
+        ctx.save();ctx.translate(cx,cy);ctx.rotate(angle);
+        ctx.beginPath();ctx.ellipse(0,0,size*1.1,size*.75,0,0,Math.PI*2);
+        ctx.fillStyle='#FFB7C5';ctx.fill();ctx.strokeStyle='#FF8FAB';ctx.lineWidth=size*.12;ctx.stroke();
+        ctx.beginPath();ctx.ellipse(0,size*.05,size*.38,size*.52,0,0,Math.PI*2);
+        ctx.fillStyle='#FFF0F3';ctx.fill();ctx.strokeStyle='#FFB7C5';ctx.lineWidth=size*.1;ctx.stroke();
+        ctx.beginPath();ctx.arc(0,-size*.72,size*.22,0,Math.PI*2);
+        ctx.strokeStyle='#FF8FAB';ctx.lineWidth=size*.13;ctx.stroke();ctx.restore();
       }
-
-      // Chupones en las 4 esquinas del cuadro
-      const ps = Math.round(H * .038);
-      drawPacifier(bx + 38,      by + 38,      ps,  Math.PI/5);
-      drawPacifier(bx + bw - 38, by + 38,      ps, -Math.PI/5);
-      drawPacifier(bx + 38,      by + bh - 38, ps, -Math.PI/6);
-      drawPacifier(bx + bw - 38, by + bh - 38, ps,  Math.PI/6);
-
-      // Chupones pequeños en los bordes laterales
-      const ps2 = Math.round(H * .026);
-      drawPacifier(bx + bw/2, by + 22,      ps2, 0);
-      drawPacifier(bx + bw/2, by + bh - 22, ps2, Math.PI);
-      drawPacifier(bx + 20,   by + bh/2,    ps2,  Math.PI/2);
-      drawPacifier(bx + bw - 20, by + bh/2, ps2, -Math.PI/2);
-
-      // ── Texto dentro del cuadro ──
-      const cx2 = bx + bw / 2;
-
-      // "La" — fino y pequeño
-      ctx.save();
-      ctx.textAlign = 'center';
-      ctx.font = `300 ${Math.round(H * .038)}px Poppins,sans-serif`;
-      ctx.fillStyle = '#C9A0C0';
-      ctx.fillText('La', cx2, by + bh * .30);
-      ctx.restore();
-
-      // "Fecundación" — grande, violeta profundo, protagonista
-      ctx.save();
-      ctx.textAlign = 'center';
-      ctx.font = `900 ${Math.round(H * .085)}px Nunito,sans-serif`;
-      ctx.fillStyle = '#5B4FCF';
-      ctx.fillText('Fecundación', cx2, by + bh * .52);
-      ctx.restore();
-
-      // Línea decorativa
-      ctx.save();
-      ctx.beginPath();
-      ctx.moveTo(bx + bw*.2, by + bh*.58);
-      ctx.lineTo(bx + bw*.8, by + bh*.58);
-      ctx.strokeStyle = '#FFB7C5';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-      ctx.restore();
-
-      // Subtítulo poético — itálica, rosado suave
-      ctx.save();
-      ctx.textAlign = 'center';
-      ctx.font = `400 italic ${Math.round(H * .026)}px Poppins,sans-serif`;
-      ctx.fillStyle = '#A07CB0';
-      ctx.fillText('el instante que te eligió a ti', cx2, by + bh * .72);
-      ctx.restore();
+      const ps=Math.round(H*.038),ps2=Math.round(H*.026);
+      drawPacifier(bx+38,by+38,ps,Math.PI/5);drawPacifier(bx+bw-38,by+38,ps,-Math.PI/5);
+      drawPacifier(bx+38,by+bh-38,ps,-Math.PI/6);drawPacifier(bx+bw-38,by+bh-38,ps,Math.PI/6);
+      drawPacifier(bx+bw/2,by+22,ps2,0);drawPacifier(bx+bw/2,by+bh-22,ps2,Math.PI);
+      drawPacifier(bx+20,by+bh/2,ps2,Math.PI/2);drawPacifier(bx+bw-20,by+bh/2,ps2,-Math.PI/2);
+      const cx2=bx+bw/2;
+      ctx.save();ctx.textAlign='center';ctx.font=`300 ${Math.round(H*.050)}px Poppins,sans-serif`;
+      ctx.fillStyle='#5B4FCF';ctx.fillText('La',cx2,by+bh*.30);ctx.restore();
+      ctx.save();ctx.textAlign='center';ctx.font=`900 ${Math.round(H*.085)}px Nunito,sans-serif`;
+      ctx.fillStyle='#5B4FCF';ctx.fillText('Fecundación',cx2,by+bh*.52);ctx.restore();
+      ctx.save();ctx.beginPath();ctx.moveTo(bx+bw*.2,by+bh*.58);ctx.lineTo(bx+bw*.8,by+bh*.58);
+      ctx.strokeStyle='#FFB7C5';ctx.lineWidth=1.5;ctx.stroke();ctx.restore();
+      ctx.save();ctx.textAlign='center';ctx.font=`400 italic ${Math.round(H*.040)}px Poppins,sans-serif`;
+      ctx.fillStyle='#5B4FCF';ctx.fillText('el instante que te eligió a ti',cx2,by+bh*.72);ctx.restore();
     }
-
-    drawOvum(ctx, ox, oy, or_, t);
-
-    // ── Etiqueta "Óvulo" siempre visible ──
-    ctx.save();
-    ctx.textAlign = 'center';
-    ctx.font = `700 ${Math.round(H * .028)}px Nunito,sans-serif`;
-    ctx.fillStyle = '#FF8C69';
-    ctx.fillText('Óvulo', ox, oy + or_ + Math.round(H * .06));
-    ctx.restore();
-
-    if (flashAlpha>0) {
-      ctx.beginPath(); ctx.arc(ox,oy,or_*(1.6+(1-flashAlpha)*1.2),0,Math.PI*2);
-      ctx.fillStyle=`rgba(255,230,80,${flashAlpha*.65})`; ctx.fill();
-      flashAlpha -= 0.010;
+    drawOvum(ctx,ox,oy,or_,t);
+    ctx.save();ctx.textAlign='center';ctx.font=`700 ${Math.round(H*.028)}px Nunito,sans-serif`;
+    ctx.fillStyle='#FF8C69';ctx.fillText('Óvulo',ox,oy+or_+Math.round(H*.06));ctx.restore();
+    if(flashAlpha>0){
+      ctx.beginPath();ctx.arc(ox,oy,or_*(1.6+(1-flashAlpha)*1.2),0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,230,80,${flashAlpha*.65})`;ctx.fill();flashAlpha-=.010;
     }
-
-    if (fertState==='paused') {
-      spermData.forEach(s=>{ s.tailPhase+=0.06; drawSperm(ctx,s,t); });
-
-    } else if (fertState==='swimming' || fertState==='entering') {
+    if(fertState==='paused'){
+      spermData.forEach(s=>{s.tailPhase+=.06;drawSperm(ctx,s,t);});
+    } else if(fertState==='swimming'||fertState==='entering'){
       swimT++;
-      const cleanupActive = fusionFrame>0 && swimT>fusionFrame+300;
+      const cleanupActive=fusionFrame>0&&swimT>fusionFrame+300;
       spermData.forEach((s,i)=>{
-        if (cleanupActive) {
-          if (s.status==='dead')  { s.xScale=Math.max(0,s.xScale-0.015); return; }
-          if (s.status==='dying') { s.alpha-=0.02; if(s.alpha<=0) markDead(s); return; }
-          if (s.status==='alive'&&!s.reached&&!s.won) { markDying(s); return; }
+        if(cleanupActive){
+          if(s.status==='dead'){s.xScale=Math.max(0,s.xScale-.015);return;}
+          if(s.status==='dying'){s.alpha-=.02;if(s.alpha<=0)markDead(s);return;}
+          if(s.status==='alive'&&!s.reached&&!s.won){markDying(s);return;}
         }
-        if (s.status==='alive'&&s.isDier&&swimT>s.dieStart&&!s.reached) markDying(s);
+        if(s.status==='alive'&&s.isDier&&swimT>s.dieStart&&!s.reached) markDying(s);
         updateSperm(s,i,ox,oy,or_,t,W,H);
-        if (fertState==='entering'&&s.won) {
-          s.x+=(ox-s.x)*0.03; s.y+=(oy-s.y)*0.03;
-          fusionT+=0.010; if(fusionT>1){ fertState='fused'; if(!confettiActive){ initConfetti(W,H); confettiActive=true; confettiFrames=0; } fecundacionFrames=0; }
-        }
-        drawSperm(ctx,s,t);
-      });
-
-      if (attempt<3 && fertState==='swimming' && swimT>100) {
-        const anyActive = spermData.some(s=>s.status==='alive'||s.status==='dying');
-        if (!anyActive) fertState='allDead';
-      }
-
-      if (fertState === 'entering') {
-        // ¡Fecundación! — misma posición que cigoto
-        const fs2 = Math.round(H * .10);
-        ctx.save();
-        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.font = `900 ${fs2}px Nunito,sans-serif`;
-        ctx.fillStyle = '#5B4FCF';
-        ctx.shadowColor = 'rgba(91,79,207,0.6)';
-        ctx.shadowBlur = 30;
-        ctx.fillText('  ', W * 0.58, H/2);
-        ctx.shadowBlur = 0; ctx.textBaseline = 'alphabetic';
-        ctx.restore();
-      } else {
-        ctx.fillStyle='rgba(91,79,207,.75)';
-        ctx.font=`bold ${Math.round(H*.04)}px Nunito,sans-serif`;
-        ctx.textAlign='center';
-        ctx.fillText('~300 millones de espermatozoide en carrera...', W*.65, H-110);
-      }
-
-    } else if (fertState==='fused') {
-      swimT++;
-      const cleanupActive = fusionFrame>0 && swimT>fusionFrame+300;
-      spermData.forEach(s=>{
-        if (cleanupActive) {
-          if (s.status==='dead')  { s.xScale=Math.max(0,s.xScale-0.015); return; }
-          if (s.status==='dying') { s.alpha-=0.02; if(s.alpha<=0.01) markDead(s); return; }
-          if (s.status==='alive'&&!s.reached&&!s.won) { markDying(s); return; }
-        }
-        if (s.status==='alive'&&s.isDier&&swimT>s.dieStart&&!s.reached) markDying(s);
-        if (s.status==='dying') {
-          s.alpha-=0.007; s.angle+=s.drift*0.3;
-          s.x+=Math.cos(s.angle)*s.speed*0.4; s.y+=Math.sin(s.angle)*s.speed*0.4;
-          if(s.alpha<=0.04) markDead(s);
+        if(fertState==='entering'&&s.won){
+          s.x+=(ox-s.x)*.03;s.y+=(oy-s.y)*.03;
+          fusionT+=.010;
+          if(fusionT>1){
+            fertState='fused';
+            if(!confettiActive){initConfetti(W,H);confettiActive=true;confettiFrames=0;}
+            fecundacionFrames=0;
+          }
         }
         drawSperm(ctx,s,frameT);
       });
-      const pulse=0.6+Math.sin(t*0.06)*0.3;
-      ctx.beginPath(); ctx.arc(ox,oy,or_*.22,0,Math.PI*2);
-      ctx.fillStyle=`rgba(100,80,220,${pulse})`; ctx.fill();
-
-      // Confeti cayendo
-      if (confettiActive) { confettiFrames++; if(confettiFrames >= CONFETTI_MAX_FRAMES){ confettiActive=false; } else { drawConfetti(ctx, W, H); } }
-
-      fecundacionFrames++;
-      const fs = Math.round(H * .09);
-      const cigoX = W * 0.58;
-      const cigoY = H / 2;
-
-      if (fecundacionFrames <= FECUNDACION_MAX_FRAMES) {
-        // Primeros 4s: ¡Fecundación!
-        ctx.save();
-        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.font = `900 ${fs}px Nunito,sans-serif`;
-        ctx.fillStyle = '#5B4FCF';
-        ctx.shadowColor = 'rgba(91,79,207,0.6)';
-        ctx.shadowBlur = 35;
-        ctx.fillText(' ¡Fecundación! ', cigoX, cigoY);
-        ctx.shadowBlur = 0; ctx.textBaseline = 'alphabetic';
-        ctx.restore();
-      } else {
-        // Después: ¡Cigoto Formado!
-        ctx.save();
-        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.font = `900 ${fs}px Nunito,sans-serif`;
-        ctx.fillStyle = '#5B4FCF';
-        ctx.shadowColor = 'rgba(91,79,207,0.6)';
-        ctx.shadowBlur = 35;
-        ctx.fillText('🍼 ¡Cigoto Formado! 🍼', cigoX, cigoY);
-        ctx.shadowBlur = 0;
-        ctx.font = `600 ${Math.round(H*.03)}px Poppins,sans-serif`;
-        ctx.fillStyle = '#5B4FCF';
-        ctx.shadowColor = 'rgba(91,79,207,0.3)';
-        ctx.shadowBlur = 6;
-        ctx.fillText('¡Una nueva vida ha comenzado!', cigoX, cigoY + fs * 0.72);
-        ctx.textBaseline = 'alphabetic';
-        ctx.restore();
+      if(attempt<3&&fertState==='swimming'&&swimT>100){
+        const anyActive=spermData.some(s=>s.status==='alive'||s.status==='dying');
+        if(!anyActive) fertState='allDead';
       }
-
-    } else if (fertState==='allDead') {
+      if(fertState==='entering'){
+        const fs2=Math.round(H*.10);
+        ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.font=`900 ${fs2}px Nunito,sans-serif`;ctx.fillStyle='#5B4FCF';
+        ctx.shadowColor='rgba(91,79,207,0.6)';ctx.shadowBlur=30;
+        ctx.fillText('  ',W*.58,H/2);ctx.shadowBlur=0;ctx.textBaseline='alphabetic';ctx.restore();
+      } else {
+        ctx.fillStyle='rgba(91,79,207,.75)';ctx.font=`bold ${Math.round(H*.04)}px Nunito,sans-serif`;
+        ctx.textAlign='center';ctx.fillText('~300 millones de espermatozoides en carrera...',W*.65,H-110);
+      }
+    } else if(fertState==='fused'){
       swimT++;
-      const fade = swimT > 80;
+      const cleanupActive=fusionFrame>0&&swimT>fusionFrame+300;
       spermData.forEach(s=>{
-        if (fade && s.status==='dead') s.xScale=Math.max(0,s.xScale-0.01);
-        drawSperm(ctx,s,t);
+        if(cleanupActive){
+          if(s.status==='dead'){s.xScale=Math.max(0,s.xScale-.015);return;}
+          if(s.status==='dying'){s.alpha-=.02;if(s.alpha<=.01)markDead(s);return;}
+          if(s.status==='alive'&&!s.reached&&!s.won){markDying(s);return;}
+        }
+        if(s.status==='alive'&&s.isDier&&swimT>s.dieStart&&!s.reached) markDying(s);
+        if(s.status==='dying'){
+          s.alpha-=.007;s.angle+=s.drift*.3;
+          s.x+=Math.cos(s.angle)*s.speed*.4;s.y+=Math.sin(s.angle)*s.speed*.4;
+          if(s.alpha<=.04) markDead(s);
+        }
+        drawSperm(ctx,s,frameT);
       });
+      const pulse=.6+Math.sin(t*.06)*.3;
+      ctx.beginPath();ctx.arc(ox,oy,or_*.22,0,Math.PI*2);
+      ctx.fillStyle=`rgba(100,80,220,${pulse})`;ctx.fill();
+      if(confettiActive){confettiFrames++;if(confettiFrames>=CONFETTI_MAX_FRAMES)confettiActive=false;else drawConfetti(ctx,W,H);}
+      fecundacionFrames++;
+      const fs=Math.round(H*.09),cigoX=W*.58,cigoY=H/2;
+      if(fecundacionFrames<=FECUNDACION_MAX_FRAMES){
+        ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.font=`900 ${fs}px Nunito,sans-serif`;ctx.fillStyle='#5B4FCF';
+        ctx.shadowColor='rgba(91,79,207,0.6)';ctx.shadowBlur=35;
+        ctx.fillText(' ¡Fecundación! ',cigoX,cigoY);ctx.shadowBlur=0;ctx.textBaseline='alphabetic';ctx.restore();
+      } else {
+        ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.font=`900 ${fs}px Nunito,sans-serif`;ctx.fillStyle='#5B4FCF';
+        ctx.shadowColor='rgba(91,79,207,0.6)';ctx.shadowBlur=35;
+        ctx.fillText('🍼 ¡Cigoto Formado! 🍼',cigoX,cigoY);ctx.shadowBlur=0;
+        ctx.font=`600 ${Math.round(H*.03)}px Poppins,sans-serif`;ctx.fillStyle='#5B4FCF';
+        ctx.shadowColor='rgba(91,79,207,0.3)';ctx.shadowBlur=6;
+        ctx.fillText('¡Una nueva vida ha comenzado!',cigoX,cigoY+fs*.72);
+        ctx.textBaseline='alphabetic';ctx.restore();
+      }
+    } else if(fertState==='allDead'){
+      swimT++;
+      const fade=swimT>80;
+      spermData.forEach(s=>{if(fade&&s.status==='dead')s.xScale=Math.max(0,s.xScale-.01);drawSperm(ctx,s,t);});
     }
   }
-
-  function startFert() {
-    const canvas=document.getElementById('fertCanvas');
-    if (!canvas) return;
-    canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  function startFert(){
+    const canvas=document.getElementById('fertCanvas'); if(!canvas) return;
+    canvas.width=window.innerWidth;canvas.height=window.innerHeight;
     const ctx=canvas.getContext('2d');
-    env=initFert(canvas); frameT=0;
-    if (fertAnim) cancelAnimationFrame(fertAnim);
-    canvas.addEventListener('click', e=>{
-      if (!env) return;
+    env=initFert(canvas);frameT=0;
+    if(fertAnim) cancelAnimationFrame(fertAnim);
+    canvas.addEventListener('click',e=>{
+      if(!env) return;
       const rect=canvas.getBoundingClientRect();
       const cx=(e.clientX-rect.left)*(canvas.width/rect.width);
       const cy=(e.clientY-rect.top)*(canvas.height/rect.height);
       handleOvumClick(cx,cy,env.ox,env.oy,env.or);
     });
-    function loop(){ fertTick(ctx,env,frameT++); fertAnim=requestAnimationFrame(loop); }
+    function loop(){fertTick(ctx,env,frameT++);fertAnim=requestAnimationFrame(loop);}
     loop();
   }
-
-  function triggerFert() {
-    if (attempt>0) return;
-    attempt=1; resetRound(1);
-  }
-
-  window._startFert   = startFert;
-  window._stopFert    = ()=>{ if(fertAnim){ cancelAnimationFrame(fertAnim); fertAnim=null; } };
-  window._triggerFert = triggerFert;
+  function triggerFert(){if(attempt>0)return;attempt=1;resetRound(1);}
+  window._startFert=startFert;
+  window._stopFert=()=>{if(fertAnim){cancelAnimationFrame(fertAnim);fertAnim=null;}};
+  window._triggerFert=triggerFert;
 })();
 
 /* ══════════════════════════════════════
-   DNA HELIX (Slide 3 — Cigoto)
+   DNA HELIX (Slide 3)
 ══════════════════════════════════════ */
 (function(){
   let dnaAnim=null;
   function startDNA(){
-    const canvas=document.getElementById('dnaCanvas'); if(!canvas)return;
-    const ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height, cx=W/2, cy=H/2;
-    let t=0; if(dnaAnim)cancelAnimationFrame(dnaAnim);
+    const canvas=document.getElementById('dnaCanvas');if(!canvas)return;
+    const ctx=canvas.getContext('2d'),W=canvas.width,H=canvas.height,cx=W/2,cy=H/2;
+    let t=0;if(dnaAnim)cancelAnimationFrame(dnaAnim);
     function tick(){
       ctx.clearRect(0,0,W,H);
-      const pulse=1+Math.sin(t*.008)*.02, r=(W/2-8)*pulse;
+      const pulse=1+Math.sin(t*.008)*.02,r=(W/2-8)*pulse;
       const bg=ctx.createRadialGradient(cx-15,cy-15,5,cx,cy,r);
-      bg.addColorStop(0,'#FFF9E6'); bg.addColorStop(.7,'#FFE88A'); bg.addColorStop(1,'#FFB347');
-      ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fillStyle=bg; ctx.fill();
-      ctx.strokeStyle='#FF8C69'; ctx.lineWidth=3; ctx.stroke();
-      const helixH=70,helixW=18,steps=60,startY=cy-helixH/2;
+      bg.addColorStop(0,'#FFF9E6');bg.addColorStop(.7,'#FFE88A');bg.addColorStop(1,'#FFB347');
+      ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=bg;ctx.fill();
+      ctx.strokeStyle='#FF8C69';ctx.lineWidth=3;ctx.stroke();
+      const helixH=135,helixW=32,steps=60,startY=cy-helixH/2;
       const sA=[],sB=[];
       for(let i=0;i<=steps;i++){
-        const prog=i/steps, y=startY+prog*helixH, ph=prog*Math.PI*4+t*.012;
+        const prog=i/steps,y=startY+prog*helixH,ph=prog*Math.PI*4+t*.012;
         sA.push({x:cx+Math.cos(ph)*helixW,y,z:Math.sin(ph)});
         sB.push({x:cx+Math.cos(ph+Math.PI)*helixW,y,z:Math.sin(ph+Math.PI)});
       }
       for(let i=0;i<=steps;i+=5){
         const a=sA[i],b=sB[i],dep=(a.z+1)/2;
-        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
-        ctx.strokeStyle=`rgba(91,79,207,${.15+dep*.4})`; ctx.lineWidth=1.5; ctx.stroke();
-        ctx.beginPath(); ctx.arc((a.x+b.x)/2,(a.y+b.y)/2,2,0,Math.PI*2);
-        ctx.fillStyle=dep>.5?'#B5EAD7':'#FFD966'; ctx.fill();
+        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle=`rgba(91,79,207,${.15+dep*.4})`;ctx.lineWidth=1.5;ctx.stroke();
+        ctx.beginPath();ctx.arc((a.x+b.x)/2,(a.y+b.y)/2,2,0,Math.PI*2);
+        ctx.fillStyle=dep>.5?'#B5EAD7':'#FFD966';ctx.fill();
       }
       [sA,sB].forEach((strand,si)=>{
-        ctx.beginPath(); strand.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
-        ctx.strokeStyle=si===0?'#5B4FCF':'#FF8C69'; ctx.lineWidth=2.5; ctx.stroke();
+        ctx.beginPath();strand.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
+        ctx.strokeStyle=si===0?'#5B4FCF':'#FF8C69';ctx.lineWidth=2.5;ctx.stroke();
       });
       [...sA,...sB].forEach((p,i)=>{
         if(i%8!==0)return;
-        ctx.beginPath(); ctx.arc(p.x,p.y,3,0,Math.PI*2);
-        ctx.fillStyle=i<sA.length?'#5B4FCF':'#FF8C69'; ctx.fill();
+        ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);
+        ctx.fillStyle=i<sA.length?'#5B4FCF':'#FF8C69';ctx.fill();
       });
-      ctx.beginPath(); ctx.arc(cx-r*.32,cy-r*.32,r*.18,0,Math.PI*2);
-      ctx.fillStyle='rgba(255,255,255,.55)'; ctx.fill();
-      t++; dnaAnim=requestAnimationFrame(tick);
-    } tick();
+      ctx.beginPath();ctx.arc(cx-r*.32,cy-r*.32,r*.18,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,.55)';ctx.fill();
+      t++;dnaAnim=requestAnimationFrame(tick);
+    }tick();
   }
   window._startDNA=startDNA;
   window._stopDNA=()=>{if(dnaAnim){cancelAnimationFrame(dnaAnim);dnaAnim=null;}};
 })();
 
 updateUI();
-initDNAFrame();
 </script>
 </body>
 </html>
