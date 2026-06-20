@@ -1014,13 +1014,8 @@ function updateEmbrionImg() {
   setTimeout(() => {
     // Intenta .png primero; si falla silenciosamente busca .jpg
     const base = EMBRION_IMGS[embrionStep];
-    img.onerror = function() {
-      if (!this.src.endsWith('.jpg')) {
-        this.onerror = null;
-        this.src = base + '.jpg';
-      }
-    };
-    img.src = base + '.png';
+    img.onerror = null;
+    img.src = base + '.jpeg';
     img.alt = EMBRION_LABELS[embrionStep];
     img.style.opacity = '1';
     img.style.transform = 'scale(1)';
