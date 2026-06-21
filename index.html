@@ -1136,7 +1136,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ctx.fillStyle=C.sublabel;
     ctx.font='600 17px Nunito,sans-serif';
     ctx.textAlign='center'; ctx.textBaseline='alphabetic';
-    ctx.fillText('👆 Toca el canvas para comenzar',W/2,H-10);
+    ctx.fillText('👆',W/2,H-10);
     ctx.restore();
   }
 
@@ -1216,7 +1216,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       canvasEl.style.display = 'block';
       divStep = 0;
-      hintEl.textContent = '👆 Toca el canvas para ver la división celular';
+      //hintEl.textContent = '👆 Toca el canvas para ver la división celular';
     }
   }
 
