@@ -412,16 +412,15 @@
     gap: .6rem;
   }
   #embrionImg {
-    max-height: 240px;
-    max-width: min(520px, 88vw);
-    border-radius: 18px;
-    border: 3px solid rgba(255,140,105,.35);
-    box-shadow: 0 10px 36px rgba(255,100,60,.18);
-    object-fit: contain;
-    background: rgba(255,255,255,.55);
-    cursor: pointer;
-  }
-  #embrionImg:hover { transform: scale(1.02); }
+  max-height: 240px;
+  max-width: min(520px, 88vw);
+  border-radius: 18px;
+  border: 3px solid rgba(255,140,105,.35);
+  box-shadow: 0 10px 36px rgba(255,100,60,.18);
+  object-fit: contain;
+  background: rgba(255,255,255,.55);
+  cursor: pointer;
+}
   #embrionStepLabel {
     font-family:'Nunito',sans-serif;
     font-size: clamp(.8rem,1.5vw,.95rem);
@@ -525,9 +524,9 @@
     " onmouseover="this.style.transform='scale(1.07)'" onmouseout="this.style.transform='scale(1)'">
       ¿Sabías estos datos? → Revelar
     </button>
-    <div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.8rem;">
-      <span class="pill">.</span>
-    </div>
+    <!--<div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.8rem;">
+      <span class="pill"></span>
+    </div>-->
   </div>
 
   <!-- SLIDE 1: QUÉ ES LA ETAPA PRENATAL -->
@@ -1060,11 +1059,11 @@ document.addEventListener('DOMContentLoaded', function() {
 (function(){
   const INFO={
     germinal:{
-      text:'<strong>0 – 2 semanas.</strong> El cigoto se divide: 1 → 2 → 4 → 8 células, formando la mórula, hasta implantarse en el útero.',
+      text:'',
       hint:'Avanza paso a paso con los botones'
     },
     embrionaria:{
-      text:'<strong>Semanas 2 – 8.</strong> Se forman cerebro, corazón (late desde la sem. 5), sistema nervioso y yemas de manos. Etapa más vulnerable a los teratógenos.',
+      text:'',
       hint:''
     },
     fetal:{
