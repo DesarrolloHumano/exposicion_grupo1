@@ -602,7 +602,7 @@
 
       <div class="s4-infobox" id="s4Info"></div>
 
-      <!-- Canvas para germinal y fetal -->
+      <!-- Canvas para germinal -->
       <canvas id="etapasCanvas" width="520" height="260"></canvas>
 
       <!-- Visor de imágenes para etapa embrionaria -->
@@ -611,6 +611,14 @@
         <span id="embrionStepLabel"></span>
         <div id="embrionDots"></div>
         <p id="embrionImgHint"></p>
+      </div>
+
+      <!-- Visor de imagen para etapa fetal -->
+      <div id="fetalImgViewer" style="display:none; flex-direction:column; align-items:center; gap:.6rem;">
+        <img id="fetalImg" src="paso6.jpg" alt="Etapa fetal — semana 8 a nacimiento"
+          style="max-height:240px; max-width:min(520px,88vw); border-radius:18px;
+          border:3px solid rgba(255,140,105,.35); box-shadow:0 10px 36px rgba(255,100,60,.18);
+          object-fit:contain; background:rgba(255,255,255,.55);">
       </div>
 
       <p class="s4-hint" id="s4Hint"></p>
@@ -993,6 +1001,16 @@ const EMBRION_LABELS = [
   'Semana 8 — Embrión con rasgos humanos reconocibles'
 ];
 let embrionStep = 0;
+let embrionPreloaded = false;
+
+function preloadEmbrionImgs() {
+  if (embrionPreloaded) return;
+  embrionPreloaded = true;
+  EMBRION_IMGS.forEach(name => {
+    const im = new Image();
+    im.src = name + '.jpg';
+  });
+}
 
 function embrionNextStep() {
   embrionStep = (embrionStep + 1) % EMBRION_IMGS.length;
@@ -1005,7 +1023,10 @@ function updateEmbrionImg() {
   const hint   = document.getElementById('embrionImgHint');
   const dotsEl2 = document.getElementById('embrionDots');
 
+  img.style.transition = 'opacity .25s';
+  img.style.opacity = '0.35';
   img.src = EMBRION_IMGS[embrionStep] + '.jpg';
+  img.onload = () => { img.style.opacity = '1'; };
   img.alt = EMBRION_LABELS[embrionStep];
   label.textContent = EMBRION_LABELS[embrionStep];
 
@@ -1048,7 +1069,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     fetal:{
       text:'<strong>Semana 8 – nacimiento.</strong> Crecimiento acelerado: los sentidos se activan, se forman millones de neuronas y el bebé adquiere apariencia humana reconocible.',
-      hint:'Los badges muestran los sentidos que despiertan'
+      hint:''
     }
   };
 
@@ -1162,70 +1183,9 @@ document.addEventListener('DOMContentLoaded', function() {
     drawLabelFade(labelText);
   }
 
-  function heartPath(cx,cy,sz){
-    ctx.beginPath();
-    ctx.moveTo(cx,cy+sz*.3);
-    ctx.bezierCurveTo(cx,cy-sz*.3,cx-sz,cy-sz*.3,cx-sz,cy+sz*.1);
-    ctx.bezierCurveTo(cx-sz,cy+sz*.6,cx,cy+sz,cx,cy+sz);
-    ctx.bezierCurveTo(cx,cy+sz,cx+sz,cy+sz*.6,cx+sz,cy+sz*.1);
-    ctx.bezierCurveTo(cx+sz,cy-sz*.3,cx,cy-sz*.3,cx,cy+sz*.3);
-    ctx.closePath();
-  }
-
-  function drawFetal(t){
-    const cx=W/2, cy=H/2+5;
-    const pulse=1+Math.sin(t*0.035)*0.01;
-    ctx.save(); ctx.translate(cx,cy); ctx.scale(pulse,pulse);
-    ctx.beginPath(); ctx.ellipse(0,10,58,76,0,0,Math.PI*2);
-    ctx.fillStyle=C.skin; ctx.fill(); ctx.strokeStyle=C.skinStr; ctx.lineWidth=2.5; ctx.stroke();
-    ctx.beginPath(); ctx.ellipse(0,-78,52,48,0,0,Math.PI*2);
-    ctx.fillStyle=C.skin; ctx.fill(); ctx.strokeStyle=C.skinStr; ctx.lineWidth=2.5; ctx.stroke();
-    [[-18,-82],[18,-82]].forEach(([ex,ey])=>{
-      ctx.beginPath(); ctx.arc(ex,ey,7,0,Math.PI*2);
-      ctx.fillStyle='#fff'; ctx.fill(); ctx.strokeStyle=C.skinStr; ctx.lineWidth=1; ctx.stroke();
-      ctx.beginPath(); ctx.arc(ex,ey,3.5,0,Math.PI*2); ctx.fillStyle=C.eye; ctx.fill();
-    });
-    ctx.beginPath(); ctx.arc(0,-62,10,0.25,Math.PI-0.25); ctx.strokeStyle=C.skinStr; ctx.lineWidth=1.5; ctx.stroke();
-    [0,1].forEach(i=>{
-      const sx=i===0?-25:25;
-      ctx.save(); ctx.beginPath(); ctx.moveTo(sx,-2);
-      ctx.bezierCurveTo(i===0?-48:48,12,i===0?-62:62,28,i===0?-56:56,42);
-      ctx.strokeStyle=C.skin; ctx.lineWidth=13; ctx.stroke();
-      ctx.strokeStyle=C.skinStr; ctx.lineWidth=1.8; ctx.stroke(); ctx.restore();
-      const hx=i===0?-56:56;
-      ctx.beginPath(); ctx.ellipse(hx,42,10,8,i===0?-0.4:0.4,0,Math.PI*2);
-      ctx.fillStyle=C.skin; ctx.fill(); ctx.strokeStyle=C.skinStr; ctx.lineWidth=1.5; ctx.stroke();
-    });
-    [0,1].forEach(i=>{
-      const lx=i===0?-20:20;
-      ctx.save(); ctx.beginPath(); ctx.moveTo(lx,84);
-      ctx.bezierCurveTo(lx,108,lx+(i===0?-8:8),124,lx+(i===0?-14:14),136);
-      ctx.strokeStyle=C.skin; ctx.lineWidth=15; ctx.stroke();
-      ctx.strokeStyle=C.skinStr; ctx.lineWidth=1.8; ctx.stroke(); ctx.restore();
-      ctx.beginPath(); ctx.ellipse(lx+(i===0?-14:14),138,12,8,i===0?-0.3:0.3,0,Math.PI*2);
-      ctx.fillStyle=C.skin; ctx.fill(); ctx.strokeStyle=C.skinStr; ctx.lineWidth=1.5; ctx.stroke();
-    });
-    ctx.restore();
-    const sentidos=[
-      {x:cx-110,y:cy-72,icon:'👂',label:'oye',  bg:'#7EC8E3',fg:'#042C53'},
-      {x:cx+110,y:cy-60,icon:'👁️', label:'ve',   bg:'#C9B8FF',fg:'#26215C'},
-      {x:cx,    y:cy+158,icon:'✋',label:'siente',bg:'#FFD966',fg:'#412402'},
-    ];
-    sentidos.forEach((s,i)=>{
-      const sc=0.92+Math.sin(t*0.04+i*2.1)*0.08;
-      const bw=78, bh=28;
-      ctx.save(); ctx.translate(s.x,s.y); ctx.scale(sc,sc);
-      ctx.beginPath(); ctx.roundRect(-bw/2,-bh/2,bw,bh,14);
-      ctx.fillStyle=s.bg; ctx.fill();
-      ctx.font='500 16px Nunito,sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillStyle=s.fg; ctx.fillText(s.icon+' '+s.label,0,0); ctx.restore();
-    });
-  }
-
   function drawFrame(){
     ctx.clearRect(0,0,W,H);
-    if(stage==='germinal')    drawGerminal(divStep,t);
-    else if(stage==='fetal')  drawFetal(t);
+    if(stage==='germinal') drawGerminal(divStep,t);
     t++;
     etapasRaf=requestAnimationFrame(drawFrame);
   }
@@ -1237,26 +1197,27 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.slide[data-index="4"] .sbtn').forEach(b=>b.classList.toggle('active',b.dataset.stage===s));
     document.getElementById('s4Info').innerHTML=INFO[s].text;
 
-    const canvasEl   = document.getElementById('etapasCanvas');
-    const imgViewer  = document.getElementById('embrionImgViewer');
-    const hintEl     = document.getElementById('s4Hint');
+    const canvasEl     = document.getElementById('etapasCanvas');
+    const imgViewer    = document.getElementById('embrionImgViewer');
+    const fetalViewer  = document.getElementById('fetalImgViewer');
+    const hintEl       = document.getElementById('s4Hint');
+
+    canvasEl.style.display    = 'none';
+    imgViewer.style.display   = 'none';
+    fetalViewer.style.display = 'none';
+    hintEl.textContent        = '';
 
     if(s==='embrionaria'){
-      // Mostrar visor de imágenes, ocultar canvas
-      canvasEl.style.display  = 'none';
       imgViewer.style.display = 'flex';
-      hintEl.textContent      = '';
+      preloadEmbrionImgs();
       embrionStep = 0;
       updateEmbrionImg();
+    } else if(s==='fetal'){
+      fetalViewer.style.display = 'flex';
     } else {
-      // Mostrar canvas, ocultar visor
-      canvasEl.style.display  = 'block';
-      imgViewer.style.display = 'none';
-      hintEl.textContent      = INFO[s].hint;
-      if(s==='germinal'){
-        divStep=0;
-        hintEl.textContent='👆 Toca el canvas para ver la división celular';
-      }
+      canvasEl.style.display = 'block';
+      divStep = 0;
+      hintEl.textContent = '👆 Toca el canvas para ver la división celular';
     }
   }
 
